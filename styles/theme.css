@@ -1,0 +1,51 @@
+@theme {
+  /* ─── Amber Scale ─── */
+  --color-amber-50: #fdf8f0;
+  --color-amber-100: #faecd8;
+  --color-amber-200: #f3d4a8;
+  --color-amber-300: #e8b876;
+  --color-amber-400: #d99a4a;
+  --color-amber-500: #c47f2e;
+  --color-amber-600: #a56520;
+  --color-amber-700: #854e18;
+  --color-amber-800: #623912;
+  --color-amber-900: #3d230b;
+
+  /* ─── Terracotta Scale ─── */
+  --color-terra-50: #fdf3ef;
+  --color-terra-100: #fae3d8;
+  --color-terra-200: #f2c4ac;
+  --color-terra-300: #e4a07a;
+  --color-terra-400: #d07a4e;
+  --color-terra-500: #b5603a;
+  --color-terra-600: #944a2c;
+  --color-terra-700: #72361f;
+  --color-terra-800: #4f2415;
+  --color-terra-900: #2e150b;
+
+  /* ─── Semantic Tokens ─── */
+  --color-accent: #d99a4a; /* amber-400 */
+  --color-accent-warm: #d07a4e; /* terra-400 */
+  --color-accent-subtle: #faecd8; /* amber-100 */
+
+  --color-surface: #fafaf8; /* page bg */
+  --color-surface-low: #f5f4f0; /* card bg */
+  --color-surface-mid: #ebe9e3; /* input bg */
+  --color-surface-high: #d8d5cc; /* dividers */
+
+  --color-on-surface: #151412; /* primary text */
+  --color-on-surface-muted: #5c5954; /* secondary text */
+  --color-on-accent: #ffffff;
+
+  --color-border: #d8d5cc;
+  --color-border-subtle: #ebe9e3;
+  --color-border-strong: #b8b4a8;
+  --color-border-focus: #d99a4a;
+
+  --color-success: #3d7a5e;
+  --color-success-bg: #edf5f1;
+  --color-error: #b03a2e;
+  --color-error-bg: #fdf0ee;
+  --color-warning: #c47f2e;
+  --color-warning-bg: #fdf8f0;
+}

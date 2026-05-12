@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "../styles/theme.css";
+
+
+::selection {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+}
