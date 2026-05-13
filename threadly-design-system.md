@@ -1,6 +1,6 @@
 # Threadly Design System
 
-> Version 2.0 — Tailwind v4 · Cairo Font · No Components
+> Version 2.1 — Tailwind v4 · Cairo Font · No Components
 
 ---
 
@@ -32,10 +32,23 @@ All text uses **Cairo**. Weight scale:
 
 ## Colors
 
-Palette anchored in **warm amber** and **terracotta** — not direct orange. Think aged brass, sun-dried clay, bleached linen.
+Three scales work together: **warm amber** and **terracotta** for brand color (not direct orange), and **Tailwind Zinc** for all grayscale — neutrals, surfaces, borders, and text. Think aged brass, sun-dried clay, bleached linen, cool slate.
 
 ```css
 @theme {
+  /* ─── Zinc Scale (Tailwind default — grayscale) ─── */
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b;
+  --color-zinc-950: #09090b;
+
   /* ─── Amber Scale ─── */
   --color-amber-50: #fdf8f0;
   --color-amber-100: #faecd8;
@@ -61,24 +74,31 @@ Palette anchored in **warm amber** and **terracotta** — not direct orange. Thi
   --color-terra-900: #2e150b;
 
   /* ─── Semantic Tokens ─── */
+  /* Brand */
   --color-accent: #d99a4a; /* amber-400 */
   --color-accent-warm: #d07a4e; /* terra-400 */
   --color-accent-subtle: #faecd8; /* amber-100 */
 
-  --color-surface: #fafaf8; /* page bg */
-  --color-surface-low: #f5f4f0; /* card bg */
-  --color-surface-mid: #ebe9e3; /* input bg */
-  --color-surface-high: #d8d5cc; /* dividers */
+  /* Surfaces — mapped to Zinc */
+  --color-surface: var(--color-zinc-50); /* #fafafa — page bg */
+  --color-surface-low: var(--color-zinc-100); /* #f4f4f5 — card bg */
+  --color-surface-mid: var(--color-zinc-200); /* #e4e4e7 — input bg */
+  --color-surface-high: var(--color-zinc-300); /* #d4d4d8 — dividers */
 
-  --color-on-surface: #151412; /* primary text */
-  --color-on-surface-muted: #5c5954; /* secondary text */
+  /* Text — mapped to Zinc */
+  --color-on-surface: var(--color-zinc-950); /* #09090b — primary text */
+  --color-on-surface-muted: var(
+    --color-zinc-500
+  ); /* #71717a — secondary text */
   --color-on-accent: #ffffff;
 
-  --color-border: #d8d5cc;
-  --color-border-subtle: #ebe9e3;
-  --color-border-strong: #b8b4a8;
-  --color-border-focus: #d99a4a;
+  /* Borders — mapped to Zinc */
+  --color-border: var(--color-zinc-200); /* #e4e4e7 */
+  --color-border-subtle: var(--color-zinc-100); /* #f4f4f5 */
+  --color-border-strong: var(--color-zinc-300); /* #d4d4d8 */
+  --color-border-focus: #d99a4a; /* amber-400 */
 
+  /* States */
   --color-success: #3d7a5e;
   --color-success-bg: #edf5f1;
   --color-error: #b03a2e;
@@ -88,21 +108,39 @@ Palette anchored in **warm amber** and **terracotta** — not direct orange. Thi
 }
 ```
 
+### Zinc — Grayscale Usage
+
+Zinc is the **only** grayscale palette in Threadly. Use `zinc-*` classes directly in Tailwind, or via the semantic tokens below.
+
+| Zinc Step  | Hex       | Semantic Role                                                              |
+| ---------- | --------- | -------------------------------------------------------------------------- |
+| `zinc-50`  | `#fafafa` | Page background (`--color-surface`)                                        |
+| `zinc-100` | `#f4f4f5` | Card background (`--color-surface-low`)                                    |
+| `zinc-200` | `#e4e4e7` | Input background, borders (`--color-surface-mid`, `--color-border`)        |
+| `zinc-300` | `#d4d4d8` | Dividers, strong borders (`--color-surface-high`, `--color-border-strong`) |
+| `zinc-400` | `#a1a1aa` | Disabled text, icons                                                       |
+| `zinc-500` | `#71717a` | Secondary text (`--color-on-surface-muted`)                                |
+| `zinc-600` | `#52525b` | Label text, captions                                                       |
+| `zinc-700` | `#3f3f46` | Subheadings                                                                |
+| `zinc-800` | `#27272a` | Body text                                                                  |
+| `zinc-900` | `#18181b` | Headings                                                                   |
+| `zinc-950` | `#09090b` | Primary text, logo (`--color-on-surface`)                                  |
+
 ### Semantic Color Reference
 
-| Token                      | Hex       | Usage                                |
-| -------------------------- | --------- | ------------------------------------ |
-| `--color-accent`           | `#d99a4a` | Links, focus rings, CTAs, highlights |
-| `--color-accent-warm`      | `#d07a4e` | Hover states, secondary accents      |
-| `--color-accent-subtle`    | `#faecd8` | Tinted surfaces, badge backgrounds   |
-| `--color-surface`          | `#fafaf8` | Page background                      |
-| `--color-surface-low`      | `#f5f4f0` | Card backgrounds                     |
-| `--color-surface-mid`      | `#ebe9e3` | Input backgrounds                    |
-| `--color-surface-high`     | `#d8d5cc` | Dividers, skeletons                  |
-| `--color-on-surface`       | `#151412` | Primary text                         |
-| `--color-on-surface-muted` | `#5c5954` | Secondary text, placeholders         |
-| `--color-border`           | `#d8d5cc` | Default borders                      |
-| `--color-border-focus`     | `#d99a4a` | Focus rings                          |
+| Token                      | Maps to   | Hex       | Usage                                |
+| -------------------------- | --------- | --------- | ------------------------------------ |
+| `--color-accent`           | amber-400 | `#d99a4a` | Links, focus rings, CTAs, highlights |
+| `--color-accent-warm`      | terra-400 | `#d07a4e` | Hover states, secondary accents      |
+| `--color-accent-subtle`    | amber-100 | `#faecd8` | Tinted surfaces, badge backgrounds   |
+| `--color-surface`          | zinc-50   | `#fafafa` | Page background                      |
+| `--color-surface-low`      | zinc-100  | `#f4f4f5` | Card backgrounds                     |
+| `--color-surface-mid`      | zinc-200  | `#e4e4e7` | Input backgrounds                    |
+| `--color-surface-high`     | zinc-300  | `#d4d4d8` | Dividers, skeletons                  |
+| `--color-on-surface`       | zinc-950  | `#09090b` | Primary text                         |
+| `--color-on-surface-muted` | zinc-500  | `#71717a` | Secondary text, placeholders         |
+| `--color-border`           | zinc-200  | `#e4e4e7` | Default borders                      |
+| `--color-border-focus`     | amber-400 | `#d99a4a` | Focus rings                          |
 
 ---
 
@@ -217,17 +255,17 @@ Base unit: **4px**.
 
 ```css
 @theme {
-  --shadow-xs: 0 1px 2px 0 rgba(10, 9, 7, 0.06);
+  --shadow-xs: 0 1px 2px 0 rgba(9, 9, 11, 0.06);
   --shadow-sm:
-    0 1px 4px 0 rgba(10, 9, 7, 0.08), 0 1px 2px -1px rgba(10, 9, 7, 0.04);
+    0 1px 4px 0 rgba(9, 9, 11, 0.08), 0 1px 2px -1px rgba(9, 9, 11, 0.04);
   --shadow-md:
-    0 4px 12px -2px rgba(10, 9, 7, 0.1), 0 2px 6px -2px rgba(10, 9, 7, 0.06);
+    0 4px 12px -2px rgba(9, 9, 11, 0.1), 0 2px 6px -2px rgba(9, 9, 11, 0.06);
   --shadow-lg:
-    0 12px 28px -4px rgba(10, 9, 7, 0.12), 0 4px 10px -4px rgba(10, 9, 7, 0.06);
+    0 12px 28px -4px rgba(9, 9, 11, 0.12), 0 4px 10px -4px rgba(9, 9, 11, 0.06);
   --shadow-xl:
-    0 24px 48px -8px rgba(10, 9, 7, 0.15), 0 8px 20px -6px rgba(10, 9, 7, 0.08);
+    0 24px 48px -8px rgba(9, 9, 11, 0.15), 0 8px 20px -6px rgba(9, 9, 11, 0.08);
   --shadow-accent: 0 4px 16px -2px rgba(217, 154, 74, 0.28); /* amber glow */
-  --shadow-inner: inset 0 1px 3px rgba(10, 9, 7, 0.08);
+  --shadow-inner: inset 0 1px 3px rgba(9, 9, 11, 0.08);
   --shadow-none: none;
 }
 ```
@@ -267,30 +305,61 @@ Base unit: **4px**.
   --color-terra-800: #4f2415;
   --color-terra-900: #2e150b;
 
-  /* Semantic */
+  /* Semantic — Brand */
   --color-accent: #d99a4a;
   --color-accent-warm: #d07a4e;
   --color-accent-subtle: #faecd8;
-  --color-surface: #fafaf8;
-  --color-surface-low: #f5f4f0;
-  --color-surface-mid: #ebe9e3;
-  --color-surface-high: #d8d5cc;
-  --color-on-surface: #151412;
-  --color-on-surface-muted: #5c5954;
   --color-on-accent: #ffffff;
-  --color-border: #d8d5cc;
-  --color-border-subtle: #ebe9e3;
-  --color-border-strong: #b8b4a8;
+
+  /* Semantic — Surfaces (Zinc) */
+  --color-surface: var(--color-zinc-50);
+  --color-surface-low: var(--color-zinc-100);
+  --color-surface-mid: var(--color-zinc-200);
+  --color-surface-high: var(--color-zinc-300);
+
+  /* Semantic — Text (Zinc) */
+  --color-on-surface: var(--color-zinc-950);
+  --color-on-surface-muted: var(--color-zinc-500);
+
+  /* Semantic — Borders (Zinc) */
+  --color-border: var(--color-zinc-200);
+  --color-border-subtle: var(--color-zinc-100);
+  --color-border-strong: var(--color-zinc-300);
   --color-border-focus: #d99a4a;
+
+  /* States */
   --color-success: #3d7a5e;
   --color-success-bg: #edf5f1;
   --color-error: #b03a2e;
   --color-error-bg: #fdf0ee;
   --color-warning: #c47f2e;
   --color-warning-bg: #fdf8f0;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(9, 9, 11, 0.06);
+  --shadow-sm:
+    0 1px 4px 0 rgba(9, 9, 11, 0.08), 0 1px 2px -1px rgba(9, 9, 11, 0.04);
+  --shadow-md:
+    0 4px 12px -2px rgba(9, 9, 11, 0.1), 0 2px 6px -2px rgba(9, 9, 11, 0.06);
+  --shadow-lg:
+    0 12px 28px -4px rgba(9, 9, 11, 0.12), 0 4px 10px -4px rgba(9, 9, 11, 0.06);
+  --shadow-xl:
+    0 24px 48px -8px rgba(9, 9, 11, 0.15), 0 8px 20px -6px rgba(9, 9, 11, 0.08);
+  --shadow-accent: 0 4px 16px -2px rgba(217, 154, 74, 0.28);
+  --shadow-inner: inset 0 1px 3px rgba(9, 9, 11, 0.08);
+
+  /* Motion */
+  --duration-fast: 100ms;
+  --duration-base: 150ms;
+  --duration-moderate: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 ```
 
 ---
 
-_Threadly Design System v2.0 — Tailwind v4 · Cairo · Amber & Terracotta_
+_Threadly Design System v2.1 — Tailwind v4 · Cairo · Zinc + Amber & Terracotta_

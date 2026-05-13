@@ -1,6 +1,10 @@
 @theme {
-  /* ─── Amber Scale ─── */
-  --color-amber-50: #fdf8f0;
+  /* Font */
+  --font-sans: "Cairo", system-ui, sans-serif;
+  --font-mono: "Cairo", system-ui, sans-serif;
+
+  /* Amber */
+  --color-amber-50:  #fdf8f0;
   --color-amber-100: #faecd8;
   --color-amber-200: #f3d4a8;
   --color-amber-300: #e8b876;
@@ -11,8 +15,8 @@
   --color-amber-800: #623912;
   --color-amber-900: #3d230b;
 
-  /* ─── Terracotta Scale ─── */
-  --color-terra-50: #fdf3ef;
+  /* Terracotta */
+  --color-terra-50:  #fdf3ef;
   --color-terra-100: #fae3d8;
   --color-terra-200: #f2c4ac;
   --color-terra-300: #e4a07a;
@@ -23,29 +27,52 @@
   --color-terra-800: #4f2415;
   --color-terra-900: #2e150b;
 
-  /* ─── Semantic Tokens ─── */
-  --color-accent: #d99a4a; /* amber-400 */
-  --color-accent-warm: #d07a4e; /* terra-400 */
-  --color-accent-subtle: #faecd8; /* amber-100 */
+  /* Semantic — Brand */
+  --color-accent:        #d99a4a;
+  --color-accent-warm:   #d07a4e;
+  --color-accent-subtle: #faecd8;
+  --color-on-accent:     #ffffff;
 
-  --color-surface: #fafaf8; /* page bg */
-  --color-surface-low: #f5f4f0; /* card bg */
-  --color-surface-mid: #ebe9e3; /* input bg */
-  --color-surface-high: #d8d5cc; /* dividers */
+  /* Semantic — Surfaces (Zinc) */
+  --color-surface:      var(--color-zinc-50);
+  --color-surface-low:  var(--color-zinc-100);
+  --color-surface-mid:  var(--color-zinc-200);
+  --color-surface-high: var(--color-zinc-300);
 
-  --color-on-surface: #151412; /* primary text */
-  --color-on-surface-muted: #5c5954; /* secondary text */
-  --color-on-accent: #ffffff;
+  /* Semantic — Text (Zinc) */
+  --color-on-surface:       var(--color-zinc-950);
+  --color-on-surface-muted: var(--color-zinc-500);
 
-  --color-border: #d8d5cc;
-  --color-border-subtle: #ebe9e3;
-  --color-border-strong: #b8b4a8;
-  --color-border-focus: #d99a4a;
+  /* Semantic — Borders (Zinc) */
+  --color-border:        var(--color-zinc-200);
+  --color-border-subtle: var(--color-zinc-100);
+  --color-border-strong: var(--color-zinc-300);
+  --color-border-focus:  #d99a4a;
 
-  --color-success: #3d7a5e;
-  --color-success-bg: #edf5f1;
-  --color-error: #b03a2e;
-  --color-error-bg: #fdf0ee;
-  --color-warning: #c47f2e;
-  --color-warning-bg: #fdf8f0;
+  /* States */
+  --color-success:     #3d7a5e;
+  --color-success-bg:  #edf5f1;
+  --color-error:       #b03a2e;
+  --color-error-bg:    #fdf0ee;
+  --color-warning:     #c47f2e;
+  --color-warning-bg:  #fdf8f0;
+
+  /* Shadows */
+  --shadow-xs:     0 1px 2px 0 rgba(9,9,11,0.06);
+  --shadow-sm:     0 1px 4px 0 rgba(9,9,11,0.08), 0 1px 2px -1px rgba(9,9,11,0.04);
+  --shadow-md:     0 4px 12px -2px rgba(9,9,11,0.10), 0 2px 6px -2px rgba(9,9,11,0.06);
+  --shadow-lg:     0 12px 28px -4px rgba(9,9,11,0.12), 0 4px 10px -4px rgba(9,9,11,0.06);
+  --shadow-xl:     0 24px 48px -8px rgba(9,9,11,0.15), 0 8px 20px -6px rgba(9,9,11,0.08);
+  --shadow-accent: 0 4px 16px -2px rgba(217,154,74,0.28);
+  --shadow-inner:  inset 0 1px 3px rgba(9,9,11,0.08);
+
+  /* Motion */
+  --duration-fast:     100ms;
+  --duration-base:     150ms;
+  --duration-moderate: 250ms;
+  --duration-slow:     400ms;
+  --duration-slower:   600ms;
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
 }
