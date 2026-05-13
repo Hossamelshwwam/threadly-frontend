@@ -22,7 +22,9 @@ export default function LoginForm() {
   const onSubmit = (data: LoginSchemaType) => {
     toast.promise(login(data), {
       loading: "Signing in...",
-      success: (data) => `Welcome back, ${data.user.name}!`,
+      success: (data) => {
+        return `Welcome back, ${data.data.user.name}!`;
+      },
       error: (error) => error.response?.data.message,
     });
   };
