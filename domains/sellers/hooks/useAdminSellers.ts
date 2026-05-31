@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import type { AdminSellersParams } from "../types/seller.types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { sellersApi } from "../api/sellers.api";
+import type { AdminSellersParams } from "../types/seller.types";
 
 export const sellerKeys = {
   all: ["sellers"] as const,

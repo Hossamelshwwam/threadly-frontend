@@ -1,19 +1,22 @@
 import { api } from "@/infrastructure/axios";
+import type { AdminSellersParams, SellerProfile } from "../types/seller.types";
 import type {
-  AdminSellersParams,
-  AdminSellersResponse,
-  SellerProfile,
-} from "../types/seller.types";
+  PaginatedApiResponse,
+  ApiResponse,
+} from "@/shared/types/api.types";
 
 export const sellersApi = {
   adminListSellers: async (
     params?: AdminSellersParams,
-  ): Promise<AdminSellersResponse> => {
-    const { data } = await api.get("/sellers/admin", { params });
+  ): Promise<PaginatedApiResponse<SellerProfile>> => {
+    const cleanParams = { ...params };
+    if (!cleanParams.status) delete cleanParams.status;
+
+    const { data } = await api.get("/sellers/admin", { params: cleanParams });
     return data;
   },
 
-  adminGetSeller: async (id: string): Promise<{ data: SellerProfile }> => {
+  adminGetSeller: async (id: string): Promise<ApiResponse<SellerProfile>> => {
     const { data } = await api.get(`/sellers/admin/${id}`);
     return data;
   },
@@ -21,7 +24,7 @@ export const sellersApi = {
   adminUpdateSellerStatus: async (
     id: string,
     payload: { status: "approved" | "suspended"; adminNote?: string },
-  ): Promise<{ data: SellerProfile }> => {
+  ): Promise<ApiResponse<SellerProfile>> => {
     const { data } = await api.patch(`/sellers/admin/${id}/status`, payload);
     return data;
   },

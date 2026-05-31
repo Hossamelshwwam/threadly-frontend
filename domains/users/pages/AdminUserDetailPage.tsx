@@ -12,8 +12,8 @@ import { UserStatsOverview } from "../components/detail/UserStatsOverview";
 
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomTable from "@/shared/components/custom-table/CustomTable";
+import { toast } from "sonner";
 
-// Detail Skeleton Matching the Main Architecture Scale
 function DetailSkeleton() {
   return (
     <div className="lg:grid-cols-3 grid gap-6">
@@ -61,7 +61,18 @@ interface Props {
 
 export default function AdminUserDetailPage({ id }: Props) {
   const { data, isLoading } = useAdminUser(id);
-  const { mutate: toggleStatus, isPending: isToggling } = useToggleUserStatus();
+  const { mutateAsync: toggleStatus, isPending: isToggling } =
+    useToggleUserStatus();
+
+  const hanleToggleStatus = (data: { id: string; isActive: boolean }) => {
+    toast.promise(toggleStatus({ id: data.id, isActive: data.isActive }), {
+      loading: "Loading...",
+      success: "User status updated successfully",
+      error: (err: any) =>
+        err?.response?.data?.message || "Error updating user status",
+    });
+  };
+
   const columns = useUserOrdersColumns();
 
   if (isLoading) {
@@ -107,7 +118,7 @@ export default function AdminUserDetailPage({ id }: Props) {
           <UserProfileSidebar
             user={user}
             isToggling={isToggling}
-            onToggleStatus={toggleStatus}
+            onToggleStatus={hanleToggleStatus}
           />
         </div>
 

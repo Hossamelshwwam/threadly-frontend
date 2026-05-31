@@ -20,12 +20,12 @@ import { StatusBadge } from "../components/StatusBadge";
 // ── Hook Interface ───────────────────────────────────────────────────────────
 interface UseAdminUsersColumnsProps {
   isToggling: boolean;
-  toggleStatus: (variables: { id: string; isActive: boolean }) => void;
+  hanleToggleStatus: (variables: { id: string; isActive: boolean }) => void;
 }
 
 export default function useAdminUsersColumns({
   isToggling,
-  toggleStatus,
+  hanleToggleStatus,
 }: UseAdminUsersColumnsProps) {
   const columns = useMemo<ColumnDef<UserProfile>[]>(
     () => [
@@ -108,7 +108,7 @@ export default function useAdminUsersColumns({
                   checkboxLabel="I confirm I want to suspend this user"
                   isLoading={isToggling}
                   onConfirm={() =>
-                    toggleStatus({ id: user._id, isActive: false })
+                    hanleToggleStatus({ id: user._id, isActive: false })
                   }
                 >
                   <CustomButton
@@ -127,7 +127,7 @@ export default function useAdminUsersColumns({
                   confirmText="Reactivate"
                   isLoading={isToggling}
                   onConfirm={() =>
-                    toggleStatus({ id: user._id, isActive: true })
+                    hanleToggleStatus({ id: user._id, isActive: true })
                   }
                 >
                   <CustomButton
@@ -144,7 +144,7 @@ export default function useAdminUsersColumns({
         },
       },
     ],
-    [isToggling, toggleStatus],
+    [isToggling, hanleToggleStatus],
   );
 
   return { columns };

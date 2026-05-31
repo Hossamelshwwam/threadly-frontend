@@ -1,70 +1,65 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { RiSearchLine, RiUserLine } from "react-icons/ri";
-import { useAdminUsers } from "../hooks/useAdminUsers";
-import { useToggleUserStatus } from "../hooks/useToggleUserStatus";
-import type { UserRole, AdminUsersParams } from "../types/user.types";
-import CustomInput from "@/shared/components/custom-input/CustomInput";
-import { cn } from "@/lib/utils";
-import useAdminUsersColumns from "../hooks/useAdminUsersColumns";
-import CustomTable from "@/shared/components/custom-table/CustomTable";
-import { toast } from "sonner";
+import { RiSearchLine, RiStoreLine } from "react-icons/ri";
 
-const ROLE_FILTERS: { label: string; value: UserRole | "" }[] = [
+import { useAdminSellers } from "../hooks/useAdminSellers";
+import useAdminSellersColumns from "../hooks/useAdminSellersColumns";
+import type { SellerStatus, AdminSellersParams } from "../types/seller.types";
+
+import CustomInput from "@/shared/components/custom-input/CustomInput";
+import CustomTable from "@/shared/components/custom-table/CustomTable";
+import { cn } from "@/shared/lib";
+import { useUpdateSellerStatus } from "../hooks/useUpdateSellerStatus";
+
+const STATUS_FILTERS: { label: string; value: SellerStatus | "" }[] = [
   { label: "All", value: "" },
-  { label: "Buyer", value: "buyer" },
-  { label: "Seller", value: "seller" },
+  { label: "Pending", value: "pending" },
+  { label: "Approved", value: "approved" },
+  { label: "Suspended", value: "suspended" },
 ];
 
-export default function AdminUsersPage() {
+export default function AdminSellersPage() {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState<UserRole | "">("");
+  const [statusFilter, setStatusFilter] = useState<SellerStatus | "">("");
   const [page, setPage] = useState(1);
 
-  const { mutateAsync: toggleStatus, isPending: isToggling } =
-    useToggleUserStatus();
+  // Consume Async Mutation Actions for our Toaster Tracking Pipeline
+  const { mutateAsync: updateStatusAsync, isPending: isUpdating } =
+    useUpdateSellerStatus();
 
-  const hanleToggleStatus = (data: { id: string; isActive: boolean }) => {
-    toast.promise(toggleStatus({ id: data.id, isActive: data.isActive }), {
-      loading: "Loading...",
-      success: "User status updated successfully",
-      error: (err: any) =>
-        err?.response?.data?.message || "Error updating user status",
-    });
-  };
-  const { columns } = useAdminUsersColumns({ isToggling, hanleToggleStatus });
-  // Debounce search
+  const columns = useAdminSellersColumns({ isUpdating, updateStatusAsync });
 
+  // Debounce filter modifications
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 400);
     return () => clearTimeout(timer);
   }, [search]);
 
-  const params: AdminUsersParams = {
+  const params: AdminSellersParams = {
     search: debouncedSearch || undefined,
-    role: roleFilter || undefined,
+    status: statusFilter || undefined,
     page,
     limit: 20,
   };
 
-  const { data, isLoading } = useAdminUsers(params);
+  const { data, isLoading } = useAdminSellers(params);
 
-  const users = data?.data ?? [];
+  const sellers = data?.data ?? [];
   const pagination = data?.pagination;
 
   const clearFilters = () => {
     setSearch("");
-    setRoleFilter("");
+    setStatusFilter("");
     setPage(1);
   };
 
   return (
-    <div className="space-y-5">
-      {/* Page header */}
+    <div className="space-y-5 font-sans">
+      {/* Page Header */}
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold text-zinc-900">Users</h1>
+        <h1 className="text-2xl font-bold text-zinc-900">Sellers</h1>
         {!isLoading && (
           <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded-full">
             {pagination?.total?.toLocaleString()}
@@ -72,27 +67,30 @@ export default function AdminUsersPage() {
         )}
       </div>
 
-      {/* Filter bar */}
+      {/* Filter Action Strip */}
       <div className="bg-white border border-zinc-200 rounded-lg px-4 py-3 flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
           <CustomInput
             name="search"
             type="text"
-            placeholder="Search by name or email..."
+            placeholder="Search by store name or owner..."
             Icon={RiSearchLine}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             InputClassName="bg-zinc-100"
           />
         </div>
-        <div className="flex items-center gap-1.5">
-          {ROLE_FILTERS.map((f) => (
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+          {STATUS_FILTERS.map((f) => (
             <button
               key={f.value}
-              onClick={() => setRoleFilter(f.value)}
+              onClick={() => {
+                setStatusFilter(f.value);
+                setPage(1);
+              }}
               className={cn(
-                "text-sm font-semibold px-4 py-2 rounded-md transition-colors",
-                roleFilter === f.value
+                "text-sm font-semibold px-4 py-2 rounded-md transition-colors whitespace-nowrap cursor-pointer",
+                statusFilter === f.value
                   ? "bg-amber-400 text-white"
                   : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200",
               )}
@@ -103,15 +101,15 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
-      {/* Table */}
+      {/* Table Presenter */}
       <CustomTable
         columns={columns}
-        data={users}
+        data={sellers}
         isLoading={isLoading}
         emptyStateIcon={
-          <RiUserLine className="text-5xl text-zinc-300 mx-auto" />
+          <RiStoreLine className="text-5xl text-zinc-300 mx-auto" />
         }
-        emptyStateTitle="No users found"
+        emptyStateTitle="No sellers found"
         onClearFilters={clearFilters}
         page={page}
         limit={20}
