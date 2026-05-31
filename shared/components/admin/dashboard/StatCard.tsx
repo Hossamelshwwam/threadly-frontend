@@ -33,7 +33,7 @@ export function StatCard({
       <div className="flex items-start justify-between">
         <p
           className={cn(
-            "text-xs font-600 uppercase tracking-widest",
+            "text-xs font-semibold uppercase tracking-widest",
             accent ? "text-amber-100" : "text-zinc-400",
           )}
         >
@@ -59,7 +59,7 @@ export function StatCard({
       ) : (
         <p
           className={cn(
-            "text-3xl font-700 leading-none",
+            "text-3xl font-bold leading-none",
             accent ? "text-white" : "text-zinc-900",
           )}
         >

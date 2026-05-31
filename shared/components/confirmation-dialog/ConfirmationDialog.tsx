@@ -187,11 +187,13 @@ export function ConfirmationDialog({
                   <VariantIcon variant={variant} className={cfg.iconColor} />
                 </div>
 
-                <DialogTitle className={cn("text-lg font-700", cfg.titleColor)}>
+                <DialogTitle
+                  className={cn("text-lg font-bold", cfg.titleColor)}
+                >
                   {title}
                 </DialogTitle>
 
-                <DialogDescription className="text-sm text-zinc-500 font-400 leading-relaxed max-w-75 mx-auto">
+                <DialogDescription className="text-sm text-zinc-500 font-normal leading-relaxed max-w-75 mx-auto">
                   {description}
                 </DialogDescription>
               </div>

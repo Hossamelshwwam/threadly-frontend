@@ -32,11 +32,11 @@ export function AdminSidebar({
     <aside className="fixed left-0 top-0 h-screen w-60 bg-white border-r border-zinc-200 flex flex-col z-40">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-zinc-200 shrink-0">
-        <div className="w-7 h-7 rounded-md bg-amber-400 flex items-center justify-center">
+        <div className="w-7 h-7 rounded-md bg-main flex items-center justify-center">
           <RiThreadsLine className="text-white text-base" />
         </div>
         <div className="flex flex-col leading-none">
-          <span className="text-sm font-900 tracking-tight text-zinc-950">
+          <span className="text-sm font-black tracking-tight text-zinc-950">
             Threadly
           </span>
           <span className="text-[10px] font-500 text-zinc-400 uppercase tracking-widest">
@@ -47,7 +47,7 @@ export function AdminSidebar({
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
-        <p className="text-[10px] font-600 text-zinc-400 uppercase tracking-widest px-3 mb-2">
+        <p className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest px-3 mb-2">
           Management
         </p>
         {adminNavItems.map((item) => {
@@ -82,7 +82,7 @@ export function AdminSidebar({
               <span className="flex-1">{item.label}</span>
 
               {badgeCount > 0 && (
-                <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-amber-400 text-white text-[10px] font-700 flex items-center justify-center">
+                <span className="min-w-4.5 h-4.5 px-1 rounded-full bg-amber-400 text-white text-[10px] font-bold flex items-center justify-center">
                   {badgeCount > 99 ? "99+" : badgeCount}
                 </span>
               )}

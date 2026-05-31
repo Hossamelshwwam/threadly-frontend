@@ -44,11 +44,11 @@ export function PayoutStatsWidget({
       <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
         <div className="flex items-center gap-2">
           <RiBankCardLine className="text-amber-500 text-base" />
-          <h2 className="text-base font-700 text-zinc-900">Payout Overview</h2>
+          <h2 className="text-base font-bold text-zinc-900">Payout Overview</h2>
         </div>
         <Link
           href="/admin/payouts"
-          className="flex items-center gap-1.5 text-xs font-600 text-amber-600 hover:text-amber-700 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition-colors"
         >
           Manage
           <RiArrowRightLine />
@@ -72,7 +72,7 @@ export function PayoutStatsWidget({
               <div className="h-4 w-24 rounded bg-zinc-100 animate-pulse" />
             ) : (
               <div className="text-right">
-                <p className="text-sm font-700 text-zinc-900">
+                <p className="text-sm font-bold text-zinc-900">
                   EGP {row.amount.toLocaleString()}
                 </p>
                 <p className="text-xs text-zinc-400">{row.count} payouts</p>

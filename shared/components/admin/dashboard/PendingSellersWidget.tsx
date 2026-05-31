@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { RiArrowRightLine, RiStoreLine } from "react-icons/ri";
 import type { SellerProfile } from "@/domains/sellers/types/seller.types";
+import Image from "next/image";
 
 interface PendingSellersWidgetProps {
   sellers: SellerProfile[];
@@ -16,18 +17,18 @@ export function PendingSellersWidget({
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
         <div className="flex items-center gap-2">
-          <h2 className="text-base font-700 text-zinc-900">
+          <h2 className="text-base font-bold text-zinc-900">
             Pending Seller Approvals
           </h2>
           {sellers.length > 0 && (
-            <span className="min-w-[20px] h-5 px-1.5 rounded-full bg-amber-400 text-white text-[10px] font-700 flex items-center justify-center">
+            <span className="min-w-5 h-5 px-1.5 rounded-full bg-amber-400 text-white text-[10px] font-bold flex items-center justify-center">
               {sellers.length}
             </span>
           )}
         </div>
         <Link
           href="/admin/sellers?status=pending"
-          className="flex items-center gap-1.5 text-xs font-600 text-amber-600 hover:text-amber-700 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition-colors"
         >
           View all
           <RiArrowRightLine />
@@ -55,7 +56,7 @@ export function PendingSellersWidget({
                 {/* Logo / placeholder */}
                 <div className="w-9 h-9 rounded-md bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 overflow-hidden">
                   {seller.logo ? (
-                    <img
+                    <Image
                       src={seller.logo}
                       alt={seller.storeName}
                       className="w-full h-full object-cover"
@@ -67,7 +68,7 @@ export function PendingSellersWidget({
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-600 text-zinc-800 truncate">
+                  <p className="text-sm font-semibold text-zinc-800 truncate">
                     {seller.storeName}
                   </p>
                   <p className="text-xs text-zinc-400 truncate">
@@ -78,7 +79,7 @@ export function PendingSellersWidget({
                 {/* Action */}
                 <Link
                   href={`/admin/sellers/${seller._id}`}
-                  className="shrink-0 text-xs font-600 text-amber-600 hover:text-amber-700 border border-amber-200 hover:border-amber-300 hover:bg-amber-50 px-3 py-1.5 rounded-md transition-all"
+                  className="shrink-0 text-xs font-semibold text-amber-600 hover:text-amber-700 border border-amber-200 hover:border-amber-300 hover:bg-amber-50 px-3 py-1.5 rounded-md transition-all"
                 >
                   Review
                 </Link>

@@ -10,6 +10,11 @@ import type {
 } from "@/shared/types/api.types";
 
 export const usersApi = {
+  getMe: async (): Promise<ApiResponse<UserProfile>> => {
+    const { data } = await api.get("/users/me");
+    return data;
+  },
+
   adminListUsers: async (
     params?: AdminUsersParams,
   ): Promise<PaginatedApiResponse<UserProfile>> => {

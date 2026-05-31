@@ -51,7 +51,7 @@ export default function AdminDashboardPage() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-700 text-zinc-900">Overview</h1>
+        <h1 className="text-2xl font- text-zinc-900">Overview</h1>
         <p className="text-sm text-zinc-400 mt-0.5">
           {new Date().toLocaleDateString("en-EG", {
             weekday: "long",
