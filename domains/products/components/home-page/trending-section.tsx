@@ -45,14 +45,14 @@ export default function TrendingSection() {
   return (
     <section className="relative py-20 bg-linear-to-b from-surface to-amber-50/40 overflow-hidden font-sans">
       {/* Decorative Blur Background (يعطي طابع Colorful خفيف في الخلفية) */}
-      <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-accent opacity-10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-accent-warm opacity-5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-main opacity-10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-main-warm opacity-5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-6">
         {/* Header Section */}
         <div className="flex items-end justify-between mb-10">
           <div className="flex flex-col gap-2">
-            <span className="flex items-center gap-2 text-accent-warm font-semibold text-sm tracking-wider uppercase">
+            <span className="flex items-center gap-2 text-main-warm font-semibold text-sm tracking-wider uppercase">
               <FiTrendingUp size={16} /> Hot this week
             </span>
             <h2 className="text-4xl font-black text-on-surface tracking-tight">
@@ -62,10 +62,10 @@ export default function TrendingSection() {
 
           {/* Custom Navigation Buttons */}
           <div className="hidden sm:flex gap-3">
-            <button className="trending-prev w-12 h-12 rounded-full border border-border flex items-center justify-center text-on-surface-muted hover:border-accent hover:text-accent hover:shadow-accent hover:bg-surface transition-all duration-200 bg-surface z-10">
+            <button className="trending-prev w-12 h-12 rounded-full border border-border flex items-center justify-center text-on-surface-muted hover:border-main hover:text-main hover:shadow-main hover:bg-surface transition-all duration-200 bg-surface z-10">
               <FiChevronLeft size={22} />
             </button>
-            <button className="trending-next w-12 h-12 rounded-full border border-border flex items-center justify-center text-on-surface-muted hover:border-accent hover:text-accent hover:shadow-accent hover:bg-surface transition-all duration-200 bg-surface z-10">
+            <button className="trending-next w-12 h-12 rounded-full border border-border flex items-center justify-center text-on-surface-muted hover:border-main hover:text-main hover:shadow-main hover:bg-surface transition-all duration-200 bg-surface z-10">
               <FiChevronRight size={22} />
             </button>
           </div>
@@ -124,7 +124,7 @@ export default function TrendingSection() {
                 <div className="flex flex-col px-1">
                   <div className="flex justify-between items-start gap-2">
                     <div className="flex-1">
-                      <h3 className="text-base font-bold text-on-surface group-hover:text-accent transition-colors line-clamp-1">
+                      <h3 className="text-base font-bold text-on-surface group-hover:text-main transition-colors line-clamp-1">
                         {item.label}
                       </h3>
                       <p className="text-sm font-medium text-on-surface-muted mt-0.5">
@@ -139,7 +139,7 @@ export default function TrendingSection() {
                   </div>
 
                   {/* Animated Action Link */}
-                  <div className="mt-3 flex items-center gap-1.5 text-sm font-bold text-accent-warm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="mt-3 flex items-center gap-1.5 text-sm font-bold text-main-warm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                     <span>Discover More</span>
                     <FiArrowRight
                       size={14}

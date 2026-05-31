@@ -25,7 +25,7 @@ export default function LoginPage() {
           <div className="flex justify-end mt-2">
             <Link
               href="/forgot-password"
-              className="text-sm text-on-surface-muted hover:text-accent hover:underline transition-all"
+              className="text-sm text-on-surface-muted hover:text-main hover:underline transition-all"
             >
               Forgot password?
             </Link>
@@ -61,7 +61,7 @@ export default function LoginPage() {
           Don't have an account?{" "}
           <Link
             href="/register"
-            className="text-accent font-semibold hover:text-accent-warm hover:underline transition-all"
+            className="text-main font-semibold hover:text-main-warm hover:underline transition-all"
           >
             Sign up
           </Link>

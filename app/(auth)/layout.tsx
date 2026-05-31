@@ -13,8 +13,8 @@ export default function AuthLayout({
       {children}
 
       <AuthFooter />
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-accent opacity-20 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-accent-warm opacity-20 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-main opacity-20 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-main-warm opacity-20 blur-[100px] rounded-full pointer-events-none"></div>
     </div>
   );
 }

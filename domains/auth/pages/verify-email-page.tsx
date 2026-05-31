@@ -90,7 +90,7 @@ export default function EmailVerifiedPage() {
           {/* Back link */}
           <Link
             href="/login"
-            className="mt-5 text-sm text-on-surface-muted hover:text-accent hover:underline underline-offset-4 transition-colors"
+            className="mt-5 text-sm text-on-surface-muted hover:text-main hover:underline underline-offset-4 transition-colors"
           >
             Back to Login
           </Link>
@@ -103,7 +103,7 @@ export default function EmailVerifiedPage() {
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-[400px] flex flex-col items-center text-center">
-        <div className="mb-8 w-20 h-20 rounded-full bg-accent-subtle border border-amber-200 flex items-center justify-center shadow-accent">
+        <div className="mb-8 w-20 h-20 rounded-full bg-main-subtle border border-amber-200 flex items-center justify-center shadow-main">
           <FiCheckCircle size={36} className="text-amber-500" />
         </div>
         <h1 className="font-sans text-3xl font-bold text-on-surface mb-3">

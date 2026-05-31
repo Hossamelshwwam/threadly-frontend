@@ -75,9 +75,9 @@ Three scales work together: **warm amber** and **terracotta** for brand color (n
 
   /* ─── Semantic Tokens ─── */
   /* Brand */
-  --color-accent: #d99a4a; /* amber-400 */
-  --color-accent-warm: #d07a4e; /* terra-400 */
-  --color-accent-subtle: #faecd8; /* amber-100 */
+  --color-main: #d99a4a; /* amber-400 */
+  --color-main-warm: #d07a4e; /* terra-400 */
+  --color-main-subtle: #faecd8; /* amber-100 */
 
   /* Surfaces — mapped to Zinc */
   --color-surface: var(--color-zinc-50); /* #fafafa — page bg */
@@ -90,7 +90,7 @@ Three scales work together: **warm amber** and **terracotta** for brand color (n
   --color-on-surface-muted: var(
     --color-zinc-500
   ); /* #71717a — secondary text */
-  --color-on-accent: #ffffff;
+  --color-on-main: #ffffff;
 
   /* Borders — mapped to Zinc */
   --color-border: var(--color-zinc-200); /* #e4e4e7 */
@@ -130,9 +130,9 @@ Zinc is the **only** grayscale palette in Threadly. Use `zinc-*` classes directl
 
 | Token                      | Maps to   | Hex       | Usage                                |
 | -------------------------- | --------- | --------- | ------------------------------------ |
-| `--color-accent`           | amber-400 | `#d99a4a` | Links, focus rings, CTAs, highlights |
-| `--color-accent-warm`      | terra-400 | `#d07a4e` | Hover states, secondary accents      |
-| `--color-accent-subtle`    | amber-100 | `#faecd8` | Tinted surfaces, badge backgrounds   |
+| `--color-main`             | amber-400 | `#d99a4a` | Links, focus rings, CTAs, highlights |
+| `--color-main-warm`        | terra-400 | `#d07a4e` | Hover states, secondary accents      |
+| `--color-main-subtle`      | amber-100 | `#faecd8` | Tinted surfaces, badge backgrounds   |
 | `--color-surface`          | zinc-50   | `#fafafa` | Page background                      |
 | `--color-surface-low`      | zinc-100  | `#f4f4f5` | Card backgrounds                     |
 | `--color-surface-mid`      | zinc-200  | `#e4e4e7` | Input backgrounds                    |
@@ -264,7 +264,7 @@ Base unit: **4px**.
     0 12px 28px -4px rgba(9, 9, 11, 0.12), 0 4px 10px -4px rgba(9, 9, 11, 0.06);
   --shadow-xl:
     0 24px 48px -8px rgba(9, 9, 11, 0.15), 0 8px 20px -6px rgba(9, 9, 11, 0.08);
-  --shadow-accent: 0 4px 16px -2px rgba(217, 154, 74, 0.28); /* amber glow */
+  --shadow-main: 0 4px 16px -2px rgba(217, 154, 74, 0.28); /* amber glow */
   --shadow-inner: inset 0 1px 3px rgba(9, 9, 11, 0.08);
   --shadow-none: none;
 }
@@ -306,10 +306,10 @@ Base unit: **4px**.
   --color-terra-900: #2e150b;
 
   /* Semantic — Brand */
-  --color-accent: #d99a4a;
-  --color-accent-warm: #d07a4e;
-  --color-accent-subtle: #faecd8;
-  --color-on-accent: #ffffff;
+  --color-main: #d99a4a;
+  --color-main-warm: #d07a4e;
+  --color-main-subtle: #faecd8;
+  --color-on-main: #ffffff;
 
   /* Semantic — Surfaces (Zinc) */
   --color-surface: var(--color-zinc-50);
@@ -345,7 +345,7 @@ Base unit: **4px**.
     0 12px 28px -4px rgba(9, 9, 11, 0.12), 0 4px 10px -4px rgba(9, 9, 11, 0.06);
   --shadow-xl:
     0 24px 48px -8px rgba(9, 9, 11, 0.15), 0 8px 20px -6px rgba(9, 9, 11, 0.08);
-  --shadow-accent: 0 4px 16px -2px rgba(217, 154, 74, 0.28);
+  --shadow-main: 0 4px 16px -2px rgba(217, 154, 74, 0.28);
   --shadow-inner: inset 0 1px 3px rgba(9, 9, 11, 0.08);
 
   /* Motion */

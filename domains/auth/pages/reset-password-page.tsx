@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-[400px] flex flex-col items-center">
         {/* Icon + header */}
         <div className="mb-8 w-full text-center">
-          <div className="w-16 h-16 rounded-full bg-accent-subtle border border-amber-200 flex items-center justify-center mx-auto mb-5">
+          <div className="w-16 h-16 rounded-full bg-main-subtle border border-amber-200 flex items-center justify-center mx-auto mb-5">
             <FiLock size={26} className="text-amber-500" />
           </div>
           <h1 className="font-sans text-3xl font-bold text-on-surface mb-2">
@@ -127,7 +127,7 @@ export default function ResetPasswordPage() {
           <div className="mt-6 pt-6 border-t border-surface-high flex justify-center">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 text-sm text-on-surface-muted hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm text-on-surface-muted hover:text-main transition-colors"
             >
               <FiArrowLeft size={14} />
               Back to Login

@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/shared/services/inedx";
+import { cn } from "@/shared/lib";
 import { type ChangeEvent, useState, forwardRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import type { IconType } from "react-icons";

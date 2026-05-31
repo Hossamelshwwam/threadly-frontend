@@ -42,7 +42,7 @@ const iconOnlySizes: Record<ButtonSize, string> = {
 const themeStyles: Record<ButtonVariant, Record<ButtonTheme, string>> = {
   solid: {
     primary:
-      "bg-accent text-on-accent border-transparent shadow-accent hover:bg-amber-500 focus:ring-border-focus",
+      "bg-main text-on-main border-transparent shadow-main hover:bg-amber-500 focus:ring-border-focus",
 
     neutral:
       "bg-zinc-900 text-white border-transparent shadow-sm hover:bg-zinc-800 focus:ring-zinc-900",
@@ -76,7 +76,7 @@ const themeStyles: Record<ButtonVariant, Record<ButtonTheme, string>> = {
 
   outline: {
     primary:
-      "bg-transparent text-accent border-accent hover:bg-amber-50 focus:ring-border-focus",
+      "bg-transparent text-main border-main hover:bg-amber-50 focus:ring-border-focus",
 
     neutral:
       "bg-transparent text-on-surface border-border hover:bg-surface-low focus:ring-border-strong",
@@ -93,7 +93,7 @@ const themeStyles: Record<ButtonVariant, Record<ButtonTheme, string>> = {
 
   ghost: {
     primary:
-      "bg-transparent text-accent border-transparent hover:bg-amber-50 focus:ring-border-focus",
+      "bg-transparent text-main border-transparent hover:bg-amber-50 focus:ring-border-focus",
 
     neutral:
       "bg-transparent text-on-surface border-transparent hover:bg-surface-low focus:ring-border-strong",
@@ -110,7 +110,7 @@ const themeStyles: Record<ButtonVariant, Record<ButtonTheme, string>> = {
 
   link: {
     primary:
-      "bg-transparent border-transparent text-accent hover:underline shadow-none",
+      "bg-transparent border-transparent text-main hover:underline shadow-none",
 
     neutral:
       "bg-transparent border-transparent text-on-surface hover:underline shadow-none",

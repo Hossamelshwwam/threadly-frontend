@@ -23,19 +23,19 @@ export default function AuthFooter() {
           </span>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all underline decoration-accent-warm underline-offset-4"
+            className="text-sm text-on-surface-muted hover:text-main transition-all underline decoration-main-warm underline-offset-4"
           >
             New Arrivals
           </Link>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Men
           </Link>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Women
           </Link>
@@ -48,19 +48,19 @@ export default function AuthFooter() {
           </span>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             About Us
           </Link>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Shipping Policy
           </Link>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Returns
           </Link>
@@ -73,13 +73,13 @@ export default function AuthFooter() {
           </span>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Privacy
           </Link>
           <Link
             href="#"
-            className="text-sm text-on-surface-muted hover:text-accent transition-all"
+            className="text-sm text-on-surface-muted hover:text-main transition-all"
           >
             Contact
           </Link>

@@ -1,7 +1,7 @@
 import { api } from "@/infrastructure/axios";
 import type { LoginSchemaType } from "../schemas/useLoginSchema";
 import type { RegisterSchemaType } from "../schemas/useRegisterSchema";
-import type { LoginResponseDto } from "../types";
+import type { LoginResponseDto } from "../types/auth.types";
 
 export const authApi = {
   login: async (data: LoginSchemaType) => {
