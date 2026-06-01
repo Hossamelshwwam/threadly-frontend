@@ -70,8 +70,16 @@ export default function CustomTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   });
 
-  const start = totalItems === 0 ? 0 : (page - 1) * limit + 1;
-  const end = Math.min(page * limit, totalItems);
+  // Calculate standard item sequence layout offsets safely
+  const currentItemsCount = data?.length ?? 0;
+  const start =
+    totalItems > 0 ? (page - 1) * limit + 1 : currentItemsCount > 0 ? 1 : 0;
+  const end =
+    totalItems > 0 ? Math.min(page * limit, totalItems) : currentItemsCount;
+
+  // Render check: show pagination if explicitly configured or if multiple pages exist
+  const showPagination =
+    !isLoading && onPageChange && (totalPages > 1 || totalItems > limit);
 
   return (
     <div className="bg-white border border-zinc-200 rounded-lg overflow-hidden font-sans">
@@ -81,7 +89,7 @@ export default function CustomTable<TData, TValue>({
           {href && (
             <Link
               href={href}
-              className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition-colors"
+              className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 transition-colors cursor-pointer"
             >
               View all
               <RiArrowRightLine />
@@ -132,7 +140,7 @@ export default function CustomTable<TData, TValue>({
 
           <tbody className="divide-y divide-zinc-50">
             {isLoading ? (
-              Array.from({ length: 6 }).map((_, i) => (
+              Array.from({ length: limit > 10 ? 6 : limit }).map((_, i) => (
                 <tr key={i} className="border-b border-zinc-50">
                   {columns.map((_, j) => (
                     <td key={j} className="px-5 py-4">
@@ -191,11 +199,12 @@ export default function CustomTable<TData, TValue>({
         </table>
       </div>
 
-      {/* Pagination Footer */}
-      {!isLoading && totalItems > 0 && onPageChange && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-t border-zinc-100">
+      {/* Pagination Footer - Fixed conditional mounting execution state */}
+      {showPagination && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-t border-zinc-100 select-none">
           <p className="text-sm text-zinc-500">
-            Showing {start}–{end} of {totalItems.toLocaleString()} items
+            Showing {start}–{end}{" "}
+            {totalItems > 0 ? `of ${totalItems.toLocaleString()}` : ""} items
           </p>
           <div className="flex items-center gap-2">
             <CustomButton
@@ -207,14 +216,14 @@ export default function CustomTable<TData, TValue>({
             >
               Previous
             </CustomButton>
-            <span className="text-sm text-zinc-400 px-2">
-              {page} / {totalPages}
+            <span className="text-sm text-zinc-400 px-2 min-w-10 text-center font-medium">
+              {page} / {totalPages || 1}
             </span>
             <CustomButton
               variant="outline"
               theme="neutral"
               size="sm"
-              disabled={page >= totalPages}
+              disabled={page >= (totalPages || 1)}
               onClick={() => onPageChange(page + 1)}
             >
               Next

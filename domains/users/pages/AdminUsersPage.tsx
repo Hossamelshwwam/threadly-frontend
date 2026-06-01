@@ -115,7 +115,7 @@ export default function AdminUsersPage() {
         onClearFilters={clearFilters}
         page={page}
         limit={20}
-        totalPages={pagination?.totalPages}
+        totalPages={pagination?.pages}
         totalItems={pagination?.total}
         onPageChange={(newPage) => setPage(newPage)}
       />

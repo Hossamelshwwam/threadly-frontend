@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { sellersApi } from "../api/sellers.api";
 import type { AdminSellersParams } from "../types/seller.types";
 
