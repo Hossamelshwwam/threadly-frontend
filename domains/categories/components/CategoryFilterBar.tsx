@@ -20,7 +20,7 @@ export function CategoryFilterBar({
 }: CategoryFilterBarProps) {
   return (
     <div className="bg-white border border-zinc-200 rounded-lg px-4 py-3 flex items-center justify-between gap-3 font-sans">
-      <span className="text-xs font-600 text-zinc-400 uppercase tracking-wider">
+      <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
         Visibility Filter
       </span>
       <div className="flex items-center gap-1.5">
@@ -30,7 +30,7 @@ export function CategoryFilterBar({
             type="button"
             onClick={() => onFilterChange(f.value)}
             className={cn(
-              "text-xs font-600 px-3 py-1.5 rounded-md transition-colors cursor-pointer",
+              "text-xs font-semibold px-3 py-1.5 rounded-md transition-colors cursor-pointer",
               activeFilter === f.value
                 ? "bg-amber-400 text-white"
                 : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200",

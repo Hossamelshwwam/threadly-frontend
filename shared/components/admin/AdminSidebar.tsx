@@ -39,7 +39,7 @@ export function AdminSidebar({
           <span className="text-sm font-black tracking-tight text-zinc-950">
             Threadly
           </span>
-          <span className="text-[10px] font-500 text-zinc-400 uppercase tracking-widest">
+          <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest">
             Admin
           </span>
         </div>
@@ -59,7 +59,7 @@ export function AdminSidebar({
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-500 transition-all duration-150 group relative",
+                "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-150 group relative",
                 active
                   ? "bg-amber-50 text-amber-700"
                   : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
@@ -93,7 +93,7 @@ export function AdminSidebar({
 
       {/* Bottom: logout */}
       <div className="px-3 py-4 border-t border-zinc-100">
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-500 text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 w-full group">
+        <button className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 w-full group">
           <RiLogoutBoxLine className="text-base text-zinc-400 group-hover:text-red-500 transition-colors" />
           Sign out
         </button>

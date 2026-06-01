@@ -77,7 +77,6 @@ export default function AdminSellersPage() {
             Icon={RiSearchLine}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            InputClassName="bg-zinc-100"
           />
         </div>
         <div className="flex items-center gap-1.5 overflow-x-auto">

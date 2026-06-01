@@ -137,3 +137,17 @@
 button {
   cursor: pointer;
 }
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+select::picker-icon {
+  display: none;
+}
+
+::picker(select) {
+  border-radius: 8px;
+  border: 2px solid var(--color-main);
+}

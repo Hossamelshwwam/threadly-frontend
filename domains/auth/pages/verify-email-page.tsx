@@ -64,7 +64,7 @@ export default function EmailVerifiedPage() {
           </p>
 
           {/* Card */}
-          <div className="mt-8 w-full bg-surface-low border border-border rounded-lg p-6 flex flex-col gap-4 text-left">
+          <div className="mt-8 w-full bg-white border border-zinc-200 rounded-lg p-6 flex flex-col gap-4 text-left">
             <CustomInput
               name="email"
               type="email"

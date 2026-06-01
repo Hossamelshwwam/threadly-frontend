@@ -19,14 +19,14 @@ import { toast } from "sonner";
 
 function StatusBadge({ status }: { status: SellerProfile["status"] }) {
   const styles = {
-    approved: "bg-success-bg text-success border-[#3d7a5e33]",
+    approved: "bg-success-bg text-success border-success/30",
     pending: "bg-amber-50 text-amber-700 border-amber-200",
     suspended: "bg-error-bg text-error border-[#b03a2e33]",
   };
   return (
     <span
       className={cn(
-        "text-xs font-600 px-2 py-0.5 rounded-md border capitalize",
+        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
         styles[status],
       )}
     >
@@ -70,7 +70,9 @@ export default function useAdminSellersColumns({
                 )}
               </div>
               <div>
-                <p className="font-600 text-zinc-800">{seller.storeName}</p>
+                <p className="font-semibold text-zinc-800">
+                  {seller.storeName}
+                </p>
                 <p className="text-xs text-zinc-400">
                   {seller.userId?.name ?? "Unknown Seller"}
                 </p>
@@ -83,7 +85,7 @@ export default function useAdminSellersColumns({
         id: "email",
         header: "Owner Email",
         cell: ({ row }) => (
-          <span className="text-sm font-400 text-zinc-600">
+          <span className="text-sm font-normal text-zinc-600">
             {row.original.userId?.email ?? "—"}
           </span>
         ),

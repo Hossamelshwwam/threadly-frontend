@@ -29,10 +29,10 @@ export function UserProfileSidebar({
       {/* Profile summary card */}
       <div className="bg-white border border-zinc-200 rounded-lg p-6">
         <div className="flex flex-col items-center text-center">
-          <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-700 text-2xl font-700 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-amber-100 text-amber-700 text-2xl font-bold flex items-center justify-center">
             {user.name.charAt(0).toUpperCase()}
           </div>
-          <p className="text-xl font-700 text-zinc-900 mt-3">{user.name}</p>
+          <p className="text-xl font-bold text-zinc-900 mt-3">{user.name}</p>
           <p className="text-sm text-zinc-400 mt-0.5">{user.email}</p>
         </div>
 
@@ -70,10 +70,10 @@ export function UserProfileSidebar({
               key={label}
               className="flex items-center justify-between py-2.5 border-b border-zinc-50 last:border-0"
             >
-              <span className="text-xs font-600 text-zinc-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                 {label}
               </span>
-              <span className="text-sm font-500 text-zinc-700">{value}</span>
+              <span className="text-sm font-medium text-zinc-700">{value}</span>
             </div>
           ))}
         </div>
@@ -81,7 +81,7 @@ export function UserProfileSidebar({
 
       {/* Actions card */}
       <div className="bg-white border border-zinc-200 rounded-lg p-5">
-        <p className="text-sm font-700 text-zinc-700 mb-3">Account Actions</p>
+        <p className="text-sm font-bold text-zinc-700 mb-3">Account Actions</p>
         {user.isActive ? (
           <ConfirmationDialog
             variant="danger"

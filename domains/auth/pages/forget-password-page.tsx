@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-[400px] flex flex-col items-center">
+      <div className="w-full max-w-100 flex flex-col items-center">
         {/* Icon + header */}
         <div className="mb-8 w-full text-center">
           <div className="w-16 h-16 rounded-full bg-main-subtle border border-amber-200 flex items-center justify-center mx-auto mb-5">
@@ -54,7 +54,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         {/* Card */}
-        <div className="w-full bg-surface-low p-8 rounded-lg border border-border shadow-sm">
+        <div className="w-full bg-white border border-zinc-200 p-8 rounded-lg shadow-sm">
           <form
             className="flex flex-col gap-6"
             onSubmit={handleSubmit(onSubmit)}
@@ -82,7 +82,7 @@ export default function ForgotPasswordPage() {
           </form>
 
           {/* Divider */}
-          <div className="mt-6 pt-6 border-t border-surface-high flex justify-center">
+          <div className="mt-6 pt-6 border-t border-zinc-200 flex justify-center">
             <Link
               href="/login"
               className="inline-flex items-center gap-1.5 text-sm text-on-surface-muted hover:text-main transition-colors"

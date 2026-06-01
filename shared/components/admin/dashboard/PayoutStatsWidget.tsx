@@ -64,7 +64,7 @@ export function PayoutStatsWidget({
           >
             <div className="flex items-center gap-2.5">
               <span className={`w-2 h-2 rounded-full shrink-0 ${row.dot}`} />
-              <span className="text-sm font-500 text-zinc-700">
+              <span className="text-sm font-medium text-zinc-700">
                 {row.label}
               </span>
             </div>

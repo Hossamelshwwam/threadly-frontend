@@ -1,59 +1,54 @@
 "use client";
 import { cn } from "@/shared/lib";
-import { type ChangeEvent, useState, forwardRef } from "react";
+import { type ChangeEvent, forwardRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import type { IconType } from "react-icons";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface Props {
   name: string;
-  type: string;
   label?: string;
   placeholder?: string;
   half?: boolean;
   disabled?: boolean;
-  InputClassName?: string;
-  labalClassName?: string;
+  TextareaClassName?: string;
+  labelClassName?: string;
   IconClassName?: string;
   className?: string;
   error?: string;
-  min?: number;
-  max?: number;
-  step?: number;
+  maxLength?: number;
+  rows?: number;
   Icon?: IconType;
   registerProps?: UseFormRegisterReturn;
   value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   autoFocus?: boolean;
+  resize?: "none" | "both" | "horizontal" | "vertical";
 }
 
-const CustomInput = forwardRef<HTMLInputElement, Props>(
+const CustomTextarea = forwardRef<HTMLTextAreaElement, Props>(
   (
     {
       name,
       label,
-      type,
       placeholder,
       className,
-      InputClassName,
-      labalClassName,
+      TextareaClassName,
+      labelClassName,
       IconClassName,
       half,
-      max,
+      maxLength,
       error,
       disabled,
       registerProps,
       Icon,
-      min,
-      step,
+      rows = 4,
       value,
       onChange,
       autoFocus,
+      resize = "none",
     },
     ref,
   ) => {
-    const [show, setShow] = useState(false);
-
     return (
       <div
         className={cn(
@@ -67,7 +62,7 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
             htmlFor={name}
             className={cn(
               "block text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1.5",
-              labalClassName,
+              labelClassName,
             )}
           >
             {label}
@@ -77,48 +72,38 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
           {Icon && (
             <Icon
               className={cn(
-                "absolute top-1/2 -translate-y-1/2 inset-s-4 text-xl text-on-surface-muted pointer-events-none",
+                "absolute top-4 inset-s-4 text-xl text-on-surface-muted pointer-events-none",
                 IconClassName,
               )}
             />
           )}
 
-          <input
+          <textarea
             id={name}
             name={name}
-            type={type === "password" && show ? "text" : type}
             placeholder={placeholder}
-            maxLength={max}
+            maxLength={maxLength}
             disabled={disabled}
             value={value}
             onChange={onChange}
             ref={ref}
-            step={step}
-            min={min}
+            rows={rows}
             autoFocus={autoFocus}
             {...registerProps}
             className={cn(
-              "w-full h-12 px-4 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface placeholder:text-on-surface-muted",
+              "w-full py-3 px-4 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface placeholder:text-on-surface-muted",
               error
                 ? "border-error focus:ring-2 focus:ring-error/20 focus:border-error"
                 : "border-border focus:ring-2 focus:ring-border-focus focus:border-border-focus",
               Icon && "ps-11",
-              type === "password" && "pe-11",
               disabled && "opacity-60 cursor-not-allowed",
-              InputClassName,
+              resize === "none" && "resize-none",
+              resize === "both" && "resize",
+              resize === "horizontal" && "resize-x",
+              resize === "vertical" && "resize-y",
+              TextareaClassName,
             )}
           />
-
-          {type === "password" && (
-            <button
-              type="button"
-              onClick={() => setShow(!show)}
-              className="absolute top-1/2 -translate-y-1/2 inset-e-4 text-xl text-on-surface-muted hover:text-on-surface transition-colors focus:outline-none"
-              aria-label={show ? "Hide password" : "Show password"}
-            >
-              {show ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          )}
         </div>
 
         {error && (
@@ -129,6 +114,6 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
   },
 );
 
-CustomInput.displayName = "CustomInput";
+CustomTextarea.displayName = "CustomTextarea";
 
-export default CustomInput;
+export default CustomTextarea;

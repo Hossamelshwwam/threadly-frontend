@@ -107,7 +107,7 @@ export default function CustomTable<TData, TValue>({
                   return (
                     <th
                       key={header.id}
-                      className="text-left px-5 py-3 text-xs font-600 text-zinc-400 uppercase tracking-wider whitespace-nowrap"
+                      className="text-left px-5 py-3 text-xs font-semibold text-zinc-400 uppercase tracking-wider whitespace-nowrap"
                     >
                       {header.isPlaceholder ? null : (
                         <div
@@ -158,7 +158,7 @@ export default function CustomTable<TData, TValue>({
               <tr>
                 <td colSpan={columns.length} className="py-16 text-center">
                   {emptyStateIcon}
-                  <p className="text-zinc-500 font-600 mt-3">
+                  <p className="text-zinc-500 font-semibold mt-3">
                     {emptyStateTitle}
                   </p>
                   <p className="text-zinc-400 text-sm mt-1">

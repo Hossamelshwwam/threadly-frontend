@@ -82,7 +82,9 @@ function CategoryNameCell({
       </div>
 
       <div>
-        <p className="font-600 text-zinc-800 leading-tight">{category.name}</p>
+        <p className="font-semibold text-zinc-800 leading-tight">
+          {category.name}
+        </p>
         <p className="text-xs font-mono text-zinc-400 mt-0.5">
           slug: {category.slug}
         </p>
@@ -118,13 +120,13 @@ export default function useAdminCategoriesColumns({
           const category = row.original;
           if (category.parentId && typeof category.parentId === "object") {
             return (
-              <span className="text-xs font-500 bg-amber-50 text-amber-700 border border-amber-200/40 px-2 py-1 rounded-md">
+              <span className="text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/40 px-2 py-1 rounded-md">
                 {(category.parentId as any).name} &rarr; {category.name}
               </span>
             );
           }
           return (
-            <span className="text-xs font-500 bg-zinc-100 text-zinc-500 px-2 py-1 rounded-md">
+            <span className="text-xs font-medium bg-zinc-100 text-zinc-500 px-2 py-1 rounded-md">
               Root Level Domain
             </span>
           );
@@ -138,9 +140,9 @@ export default function useAdminCategoriesColumns({
           return (
             <span
               className={cn(
-                "text-xs font-600 px-2 py-0.5 rounded-md border",
+                "text-xs font-semibold px-2 py-0.5 rounded-md border",
                 isActive
-                  ? "bg-success-bg text-success border-[#3d7a5e33]"
+                  ? "bg-success-bg text-success border-success/30"
                   : "bg-error-bg text-error border-[#b03a2e33]",
               )}
             >

@@ -1,63 +1,58 @@
 "use client";
 import { cn } from "@/shared/lib";
-import { type ChangeEvent, useState, forwardRef } from "react";
+import { type ChangeEvent, forwardRef } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import type { IconType } from "react-icons";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+
+interface SelectOption {
+  label: string;
+  value: string;
+}
 
 interface Props {
   name: string;
-  type: string;
+  options: SelectOption[];
   label?: string;
   placeholder?: string;
   half?: boolean;
   disabled?: boolean;
-  InputClassName?: string;
-  labalClassName?: string;
+  SelectClassName?: string;
+  labelClassName?: string;
   IconClassName?: string;
   className?: string;
   error?: string;
-  min?: number;
-  max?: number;
-  step?: number;
   Icon?: IconType;
   registerProps?: UseFormRegisterReturn;
   value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  autoFocus?: boolean;
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const CustomInput = forwardRef<HTMLInputElement, Props>(
+const CustomSelect = forwardRef<HTMLSelectElement, Props>(
   (
     {
       name,
+      options,
       label,
-      type,
       placeholder,
       className,
-      InputClassName,
-      labalClassName,
+      SelectClassName,
+      labelClassName,
       IconClassName,
       half,
-      max,
       error,
       disabled,
       registerProps,
       Icon,
-      min,
-      step,
       value,
       onChange,
-      autoFocus,
     },
     ref,
   ) => {
-    const [show, setShow] = useState(false);
-
     return (
       <div
         className={cn(
-          "relative flex-1 font-sans",
+          "relative font-sans",
           half ? "col-span-2 lg:col-span-1" : "col-span-2",
           className,
         )}
@@ -67,7 +62,7 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
             htmlFor={name}
             className={cn(
               "block text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1.5",
-              labalClassName,
+              labelClassName,
             )}
           >
             {label}
@@ -77,48 +72,51 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
           {Icon && (
             <Icon
               className={cn(
-                "absolute top-1/2 -translate-y-1/2 inset-s-4 text-xl text-on-surface-muted pointer-events-none",
+                "absolute top-1/2 -translate-y-1/2 inset-s-4 text-xl text-on-surface-muted pointer-events-none z-10",
                 IconClassName,
               )}
             />
           )}
 
-          <input
+          <select
             id={name}
             name={name}
-            type={type === "password" && show ? "text" : type}
-            placeholder={placeholder}
-            maxLength={max}
             disabled={disabled}
             value={value}
             onChange={onChange}
             ref={ref}
-            step={step}
-            min={min}
-            autoFocus={autoFocus}
             {...registerProps}
             className={cn(
-              "w-full h-12 px-4 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface placeholder:text-on-surface-muted",
+              "w-full h-12 px-4 pe-10 pt-2.5 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface cursor-pointer",
               error
                 ? "border-error focus:ring-2 focus:ring-error/20 focus:border-error"
                 : "border-border focus:ring-2 focus:ring-border-focus focus:border-border-focus",
               Icon && "ps-11",
-              type === "password" && "pe-11",
               disabled && "opacity-60 cursor-not-allowed",
-              InputClassName,
+              !value && "text-on-surface-muted",
+              SelectClassName,
             )}
-          />
+          >
+            {placeholder && (
+              <option
+                value=""
+                className="hover:bg-main! focus:bg-main! py-2 px-2"
+              >
+                {placeholder}
+              </option>
+            )}
+            {options.map((opt) => (
+              <option
+                key={opt.value}
+                value={opt.value}
+                className="hover:bg-main! focus:bg-main! py-2 px-2"
+              >
+                {opt.label}
+              </option>
+            ))}
+          </select>
 
-          {type === "password" && (
-            <button
-              type="button"
-              onClick={() => setShow(!show)}
-              className="absolute top-1/2 -translate-y-1/2 inset-e-4 text-xl text-on-surface-muted hover:text-on-surface transition-colors focus:outline-none"
-              aria-label={show ? "Hide password" : "Show password"}
-            >
-              {show ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          )}
+          <FaChevronDown className="absolute top-1/2 -translate-y-1/2 inset-e-4 text-sm text-on-surface-muted pointer-events-none " />
         </div>
 
         {error && (
@@ -129,6 +127,6 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
   },
 );
 
-CustomInput.displayName = "CustomInput";
+CustomSelect.displayName = "CustomSelect";
 
-export default CustomInput;
+export default CustomSelect;

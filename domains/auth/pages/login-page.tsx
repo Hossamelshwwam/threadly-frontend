@@ -7,7 +7,7 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 export default function LoginPage() {
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-[400px] flex flex-col items-center">
+      <div className="w-full max-w-100 flex flex-col items-center">
         {/* Hero Visual or Context */}
         <div className="mb-8 w-full text-center">
           <h1 className="font-sans text-3xl font-bold text-on-surface mb-2">
@@ -19,7 +19,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="w-full bg-surface-low p-8 rounded-lg border border-border shadow-sm">
+        <div className="w-full p-8 rounded-lg bg-white border border-zinc-200 shadow-sm">
           <LoginForm />
 
           <div className="flex justify-end mt-2">
@@ -34,10 +34,10 @@ export default function LoginPage() {
           {/* Social Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-surface-high"></div>
+              <div className="w-full border-t border-zinc-200"></div>
             </div>
             <div className="relative flex justify-center">
-              <span className="bg-surface-low px-4 text-xs font-medium text-on-surface-muted">
+              <span className="bg-white px-4 text-xs font-medium text-on-surface-muted">
                 Or continue with
               </span>
             </div>

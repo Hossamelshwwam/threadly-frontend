@@ -10,7 +10,7 @@ export function RoleBadge({ role }: { role: UserRole }) {
   return (
     <span
       className={cn(
-        "text-xs font-600 px-2 py-0.5 rounded-md border capitalize",
+        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
         styles[role],
       )}
     >

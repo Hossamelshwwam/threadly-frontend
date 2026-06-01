@@ -44,7 +44,7 @@ export function useRecentOrdersColumns() {
           return (
             <Link
               href={`/admin/orders/${id}`}
-              className="font-600 text-zinc-700 hover:text-main transition-colors font-mono text-xs"
+              className="font-semibold text-zinc-700 hover:text-main transition-colors font-mono text-xs"
             >
               #{id.slice(-6).toUpperCase()}
             </Link>
@@ -58,7 +58,7 @@ export function useRecentOrdersColumns() {
           const buyer = row.original.buyerId;
           return (
             <div>
-              <p className="font-500 text-zinc-800">{buyer?.name ?? "—"}</p>
+              <p className="font-medium text-zinc-800">{buyer?.name ?? "—"}</p>
               <p className="text-xs text-zinc-400">{buyer?.email ?? ""}</p>
             </div>
           );
@@ -70,7 +70,7 @@ export function useRecentOrdersColumns() {
         cell: ({ row }) => {
           const total = row.original.total;
           return (
-            <span className="font-600 text-zinc-800">
+            <span className="font-semibold text-zinc-800">
               EGP {total.toLocaleString()}
             </span>
           );
@@ -88,7 +88,7 @@ export function useRecentOrdersColumns() {
           return (
             <span
               className={cn(
-                "inline-flex items-center px-2 py-0.5 rounded-md text-xs font-600 border capitalize",
+                "inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold border capitalize",
                 status.className,
               )}
             >

@@ -26,7 +26,7 @@ export function useUserOrdersColumns() {
           return (
             <Link
               href={`/admin/orders/${id}`}
-              className="font-600 text-zinc-700 hover:text-amber-600 transition-colors font-mono text-xs"
+              className="font-semibold text-zinc-700 hover:text-amber-600 transition-colors font-mono text-xs"
             >
               #{id.slice(-6).toUpperCase()}
             </Link>
@@ -37,7 +37,7 @@ export function useUserOrdersColumns() {
         accessorKey: "total",
         header: "Amount",
         cell: ({ row }) => (
-          <span className="font-600 text-zinc-800">
+          <span className="font-semibold text-zinc-800">
             EGP {row.original.total.toLocaleString()}
           </span>
         ),
@@ -53,7 +53,7 @@ export function useUserOrdersColumns() {
           return (
             <span
               className={cn(
-                "text-xs font-600 px-2 py-0.5 rounded-md border capitalize",
+                "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
                 statusStyle,
               )}
             >
@@ -70,9 +70,9 @@ export function useUserOrdersColumns() {
           return (
             <span
               className={cn(
-                "text-xs font-600 px-2 py-0.5 rounded-md border capitalize",
+                "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
                 status === "paid"
-                  ? "bg-[#edf5f1] text-[#3d7a5e] border-[#3d7a5e33]"
+                  ? "bg-[#edf5f1] text-[#3d7a5e] border-success/30"
                   : "bg-zinc-100 text-zinc-600 border-zinc-200",
               )}
             >

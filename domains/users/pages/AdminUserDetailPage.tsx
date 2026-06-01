@@ -91,7 +91,7 @@ export default function AdminUserDetailPage({ id }: Props) {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
-        <p className="text-zinc-500 font-600 text-lg">User not found</p>
+        <p className="text-zinc-500 font-semibold text-lg">User not found</p>
         <Link href="/admin/users" className="mt-4">
           <CustomButton variant="outline" theme="neutral" size="sm">
             Back to Users

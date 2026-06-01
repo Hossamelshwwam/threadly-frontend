@@ -17,7 +17,7 @@ export function SellerBankDetails({ seller }: SellerBankDetailsProps) {
     <div className="bg-white border border-zinc-200 rounded-lg overflow-hidden flex flex-col font-sans">
       <div className="px-5 py-4 border-b border-zinc-100 flex items-center gap-2">
         <RiBankCardLine className="text-amber-500 text-base" />
-        <h2 className="text-base font-700 text-zinc-900">
+        <h2 className="text-base font-bold text-zinc-900">
           Settlement Account Configuration
         </h2>
       </div>
@@ -36,11 +36,11 @@ export function SellerBankDetails({ seller }: SellerBankDetailsProps) {
             key={item.label}
             className="bg-zinc-50 border border-zinc-100 rounded-md p-3.5 flex flex-col gap-1"
           >
-            <span className="text-[10px] font-600 text-zinc-400 uppercase tracking-widest">
+            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest">
               {item.label}
             </span>
             <p
-              className={`text-sm font-600 text-zinc-800 truncate ${item.className || ""}`}
+              className={`text-sm font-semibold text-zinc-800 truncate ${item.className || ""}`}
             >
               {item.value}
             </p>

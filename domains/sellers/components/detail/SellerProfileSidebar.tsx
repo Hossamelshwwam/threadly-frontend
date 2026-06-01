@@ -25,14 +25,14 @@ interface SellerProfileSidebarProps {
 
 function StatusBadge({ status }: { status: SellerProfile["status"] }) {
   const styles = {
-    approved: "bg-[#edf5f1] text-[#3d7a5e] border-[#3d7a5e33]",
+    approved: "bg-[#edf5f1] text-[#3d7a5e] border-success/30",
     pending: "bg-amber-50 text-amber-700 border-amber-200",
     suspended: "bg-[#fdf0ee] text-[#b03a2e] border-[#b03a2e33]",
   };
   return (
     <span
       className={cn(
-        "text-xs font-600 px-2 py-0.5 rounded-md border capitalize",
+        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
         styles[status],
       )}
     >
@@ -84,7 +84,7 @@ export function SellerProfileSidebar({
         {/* Info Metrics Fields Container */}
         <div className="px-6 pt-9 pb-6 space-y-4">
           <div>
-            <h2 className="text-lg font-700 text-zinc-900">
+            <h2 className="text-lg font-bold text-zinc-900">
               {seller.storeName}
             </h2>
             <p className="text-xs text-zinc-400 font-mono mt-0.5">
@@ -93,7 +93,7 @@ export function SellerProfileSidebar({
           </div>
 
           {seller.description && (
-            <p className="text-sm font-400 text-zinc-500 leading-relaxed bg-zinc-50 rounded-md p-3">
+            <p className="text-sm font-normal text-zinc-500 leading-relaxed bg-zinc-50 rounded-md p-3">
               {seller.description}
             </p>
           )}
@@ -129,10 +129,12 @@ export function SellerProfileSidebar({
                 key={label}
                 className="flex items-center justify-between py-2.5 border-b border-zinc-50 last:border-0"
               >
-                <span className="text-xs font-600 text-zinc-400 uppercase tracking-wider">
+                <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
                   {label}
                 </span>
-                <span className="text-sm font-500 text-zinc-700">{value}</span>
+                <span className="text-sm font-medium text-zinc-700">
+                  {value}
+                </span>
               </div>
             ))}
           </div>
@@ -141,7 +143,7 @@ export function SellerProfileSidebar({
 
       {/* Dynamic Structural Lifecycle Management Console Actions Card */}
       <div className="bg-white border border-zinc-200 rounded-lg p-5 space-y-4">
-        <p className="text-sm font-700 text-zinc-700">
+        <p className="text-sm font-bold text-zinc-700">
           Store Lifecycle Controls
         </p>
 
@@ -151,7 +153,6 @@ export function SellerProfileSidebar({
           placeholder="Append decision feedback statement note..."
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          InputClassName="bg-zinc-100 h-10 text-sm"
         />
 
         <div className="flex flex-col gap-2">
@@ -211,8 +212,8 @@ export function SellerProfileSidebar({
         </div>
 
         {seller.adminNote && (
-          <div className="text-xs font-500 text-zinc-500 border-t border-zinc-100 pt-3">
-            <span className="font-600 block text-zinc-400 uppercase tracking-wider mb-1">
+          <div className="text-xs font-medium text-zinc-500 border-t border-zinc-100 pt-3">
+            <span className="font-semibold block text-zinc-400 uppercase tracking-wider mb-1">
               Active Admin Note:
             </span>
             <p className="font-mono bg-zinc-50 border border-zinc-100 rounded-md p-2 italic">

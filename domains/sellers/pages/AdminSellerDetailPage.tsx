@@ -69,7 +69,7 @@ export default function AdminSellerDetailPage({ id }: Props) {
   if (!seller) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center font-sans">
-        <p className="text-zinc-500 font-600 text-lg">
+        <p className="text-zinc-500 font-semibold text-lg">
           Seller profile data not found
         </p>
         <Link href="/admin/sellers" className="mt-4">

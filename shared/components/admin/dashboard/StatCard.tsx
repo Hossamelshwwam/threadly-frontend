@@ -70,7 +70,7 @@ export function StatCard({
       {trend && (
         <p
           className={cn(
-            "text-xs font-500",
+            "text-xs font-medium",
             accent
               ? "text-amber-100"
               : trend.positive

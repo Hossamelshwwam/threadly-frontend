@@ -47,7 +47,7 @@ export function AdminHeader() {
           <span className="text-xs font-normal hidden sm:block text-zinc-500">
             Search...
           </span>
-          <span className="hidden sm:flex items-center gap-0.5 text-[10px] font-500 text-zinc-300">
+          <span className="hidden sm:flex items-center gap-0.5 text-[10px] font-medium text-zinc-300">
             <kbd className="px-1 py-0.5 rounded bg-zinc-100 border border-zinc-200">
               ⌘
             </kbd>
@@ -80,7 +80,7 @@ export function AdminHeader() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="h-px bg-zinc-100 my-1" />
 
-            <button className="w-full flex items-center gap-2 px-2 py-2 text-sm font-500 group text-zinc-800 rounded-md hover:bg-zinc-50 hover:text-zinc-950 outline-none cursor-pointer transition-colors">
+            <button className="w-full flex items-center gap-2 px-2 py-2 text-sm font-medium group text-zinc-800 rounded-md hover:bg-zinc-50 hover:text-zinc-950 outline-none cursor-pointer transition-colors">
               <RiUserLine className="text-zinc-400 text-base group-hover:text-zinc-600" />
               Profile
             </button>
