@@ -44,4 +44,27 @@ export const productsApi = {
     const { data } = await api.put(`/products/me/${id}`, payload);
     return data;
   },
+
+  uploadImages: async (
+    id: string,
+    files: File[],
+  ): Promise<ApiResponse<{ images: string[] }>> => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("images", file));
+
+    const { data } = await api.post(`/products/me/${id}/images`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return data;
+  },
+
+  deleteImage: async (
+    id: string,
+    imageUrl: string,
+  ): Promise<ApiResponse<{ images: string[] }>> => {
+    const { data } = await api.delete(`/products/me/${id}/images`, {
+      data: { imageUrl },
+    });
+    return data;
+  },
 };

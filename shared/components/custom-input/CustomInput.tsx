@@ -98,7 +98,7 @@ const CustomInput = forwardRef<HTMLInputElement, Props>(
             autoFocus={autoFocus}
             {...registerProps}
             className={cn(
-              "w-full h-12 px-4 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface placeholder:text-on-surface-muted",
+              "w-full h-10 px-4 border rounded bg-zinc-50 transition-all outline-none text-base text-on-surface placeholder:text-on-surface-muted",
               error
                 ? "border-error focus:ring-2 focus:ring-error/20 focus:border-error"
                 : "border-border focus:ring-2 focus:ring-border-focus focus:border-border-focus",

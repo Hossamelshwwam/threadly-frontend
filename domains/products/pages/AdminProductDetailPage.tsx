@@ -13,6 +13,8 @@ import { ProductInfoSidebar } from "../components/detail/ProductInfoSidebar";
 import { ProductAttributesCard } from "../components/detail/ProductAttributesCard";
 
 import CustomButton from "@/shared/components/custom-button/custom-button";
+import { ProductImagesManager } from "../components/detail/ProductImagesManager";
+import { ProductVariantsManager } from "../components/detail/ProductVariantsManager";
 
 function DetailSkeleton() {
   return (
@@ -98,39 +100,14 @@ export default function AdminProductDetailPage({ id }: Props) {
               </p>
             </div>
 
-            {/* Gallery Frame Layout */}
-            <div className="space-y-2">
-              <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                Asset Media Gallery Preview
-              </p>
-              {!product.data.images || product.data.images.length === 0 ? (
-                <div className="border border-dashed border-zinc-200 rounded-lg h-48 flex flex-col items-center justify-center bg-zinc-50 text-zinc-400 gap-1">
-                  <RiImageLine size={32} className="text-zinc-300" />
-                  <p className="text-xs font-medium">
-                    No asset media files attached yet.
-                  </p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {product.data.images.map((img, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square border border-zinc-200 rounded-md relative overflow-hidden bg-zinc-50 shadow-xs"
-                    >
-                      <Image
-                        src={img}
-                        alt={`Asset preview ${i + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* REPLACE the old static gallery grid preview box with the interactive manager component */}
+            <ProductImagesManager
+              productId={product.data._id}
+              images={product.data.images || []}
+            />
 
             <div className="border-t border-zinc-100 pt-4 space-y-1.5">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider block">
+              <span className="text-xs font-600 text-zinc-400 uppercase tracking-wider block">
                 Description
               </span>
               <p className="text-zinc-600 text-base leading-relaxed whitespace-pre-wrap">
@@ -138,6 +115,8 @@ export default function AdminProductDetailPage({ id }: Props) {
               </p>
             </div>
           </div>
+
+          <ProductVariantsManager productId={product.data._id} />
 
           <ProductAttributesCard attributes={product.data.attributes} />
         </div>
