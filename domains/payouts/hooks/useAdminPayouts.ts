@@ -1,6 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { payoutsApi } from "../api/payouts.api";
-import type { AdminPayoutsParams } from "../types/payout.types";
+import type {
+  AdminPayoutsParams,
+  AdminUpdatePayoutPayload,
+} from "../types/payout.types";
 
 export const payoutKeys = {
   all: ["payouts"] as const,
@@ -30,5 +33,27 @@ export function useAdminPayout(id: string) {
     queryKey: payoutKeys.adminDetail(id),
     queryFn: () => payoutsApi.adminGetPayout(id),
     enabled: !!id,
+  });
+}
+
+export function useAdminUpdatePayout() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string;
+      payload: AdminUpdatePayoutPayload;
+    }) => payoutsApi.adminUpdatePayout(id, payload), // Make sure to add adminUpdatePayout to your payoutsApi!
+    onSuccess: (_, variables) => {
+      // Refresh the specific payout and the general list stats
+      queryClient.invalidateQueries({
+        queryKey: payoutKeys.adminDetail(variables.id),
+      });
+      queryClient.invalidateQueries({ queryKey: payoutKeys.adminStats() });
+      queryClient.invalidateQueries({ queryKey: payoutKeys.adminList() });
+    },
   });
 }

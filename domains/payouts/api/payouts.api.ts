@@ -3,6 +3,8 @@ import type {
   PayoutStats,
   AdminPayoutsParams,
   Payout,
+  AdminUpdatePayoutPayload,
+  PaginatedPayoutsApiResponse,
 } from "../types/payout.types";
 
 export const payoutsApi = {
@@ -11,7 +13,9 @@ export const payoutsApi = {
     return data;
   },
 
-  adminListPayouts: async (params?: AdminPayoutsParams) => {
+  adminListPayouts: async (
+    params?: AdminPayoutsParams,
+  ): Promise<PaginatedPayoutsApiResponse> => {
     const { data } = await api.get("/payouts/admin", { params });
     return data;
   },
@@ -21,9 +25,9 @@ export const payoutsApi = {
     return data;
   },
 
-  adminUpdatePayoutStatus: async (
+  adminUpdatePayout: async (
     id: string,
-    payload: { status: "processing" | "paid" | "rejected"; adminNote?: string },
+    payload: AdminUpdatePayoutPayload,
   ): Promise<{ data: Payout }> => {
     const { data } = await api.patch(`/payouts/admin/${id}/status`, payload);
     return data;

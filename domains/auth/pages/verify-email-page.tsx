@@ -59,8 +59,8 @@ export default function EmailVerifiedPage() {
             Verification Failed
           </h1>
           <p className="text-base text-on-surface-muted leading-relaxed max-w-sm">
-            This link is invalid or has expired. Enter your email and we'll send
-            you a new verification link.
+            This link is invalid or has expired. Enter your email and we&apos;ll
+            send you a new verification link.
           </p>
 
           {/* Card */}
@@ -102,7 +102,7 @@ export default function EmailVerifiedPage() {
   // ── Success ──────────────────────────────────────────────
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-[400px] flex flex-col items-center text-center">
+      <div className="w-full max-w-100 flex flex-col items-center text-center">
         <div className="mb-8 w-20 h-20 rounded-full bg-main-subtle border border-amber-200 flex items-center justify-center shadow-main">
           <FiCheckCircle size={36} className="text-amber-500" />
         </div>
@@ -111,7 +111,8 @@ export default function EmailVerifiedPage() {
         </h1>
         <p className="text-base text-on-surface-muted leading-relaxed max-w-sm">
           Your account has been successfully verified. You now have full access
-          to Threadly's curated collections and exclusive marketplace features.
+          to Threadly&apos;s curated collections and exclusive marketplace
+          features.
         </p>
         <div className="mt-10 w-full">
           <Link href="/login" className="block">

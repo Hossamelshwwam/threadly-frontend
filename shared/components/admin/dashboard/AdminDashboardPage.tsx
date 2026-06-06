@@ -6,7 +6,7 @@ import {
   RiShoppingBag3Line,
   RiBankCardLine,
 } from "react-icons/ri";
-import { StatCard } from "@/shared/components/admin/dashboard/StatCard";
+import { StatCard } from "@/shared/components/admin/StatCard";
 import { RecentOrdersWidget } from "@/shared/components/admin/dashboard/RecentOrdersWidget";
 import { PendingSellersWidget } from "@/shared/components/admin/dashboard/PendingSellersWidget";
 import { PayoutStatsWidget } from "@/shared/components/admin/dashboard/PayoutStatsWidget";
@@ -96,7 +96,7 @@ export default function AdminDashboardPage() {
           }
           icon={RiBankCardLine}
           loading={payoutStatsLoading}
-          accent
+          variant="brand"
           trend={{
             label: `${pendingPayoutsCount} payout${pendingPayoutsCount !== 1 ? "s" : ""} awaiting`,
           }}
