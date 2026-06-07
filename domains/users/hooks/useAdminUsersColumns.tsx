@@ -16,6 +16,7 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
 import { RoleBadge } from "../components/RoleBadge";
 import { StatusBadge } from "../components/StatusBadge";
+import CustomAvatar from "@/shared/components/custom-avatar/CustomAvatar";
 
 // ── Hook Interface ───────────────────────────────────────────────────────────
 interface UseAdminUsersColumnsProps {
@@ -36,9 +37,10 @@ export default function useAdminUsersColumns({
           const user = row.original;
           return (
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm shrink-0">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
+              <CustomAvatar
+                fallback={user.name.charAt(0).toUpperCase()}
+                img={user.avatar}
+              />
               <div>
                 <p className="font-semibold text-zinc-800">{user.name}</p>
                 <p className="text-xs text-zinc-400">{user.email}</p>

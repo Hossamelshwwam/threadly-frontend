@@ -12,6 +12,7 @@ export interface UserProfile {
   isVerified: boolean;
   createdAt: string;
   updatedAt: string;
+  avatar?: string;
 }
 
 export interface AdminUserDetailResponse {

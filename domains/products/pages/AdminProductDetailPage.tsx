@@ -15,6 +15,7 @@ import { ProductAttributesCard } from "../components/detail/ProductAttributesCar
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ProductImagesManager } from "../components/detail/ProductImagesManager";
 import { ProductVariantsManager } from "../components/detail/ProductVariantsManager";
+import { ProductReviewsPanel } from "@/domains/reviews/components/admin/ProductReviewsPanel";
 
 function DetailSkeleton() {
   return (
@@ -119,6 +120,8 @@ export default function AdminProductDetailPage({ id }: Props) {
           <ProductVariantsManager productId={product.data._id} />
 
           <ProductAttributesCard attributes={product.data.attributes} />
+
+          <ProductReviewsPanel productId={product.data._id} />
         </div>
 
         {/* RIGHT COMPONENT COLUMN: Controls & Context Summary */}
