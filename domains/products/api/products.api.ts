@@ -1,5 +1,5 @@
 import { api } from "@/infrastructure/axios";
-import type { Product, AdminProductsParams } from "../types/product.types";
+import type { Product, ProductsParams } from "../types/product.types";
 import type {
   PaginatedApiResponse,
   ApiResponse,
@@ -11,7 +11,7 @@ import {
 
 export const productsApi = {
   adminListProducts: async (
-    params?: AdminProductsParams,
+    params?: ProductsParams,
   ): Promise<PaginatedApiResponse<Product>> => {
     const cleanParams = { ...params };
     if (cleanParams.status === "") delete cleanParams.status;

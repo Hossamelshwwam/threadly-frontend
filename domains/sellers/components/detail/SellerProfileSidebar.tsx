@@ -12,7 +12,7 @@ import type { SellerProfile } from "../../types/seller.types";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
-import { cn } from "@/shared/lib";
+import SellerStatusBadge from "../SellerStatusBadge";
 
 interface SellerProfileSidebarProps {
   seller: SellerProfile;
@@ -21,24 +21,6 @@ interface SellerProfileSidebarProps {
     status: "approved" | "suspended";
     adminNote?: string;
   }) => void;
-}
-
-function StatusBadge({ status }: { status: SellerProfile["status"] }) {
-  const styles = {
-    approved: "bg-[#edf5f1] text-[#3d7a5e] border-success/30",
-    pending: "bg-amber-50 text-amber-700 border-amber-200",
-    suspended: "bg-[#fdf0ee] text-[#b03a2e] border-[#b03a2e33]",
-  };
-  return (
-    <span
-      className={cn(
-        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
-        styles[status],
-      )}
-    >
-      {status}
-    </span>
-  );
 }
 
 export function SellerProfileSidebar({
@@ -104,7 +86,7 @@ export function SellerProfileSidebar({
               { label: "Owner Email", value: seller.userId?.email ?? "—" },
               {
                 label: "Status",
-                value: <StatusBadge status={seller.status} />,
+                value: <SellerStatusBadge status={seller.status} />,
               },
               {
                 label: "Rating",

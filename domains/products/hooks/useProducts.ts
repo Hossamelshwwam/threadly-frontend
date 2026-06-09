@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { productKeys } from "./useAdminProducts";
 import { productsApi } from "../api/products.api";
+import { productKeys } from "./useAdminProducts";
+import {
+  CreateProductInput,
+  UpdateProductInput,
+} from "../schemas/product.schema";
 
 export function useUploadProductImages() {
   const queryClient = useQueryClient();
@@ -27,6 +31,37 @@ export function useDeleteProductImage() {
       queryClient.invalidateQueries({
         queryKey: [...productKeys.all, "admin", "detail", variables.id],
       });
+      queryClient.invalidateQueries({ queryKey: productKeys.all });
+    },
+  });
+}
+
+export function useUpdateProduct() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string;
+      payload: UpdateProductInput;
+    }) => productsApi.updateProduct(id, payload),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: productKeys.all });
+      queryClient.invalidateQueries({
+        queryKey: [...productKeys.all, "admin", "detail", variables.id],
+      });
+    },
+  });
+}
+
+export function useCreateProduct() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: CreateProductInput) =>
+      productsApi.createProduct(payload),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productKeys.all });
     },
   });

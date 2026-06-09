@@ -7,12 +7,9 @@ import {
   useAdminProducts,
   useAdminForceArchiveProduct,
 } from "../hooks/useAdminProducts";
-import useAdminProductsColumns from "../hooks/useAdminProductsColumns";
+import useAdminProductsColumns from "../hooks/columns/useAdminProductsColumns";
 import { ProductFilterBar } from "../components/ProductFilterBar";
-import type {
-  ProductStatus,
-  AdminProductsParams,
-} from "../types/product.types";
+import type { ProductStatus, ProductsParams } from "../types/product.types";
 
 import CustomTable from "@/shared/components/custom-table/CustomTable";
 import { useAdminSellers } from "@/domains/sellers/hooks/useAdminSellers";
@@ -35,13 +32,13 @@ export default function AdminProductsPage() {
   }, [search]);
 
   // Aggregate active selection values
-  const params: AdminProductsParams = {
+  const params: ProductsParams = {
     search: debouncedSearch || undefined,
     status: statusFilter || undefined,
     category: categoryFilter || undefined,
     seller: sellerFilter || undefined,
     page,
-    limit: 20,
+    limit: 10,
   };
 
   // Fetch product collections data stream

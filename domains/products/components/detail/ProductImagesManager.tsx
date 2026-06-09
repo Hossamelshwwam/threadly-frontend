@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import {
   useUploadProductImages,
   useDeleteProductImage,
-} from "../../hooks/useProductImages";
+} from "../../hooks/useProducts";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
 
 interface ProductImagesManagerProps {

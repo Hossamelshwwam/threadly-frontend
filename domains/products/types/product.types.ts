@@ -1,5 +1,3 @@
-import type { PaginatedApiResponse } from "@/shared/types/api.types";
-
 export type ProductStatus = "draft" | "active" | "archived";
 
 export interface ProductAttribute {
@@ -22,7 +20,7 @@ export interface Product {
   updatedAt: string;
 }
 
-export interface AdminProductsParams {
+export interface ProductsParams {
   category?: string;
   seller?: string;
   status?: ProductStatus | "";

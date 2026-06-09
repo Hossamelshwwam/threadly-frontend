@@ -2,39 +2,37 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { RiArrowLeftLine } from "react-icons/ri";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { useCreateProduct } from "../hooks/useProducts";
-import { useAdminSellers } from "@/domains/sellers/hooks/useAdminSellers";
-import { useAdminCategories } from "@/domains/categories/hooks/useAdminCategories";
+import { useListCategories } from "@/domains/categories/hooks/useCategories";
 import {
   type CreateProductInput,
   createProductSchema,
 } from "../schemas/product.schema";
 
+// ♻️ Reusing the exact components from your Admin dashboard!
 import { ProductPrimarySpecsForm } from "../components/create/ProductPrimarySpecsForm";
 import { ProductAttributesForm } from "../components/create/ProductAttributesForm";
 import { ProductPublishSidebar } from "../components/create/ProductPublishSidebar";
 
-export default function AdminCreateProductPage() {
+export default function SellerCreateProductPage() {
   const { mutateAsync: createProductAsync, isPending } = useCreateProduct();
 
   const methods = useForm<CreateProductInput>({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       attributes: [],
-      status: "active",
+      status: "draft",
       sellerId: undefined,
     },
   });
 
-  const { data: sellersData } = useAdminSellers({ page: 1, limit: 100 });
-  const { data: categoriesData } = useAdminCategories({ page: 1, limit: 100 });
-
-  const sellers = sellersData?.data ?? [];
+  const { data: categoriesData } = useListCategories();
   const categories = categoriesData?.data ?? [];
 
   const currentAttributes = methods.watch("attributes") || [];
@@ -45,15 +43,16 @@ export default function AdminCreateProductPage() {
       description: data.description,
       basePrice: Number(data.basePrice),
       categoryId: data.categoryId,
-      sellerId: data.sellerId,
       status: data.status,
       attributes: data.attributes,
     };
 
     toast.promise(createProductAsync(payload), {
-      loading: "Publishing product listing core parameters...",
-      success:
-        "Product created successfully! Proceeding to upload asset images.",
+      loading: "Creating product...",
+      success: () => {
+        methods.reset();
+        return "Product created successfully.";
+      },
       error: (err: any) =>
         err?.response?.data?.message || "Failed to create product listing.",
     });
@@ -62,7 +61,7 @@ export default function AdminCreateProductPage() {
   return (
     <div className="space-y-6 font-sans max-w-6xl mx-auto pb-12">
       <Link
-        href="/admin/products"
+        href="/seller/products"
         className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-800 transition-colors w-fit"
       >
         <RiArrowLeftLine />
@@ -70,9 +69,14 @@ export default function AdminCreateProductPage() {
       </Link>
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-zinc-900">
-          Publish New Product
-        </h1>
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-900 leading-tight">
+            Add New Product
+          </h1>
+          <p className="text-sm text-zinc-500 mt-1">
+            Start by filling out the basic details.
+          </p>
+        </div>
       </div>
 
       <FormProvider {...methods}>
@@ -81,6 +85,7 @@ export default function AdminCreateProductPage() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start"
         >
           <div className="lg:col-span-2 space-y-4">
+            {/* Standardizing layout just like Admin */}
             <ProductPrimarySpecsForm categories={categories} />
 
             <ProductAttributesForm
@@ -91,7 +96,7 @@ export default function AdminCreateProductPage() {
             />
           </div>
 
-          <ProductPublishSidebar sellers={sellers} isPending={isPending} />
+          <ProductPublishSidebar isPending={isPending} enableSellers={false} />
         </form>
       </FormProvider>
     </div>

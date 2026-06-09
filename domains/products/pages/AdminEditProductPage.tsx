@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { useGetProduct } from "../hooks/useAdminProducts"; // adjusted to use your new hook
-import { useUpdateProduct } from "../hooks/useUpdateProduct";
+import { useUpdateProduct } from "../hooks/useProducts";
 import { useAdminSellers } from "@/domains/sellers/hooks/useAdminSellers";
 import { useAdminCategories } from "@/domains/categories/hooks/useAdminCategories";
 import {

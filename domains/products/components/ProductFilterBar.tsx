@@ -23,9 +23,10 @@ interface ProductFilterBarProps {
   onStatusChange: (val: ProductStatus | "") => void;
   selectedCategory: string;
   onCategoryChange: (val: string) => void;
-  selectedSeller: string;
-  onSellerChange: (val: string) => void;
-  sellers: SellerProfile[];
+  enableSeller?: boolean;
+  selectedSeller?: string;
+  onSellerChange?: (val: string) => void;
+  sellers?: SellerProfile[];
   categories: Category[];
 }
 
@@ -40,22 +41,22 @@ export function ProductFilterBar({
   onSellerChange,
   sellers,
   categories,
+  enableSeller = true,
 }: ProductFilterBarProps) {
   return (
     <div className="bg-white border border-zinc-200 rounded-lg p-4 space-y-4 font-sans shadow-xs">
       {/* Upper Layer: Core search input and drop-down selectors */}
       <div className="flex flex-col md:flex-row gap-3 items-end">
-        <div className="flex-1 w-full">
-          <CustomInput
-            name="search"
-            type="text"
-            label="Search Products"
-            placeholder="Search products by name or slug..."
-            Icon={RiSearchLine}
-            value={search}
-            onChange={(e) => onSearchChange(e.target.value)}
-          />
-        </div>
+        <CustomInput
+          name="search"
+          type="text"
+          label="Search Products"
+          placeholder="Search products by name or slug..."
+          Icon={RiSearchLine}
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="flex-1"
+        />
 
         {/* Category Filter Selector */}
         <CustomSelect
@@ -67,23 +68,25 @@ export function ProductFilterBar({
             value: cat._id,
           }))}
           value={selectedCategory}
-          className="w-full md:w-56"
+          className="flex-1"
           onChange={(e) => onCategoryChange(e.target.value)}
         />
 
         {/* Merchant Store Filter Selector */}
-        <CustomSelect
-          name="seller"
-          label="Seller"
-          placeholder="All Sellers"
-          options={sellers.map((seller) => ({
-            label: seller.storeName,
-            value: seller._id,
-          }))}
-          value={selectedSeller}
-          className="w-full md:w-56"
-          onChange={(e) => onSellerChange(e.target.value)}
-        />
+        {enableSeller && sellers && onSellerChange && (
+          <CustomSelect
+            name="seller"
+            label="Seller"
+            placeholder="All Sellers"
+            options={sellers.map((seller) => ({
+              label: seller.storeName,
+              value: seller._id,
+            }))}
+            value={selectedSeller}
+            className="flex-1"
+            onChange={(e) => onSellerChange(e.target.value)}
+          />
+        )}
       </div>
 
       {/* Lower Layer: Status Filter Badge Controls */}

@@ -7,29 +7,12 @@ import type { Product } from "../../types/product.types";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
 import { cn } from "@/shared/lib";
+import ProductStatusBadge from "../ProductStatusBadge";
 
 interface ProductInfoSidebarProps {
   product: Product;
   isArchiving: boolean;
   onForceArchive: (id: string) => Promise<any>;
-}
-
-function StatusBadge({ status }: { status: Product["status"] }) {
-  const styles = {
-    active: "bg-success-bg text-success border-success/30",
-    draft: "bg-zinc-100 text-zinc-600 border-zinc-200",
-    archived: "bg-error-bg text-error border-error/30",
-  };
-  return (
-    <span
-      className={cn(
-        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
-        styles[status],
-      )}
-    >
-      {status}
-    </span>
-  );
 }
 
 export function ProductInfoSidebar({
@@ -73,7 +56,7 @@ export function ProductInfoSidebar({
             },
             {
               label: "Publish Status",
-              value: <StatusBadge status={product.status} />,
+              value: <ProductStatusBadge status={product.status} />,
             },
             { label: "Category", value: categoryName },
             { label: "Seller Channel", value: storeName },

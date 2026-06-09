@@ -7,28 +7,10 @@ import Image from "next/image";
 import { RiEyeLine, RiArchiveDrawerLine, RiImageLine } from "react-icons/ri";
 import { toast } from "sonner";
 
-import type { Product } from "../types/product.types";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
-import { cn } from "@/shared/lib";
-
-function StatusBadge({ status }: { status: Product["status"] }) {
-  const styles = {
-    active: "bg-success-bg text-success border-success/30",
-    draft: "bg-zinc-100 text-zinc-600 border-zinc-200",
-    archived: "bg-error-bg text-error border-error/30",
-  };
-  return (
-    <span
-      className={cn(
-        "text-xs font-semibold px-2 py-0.5 rounded-md border capitalize",
-        styles[status],
-      )}
-    >
-      {status}
-    </span>
-  );
-}
+import { Product } from "../../types/product.types";
+import ProductStatusBadge from "../../components/ProductStatusBadge";
 
 interface UseAdminProductsColumnsProps {
   isArchiving: boolean;
@@ -120,7 +102,7 @@ export default function useAdminProductsColumns({
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => <StatusBadge status={row.original.status} />,
+        cell: ({ row }) => <ProductStatusBadge status={row.original.status} />,
       },
       {
         id: "actions",
@@ -139,40 +121,16 @@ export default function useAdminProductsColumns({
           };
 
           return (
-            <div className="flex items-center gap-1.5">
-              <Link href={`/admin/products/${product._id}`}>
-                <CustomButton
-                  variant="ghost"
-                  theme="neutral"
-                  size="sm"
-                  iconOnly
-                  rightIcon={<RiEyeLine />}
-                  title="View Product Details"
-                />
-              </Link>
-
-              {product.status !== "archived" && (
-                <ConfirmationDialog
-                  variant="danger"
-                  title="Force Archive Product"
-                  description={`Are you sure you want to globally archive "${product.name}"? It will immediately be hidden from the platform and sellers will be unable to unarchive it.`}
-                  confirmText="Force Archive"
-                  requireCheckbox
-                  checkboxLabel="I authorize archiving this item globally"
-                  isLoading={isArchiving}
-                  onConfirm={handleArchive}
-                >
-                  <CustomButton
-                    variant="ghost"
-                    theme="danger"
-                    size="sm"
-                    iconOnly
-                    rightIcon={<RiArchiveDrawerLine />}
-                    title="Force Archive"
-                  />
-                </ConfirmationDialog>
-              )}
-            </div>
+            <Link href={`/admin/products/${product._id}`}>
+              <CustomButton
+                variant="ghost"
+                theme="neutral"
+                size="sm"
+                iconOnly
+                rightIcon={<RiEyeLine />}
+                title="View Product Details"
+              />
+            </Link>
           );
         },
       },

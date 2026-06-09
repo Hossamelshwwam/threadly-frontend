@@ -54,12 +54,14 @@ export function PendingSellersWidget({
                 className="flex items-center gap-3 px-5 py-4 hover:bg-zinc-50/60 transition-colors"
               >
                 {/* Logo / placeholder */}
-                <div className="w-9 h-9 rounded-md bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 overflow-hidden">
+                <div className="w-9 h-9 rounded-md bg-amber-50 border border-amber-100 flex items-center justify-center overflow-hidden">
                   {seller.logo ? (
                     <Image
                       src={seller.logo}
                       alt={seller.storeName}
-                      className="w-full h-full object-cover"
+                      className="object-contain"
+                      width={24}
+                      height={24}
                     />
                   ) : (
                     <RiStoreLine className="text-amber-400 text-base" />

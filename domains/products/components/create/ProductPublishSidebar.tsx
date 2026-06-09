@@ -14,13 +14,15 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import { cn } from "@/shared/lib";
 
 interface ProductPublishSidebarProps {
-  sellers: SellerProfile[];
+  sellers?: SellerProfile[];
   isPending: boolean;
+  enableSellers?: boolean;
 }
 
 export function ProductPublishSidebar<T extends FieldValues>({
-  sellers,
+  sellers = [],
   isPending,
+  enableSellers = true,
 }: ProductPublishSidebarProps) {
   const {
     register,
@@ -36,17 +38,19 @@ export function ProductPublishSidebar<T extends FieldValues>({
           Ownership & Lifecycle
         </h2>
 
-        <CustomSelect
-          name="sellerId"
-          label="Assigned Merchant Store"
-          placeholder="Platform Direct (Threadly direct)"
-          options={sellers.map((seller) => ({
-            label: seller.storeName,
-            value: seller._id,
-          }))}
-          error={errors.sellerId?.message as string}
-          registerProps={register("sellerId" as Path<T>)}
-        />
+        {enableSellers && (
+          <CustomSelect
+            name="sellerId"
+            label="Assigned Merchant Store"
+            placeholder="Platform Direct (Threadly direct)"
+            options={sellers.map((seller) => ({
+              label: seller.storeName,
+              value: seller._id,
+            }))}
+            error={errors.sellerId?.message as string}
+            registerProps={register("sellerId" as Path<T>)}
+          />
+        )}
 
         <div className="flex flex-col">
           <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">

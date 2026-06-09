@@ -11,6 +11,11 @@ import type {
 } from "@/shared/types/api.types";
 
 export const categoriesApi = {
+  listCategories: async (): Promise<ApiResponse<Category[]>> => {
+    const { data } = await api.get("/categories");
+    return data;
+  },
+
   adminListFlat: async (
     params?: AdminCategoriesQueryParams,
   ): Promise<PaginatedApiResponse<Category>> => {
