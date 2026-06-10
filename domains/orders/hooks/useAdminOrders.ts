@@ -1,20 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ordersApi } from "../api/orders.api";
 import type {
-  AdminOrdersParams,
-  AdminUpdateOrderItemPayload,
+  OrdersParams,
+  UpdateOrderItemPayload,
   AdminUpdateOrderPayload,
 } from "../types/order.types";
 
 export const orderKeys = {
   all: ["orders"] as const,
-  adminList: (params?: AdminOrdersParams) =>
+  adminList: (params?: OrdersParams) =>
     [...orderKeys.all, "admin", "list", params] as const,
   adminDetail: (id: string) =>
     [...orderKeys.all, "admin", "detail", id] as const,
 };
 
-export function useAdminOrders(params?: AdminOrdersParams) {
+export function useAdminOrders(params?: OrdersParams) {
   return useQuery({
     queryKey: orderKeys.adminList(params),
     queryFn: () => ordersApi.adminListOrders(params),
@@ -61,7 +61,7 @@ export function useAdminUpdateOrderItem() {
     }: {
       orderId: string;
       itemId: string;
-      payload: AdminUpdateOrderItemPayload;
+      payload: UpdateOrderItemPayload;
     }) => ordersApi.adminUpdateOrderItem(orderId, itemId, payload),
     onSuccess: (_, variables) => {
       // Instantly refresh the order details page so the new tracking & status show up

@@ -3,7 +3,7 @@ import { sellerProductsApi } from "../api/seller-products.api";
 import { ProductsParams } from "../types/product.types";
 
 const sellerProductsKey = {
-  all: ["seller-products"],
+  all: ["products"],
   sellerList: (params?: ProductsParams) =>
     [...sellerProductsKey.all, "seller", "list", params] as const,
   sellerDetail: (id: string) =>

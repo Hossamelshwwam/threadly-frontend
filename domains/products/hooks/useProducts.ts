@@ -66,3 +66,13 @@ export function useCreateProduct() {
     },
   });
 }
+
+export function useArchiveProduct() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => productsApi.archiveProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+}

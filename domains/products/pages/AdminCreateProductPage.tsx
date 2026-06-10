@@ -15,9 +15,9 @@ import {
   createProductSchema,
 } from "../schemas/product.schema";
 
-import { ProductPrimarySpecsForm } from "../components/create/ProductPrimarySpecsForm";
-import { ProductAttributesForm } from "../components/create/ProductAttributesForm";
-import { ProductPublishSidebar } from "../components/create/ProductPublishSidebar";
+import { ProductPrimarySpecsForm } from "../components/admin-form/ProductPrimarySpecsForm";
+import { ProductAttributesForm } from "../components/admin-form/ProductAttributesForm";
+import { ProductPublishSidebar } from "../components/admin-form/ProductPublishSidebar";
 
 export default function AdminCreateProductPage() {
   const { mutateAsync: createProductAsync, isPending } = useCreateProduct();

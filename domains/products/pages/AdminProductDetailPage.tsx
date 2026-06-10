@@ -9,12 +9,12 @@ import {
   useAdminForceArchiveProduct,
   useGetProduct,
 } from "../hooks/useAdminProducts";
-import { ProductInfoSidebar } from "../components/detail/ProductInfoSidebar";
-import { ProductAttributesCard } from "../components/detail/ProductAttributesCard";
+import { ProductInfoSidebar } from "../components/admin-detail/ProductInfoSidebar";
+import { ProductAttributesCard } from "../components/admin-detail/ProductAttributesCard";
 
 import CustomButton from "@/shared/components/custom-button/custom-button";
-import { ProductImagesManager } from "../components/detail/ProductImagesManager";
-import { ProductVariantsManager } from "../components/detail/ProductVariantsManager";
+import { ProductImagesManager } from "../components/admin-detail/ProductImagesManager";
+import { ProductVariantsManager } from "../components/admin-detail/ProductVariantsManager";
 import { ProductReviewsPanel } from "@/domains/reviews/components/admin/ProductReviewsPanel";
 
 function DetailSkeleton() {

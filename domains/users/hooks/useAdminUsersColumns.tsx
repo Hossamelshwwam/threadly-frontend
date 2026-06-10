@@ -92,12 +92,13 @@ export default function useAdminUsersColumns({
             <div className="flex items-center gap-1.5">
               <Link href={`/admin/users/${user._id}`}>
                 <CustomButton
-                  variant="ghost"
+                  variant="soft"
                   theme="neutral"
                   size="sm"
-                  iconOnly
-                  rightIcon={<RiEyeLine />}
-                />
+                  leftIcon={<RiEyeLine />}
+                >
+                  View Details
+                </CustomButton>
               </Link>
 
               {user.isActive ? (

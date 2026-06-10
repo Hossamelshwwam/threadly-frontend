@@ -5,11 +5,11 @@ import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { RiEyeLine } from "react-icons/ri";
 
-import type { Order } from "../types/order.types";
+import type { Order } from "../../types/order.types";
 import {
   OrderStatusBadge,
   PaymentStatusBadge,
-} from "../components/list/OrderStatusBadge";
+} from "../../components/list/OrderStatusBadge";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 
 export function useAdminOrdersColumns() {
@@ -126,13 +126,13 @@ export function useAdminOrdersColumns() {
             <div className="flex items-center pr-2">
               <Link href={`/admin/orders/${order._id}`}>
                 <CustomButton
-                  variant="outline"
+                  variant="soft"
                   theme="neutral"
                   size="sm"
-                  className="h-8 gap-1.5 text-xs font-bold"
-                  leftIcon={<RiEyeLine size={14} />}
-                  iconOnly
-                />
+                  leftIcon={<RiEyeLine />}
+                >
+                  View Details
+                </CustomButton>
               </Link>
             </div>
           );

@@ -123,13 +123,13 @@ export default function useAdminProductsColumns({
           return (
             <Link href={`/admin/products/${product._id}`}>
               <CustomButton
-                variant="ghost"
+                variant="soft"
                 theme="neutral"
                 size="sm"
-                iconOnly
-                rightIcon={<RiEyeLine />}
-                title="View Product Details"
-              />
+                leftIcon={<RiEyeLine />}
+              >
+                View Details
+              </CustomButton>
             </Link>
           );
         },

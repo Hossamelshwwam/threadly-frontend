@@ -1,18 +1,18 @@
 import { api } from "@/infrastructure/axios";
 import type {
-  AdminOrdersParams,
+  OrdersParams,
   AdminOrdersResponse,
   Order,
   OrderItem,
   AdminUpdateOrderPayload,
-  AdminUpdateOrderItemPayload,
+  UpdateOrderItemPayload,
 } from "../types/order.types";
 import type { ApiResponse } from "@/shared/types/api.types";
 
 export const ordersApi = {
   // Admin: List all platform transactions with active filtrations
   adminListOrders: async (
-    params?: AdminOrdersParams,
+    params?: OrdersParams,
   ): Promise<AdminOrdersResponse> => {
     const cleanParams = { ...params };
     if (cleanParams.status === "") delete cleanParams.status;
@@ -43,7 +43,7 @@ export const ordersApi = {
   adminUpdateOrderItem: async (
     orderId: string,
     itemId: string,
-    payload: AdminUpdateOrderItemPayload,
+    payload: UpdateOrderItemPayload,
   ): Promise<ApiResponse<null>> => {
     const { data } = await api.put(
       `/orders/admin/items/${itemId}/status`,

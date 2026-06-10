@@ -11,6 +11,7 @@ export type PaymentStatus = "unpaid" | "paid" | "refunded";
 export type PaymentMethod = "credit_card" | "cash_on_delivery";
 
 export type OrderItemStatus =
+  | "pending"
   | "processing"
   | "shipped"
   | "delivered"
@@ -28,7 +29,7 @@ export type ShippingAddress = {
 
 export interface OrderItem {
   _id: string;
-  orderId: string;
+  orderId: string | Partial<Order>;
   color: string;
   size: string;
   inventoryId: string;
@@ -80,9 +81,16 @@ export interface AdminOrdersResponse {
   };
 }
 
-export interface AdminOrdersParams {
+export interface OrdersParams {
   status?: OrderStatus | "";
   paymentStatus?: PaymentStatus | "";
+  from?: string;
+  to?: string;
+  page?: number;
+  limit?: number;
+}
+export interface OrdersItemsParams {
+  status?: OrderItemStatus | "";
   from?: string;
   to?: string;
   page?: number;
@@ -94,7 +102,7 @@ export interface AdminUpdateOrderPayload {
   paymentStatus?: PaymentStatus;
 }
 
-export interface AdminUpdateOrderItemPayload {
+export interface UpdateOrderItemPayload {
   status?: OrderItemStatus;
   trackingNumber?: string;
 }

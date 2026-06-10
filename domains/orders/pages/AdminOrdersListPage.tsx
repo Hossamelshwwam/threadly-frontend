@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { RiShoppingBag3Line, RiListCheck } from "react-icons/ri";
 
 import { useAdminOrders } from "../hooks/useAdminOrders";
-import { useAdminOrdersColumns } from "../hooks/useAdminOrdersColumns";
+import { useAdminOrdersColumns } from "../hooks/columns/useAdminOrdersColumns";
 import {
   OrdersFilterBar,
   type OrderFiltersState,
 } from "../components/OrdersFilterBar";
-import type { AdminOrdersParams } from "../types/order.types";
+import type { OrdersParams } from "../types/order.types";
 import CustomTable from "@/shared/components/custom-table/CustomTable";
 
 export default function AdminOrdersListPage() {
@@ -25,7 +25,7 @@ export default function AdminOrdersListPage() {
   const limit = 20;
 
   // Aggregate API parameters using the active (applied) filters only
-  const params: AdminOrdersParams = {
+  const params: OrdersParams = {
     status: activeFilters.status || undefined,
     paymentStatus: activeFilters.paymentStatus || undefined,
     from: activeFilters.from || undefined,

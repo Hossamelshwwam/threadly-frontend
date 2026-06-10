@@ -129,12 +129,13 @@ export default function useAdminSellersColumns({
             <div className="flex items-center gap-1.5">
               <Link href={`/admin/sellers/${seller._id}`}>
                 <CustomButton
-                  variant="ghost"
+                  variant="soft"
                   theme="neutral"
                   size="sm"
-                  iconOnly
-                  rightIcon={<RiEyeLine />}
-                />
+                  leftIcon={<RiEyeLine />}
+                >
+                  View Details
+                </CustomButton>
               </Link>
 
               {seller.status !== "approved" && (

@@ -112,13 +112,13 @@ export function useAdminPayoutsColumns() {
             <div className="flex items-center">
               <Link href={`/admin/payouts/${payout._id}`}>
                 <CustomButton
-                  variant="outline"
+                  variant="soft"
                   theme="neutral"
                   size="sm"
-                  className="h-8 gap-1.5 text-xs font-bold"
-                  leftIcon={<RiEyeLine size={14} />}
-                  iconOnly
-                />
+                  leftIcon={<RiEyeLine />}
+                >
+                  View Details
+                </CustomButton>
               </Link>
             </div>
           );

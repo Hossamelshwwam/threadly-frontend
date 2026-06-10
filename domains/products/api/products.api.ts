@@ -25,6 +25,11 @@ export const productsApi = {
     return data;
   },
 
+  archiveProduct: async (id: string): Promise<ApiResponse<null>> => {
+    const { data } = await api.delete(`/products/me/${id}`);
+    return data;
+  },
+
   createProduct: async (
     payload: CreateProductInput,
   ): Promise<ApiResponse<Product>> => {

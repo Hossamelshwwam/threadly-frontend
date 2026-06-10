@@ -58,7 +58,8 @@ interface OrderItemStatusBadgeProps {
 
 export function OrderItemStatusBadge({ status }: OrderItemStatusBadgeProps) {
   const styles: Record<OrderItemStatus, string> = {
-    processing: "bg-zinc-100 text-zinc-500 border-zinc-200",
+    pending: "bg-zinc-100 text-zinc-500 border-zinc-200",
+    processing: "bg-warning-bg text-warning border-warning/20",
     shipped: "bg-blue-50 text-blue-600 border-blue-200",
     delivered: "bg-success-bg text-success border-success/20",
     cancelled: "bg-error-bg text-error border-error/20",
