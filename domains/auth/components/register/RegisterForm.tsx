@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FaArrowRight } from "react-icons/fa";
+import { RiArrowRightLine } from "react-icons/ri";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import useRegisterSchema, {
@@ -80,7 +80,7 @@ export default function RegisterForm() {
       <CustomButton
         type="submit"
         className="mt-2"
-        rightIcon={<FaArrowRight size={10} />}
+        rightIcon={<RiArrowRightLine size={12} />}
         variant="solid"
         theme="primary"
         loading={isPending}

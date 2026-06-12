@@ -48,8 +48,9 @@ export function SellerLogoDropzone({ currentLogo }: { currentLogo?: string }) {
               <Image
                 src={displayImage}
                 alt="Store Logo"
-                fill
-                className="object-cover"
+                width={52}
+                height={52}
+                className="object-contain h-auto w-auto"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <RiImageAddLine className="text-white text-xl" />

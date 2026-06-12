@@ -46,7 +46,7 @@ export function SellerBannerDropzone({
 
       <div
         onClick={() => !isPending && fileInputRef.current?.click()}
-        className={`relative w-full h-40 sm:h-48 rounded-xl border-2 border-dashed border-zinc-200 bg-zinc-50 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-amber-400 transition-colors group ${isPending ? "opacity-50 pointer-events-none" : ""}`}
+        className={`relative w-ful h-32 rounded-xl border-2 border-dashed border-zinc-200 bg-zinc-50 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-amber-400 transition-colors group ${isPending ? "opacity-50 pointer-events-none" : ""}`}
       >
         {isPending ? (
           <div className="flex flex-col items-center gap-2 text-amber-500">
@@ -58,7 +58,8 @@ export function SellerBannerDropzone({
             <Image
               src={displayImage}
               alt="Store Banner"
-              fill
+              width={500}
+              height={128}
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

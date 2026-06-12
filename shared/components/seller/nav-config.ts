@@ -4,6 +4,7 @@ import {
   RiFileList3Line,
   RiWallet3Line,
   RiStore2Line,
+  RiMessage2Line,
 } from "react-icons/ri";
 import { IconType } from "react-icons";
 
@@ -33,6 +34,11 @@ export const sellerNavItems: SellerNavItem[] = [
     label: "Earnings & Payouts",
     href: "/seller/payouts",
     icon: RiWallet3Line,
+  },
+  {
+    label: "My Reviews",
+    href: "/seller/reviews",
+    icon: RiMessage2Line,
   },
   {
     label: "Store Profile",

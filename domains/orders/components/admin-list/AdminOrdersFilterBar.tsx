@@ -11,7 +11,7 @@ import {
 import { cn } from "@/shared/lib";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import CustomButton from "@/shared/components/custom-button/custom-button";
-import type { OrderStatus, PaymentStatus } from "../types/order.types";
+import type { OrderStatus, PaymentStatus } from "../../types/order.types";
 
 const STATUS_FILTERS: { label: string; value: OrderStatus | "" }[] = [
   { label: "All Statuses", value: "" },
@@ -30,27 +30,27 @@ const PAYMENT_FILTERS: { label: string; value: PaymentStatus | "" }[] = [
   { label: "Refunded", value: "refunded" },
 ];
 
-export interface OrderFiltersState {
+export interface AdminOrderFiltersState {
   status: OrderStatus | "";
   paymentStatus: PaymentStatus | "";
   from: string;
   to: string;
 }
 
-interface OrdersFilterBarProps {
-  initialFilters: OrderFiltersState;
-  onApply: (filters: OrderFiltersState) => void;
+interface AdminOrdersFilterBarProps {
+  initialFilters: AdminOrderFiltersState;
+  onApply: (filters: AdminOrderFiltersState) => void;
   onReset: () => void;
 }
 
-export function OrdersFilterBar({
+export function AdminOrdersFilterBar({
   initialFilters,
   onApply,
   onReset,
-}: OrdersFilterBarProps) {
+}: AdminOrdersFilterBarProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [localFilters, setLocalFilters] =
-    useState<OrderFiltersState>(initialFilters);
+    useState<AdminOrderFiltersState>(initialFilters);
 
   // Evaluates if any active configuration parameters deviate from baseline default properties
   const activeFiltersCount = [

@@ -13,20 +13,19 @@ export default function SellerLayout({
 }) {
   const pathname = usePathname();
   const isOnboarding = pathname === "/seller/onboarding";
+  const isPendingApproval = pathname === "/seller/pending-approval";
+  const hideLayout = isOnboarding || isPendingApproval;
 
   return (
     <SellerGuard>
       <div className="min-h-screen flex bg-zinc-50">
-        {/* Hide Sidebar during the onboarding process */}
-        {!isOnboarding && <SellerSidebar />}
+        {!hideLayout && <SellerSidebar />}
 
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Hide Header during the onboarding process */}
-          {!isOnboarding && <SellerHeader />}
+          {!hideLayout && <SellerHeader />}
 
-          {/* If onboarding, center it nicely. If dashboard, standard padding */}
           <main
-            className={`flex-1 overflow-y-auto ${isOnboarding ? "p-4" : "p-6 sm:p-8"}`}
+            className={`flex-1 overflow-y-auto ${hideLayout ? "p-4" : "p-6 sm:p-8"}`}
           >
             {children}
           </main>

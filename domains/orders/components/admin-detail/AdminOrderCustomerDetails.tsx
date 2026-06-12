@@ -4,7 +4,7 @@ import React from "react";
 import { RiUserLine, RiMapPinLine, RiBankCardLine } from "react-icons/ri";
 import type { Order } from "../../types/order.types";
 
-export function OrderCustomerDetails({ order }: { order: Order }) {
+export function AdminOrderCustomerDetails({ order }: { order: Order }) {
   return (
     <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-xs font-sans">
       <div className="px-5 py-4 border-b border-zinc-100 bg-zinc-50/50">

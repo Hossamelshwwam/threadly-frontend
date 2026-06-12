@@ -48,3 +48,32 @@ export interface GetProductReviewsParams {
   page?: number;
   limit?: number;
 }
+
+// --- Seller-specific types ---
+
+export interface SellerReview extends Omit<Review, "productId" | "sellerId"> {
+  productId: {
+    _id: string;
+    name: string;
+    images?: string[];
+  };
+  sellerId: string;
+}
+
+export type SortOption = "newest" | "oldest" | "rating_asc" | "rating_desc";
+
+export interface SellerReviewsParams {
+  rating?: number;
+  sort?: SortOption;
+  page?: number;
+  limit?: number;
+}
+
+export type SellerReviewsResponse = ApiResponse<SellerReview[]> & {
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    pages: number;
+  };
+};

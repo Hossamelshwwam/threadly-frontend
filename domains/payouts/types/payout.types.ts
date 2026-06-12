@@ -75,3 +75,43 @@ export interface AdminUpdatePayoutPayload {
   status: PayoutStatus;
   adminNote?: string;
 }
+
+// --- Seller-specific types ---
+
+export interface SellerPayoutSummary {
+  totalEarned: number;
+  totalFees: number;
+  totalNet: number;
+  totalPaid: number;
+  totalPending: number;
+  totalProcessing: number;
+}
+
+export interface SellerPayoutsParams {
+  status?: PayoutStatus | "";
+  from?: string;
+  to?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface SellerPayoutsResponse {
+  success: boolean;
+  message?: string;
+  data: {
+    payouts: Payout[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      pages: number;
+    };
+    summary: SellerPayoutSummary;
+  };
+}
+
+export interface SellerPayoutDetailResponse {
+  success: boolean;
+  message?: string;
+  data: Payout;
+}

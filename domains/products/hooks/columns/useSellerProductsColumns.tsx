@@ -34,7 +34,8 @@ export default function useSellerProductsColumns() {
                   <Image
                     src={mainImage}
                     alt={product.name}
-                    fill
+                    width={40}
+                    height={40}
                     className="object-cover"
                   />
                 ) : (

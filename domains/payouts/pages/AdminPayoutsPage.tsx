@@ -16,7 +16,7 @@ import {
 } from "../components/PayoutsFilterBar";
 import type { AdminPayoutsParams } from "../types/payout.types";
 import CustomTable from "@/shared/components/custom-table/CustomTable";
-import { StatCard } from "@/shared/components/admin/StatCard";
+import { StatCard } from "@/shared/components/StatCard";
 
 export default function AdminPayoutsPage() {
   const [activeFilters, setActiveFilters] = useState<PayoutFiltersState>({

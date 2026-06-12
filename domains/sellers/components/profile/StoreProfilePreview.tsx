@@ -139,11 +139,12 @@ export function StoreProfilePreview({
                 <Image
                   src={store.logo}
                   alt="Logo"
-                  fill
-                  className="object-cover"
+                  width={40}
+                  height={40}
+                  className="object-contain w-auto h-auto"
                 />
               ) : (
-                <span className="text-2xl font-black text-zinc-300">
+                <span className="text-2xl  font-black text-zinc-300">
                   {storeInitial}
                 </span>
               )}
@@ -160,7 +161,9 @@ export function StoreProfilePreview({
                 <Image
                   src={store.banner}
                   alt="Banner"
-                  fill
+                  width={500}
+                  height={132}
+                  loading="eager"
                   className="object-cover"
                 />
               ) : (

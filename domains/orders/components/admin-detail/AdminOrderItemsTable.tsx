@@ -2,14 +2,17 @@
 
 import React, { useState } from "react";
 import type { Order, OrderItem } from "../../types/order.types";
-import { OrderItemRow } from "./OrderItemRow";
+import { AdminOrderItemRow } from "./AdminOrderItemRow";
 
-interface OrderItemsTableProps {
+interface AdminOrderItemsTableProps {
   items: OrderItem[];
   order: Order;
 }
 
-export function OrderItemsTable({ items, order }: OrderItemsTableProps) {
+export function AdminOrderItemsTable({
+  items,
+  order,
+}: AdminOrderItemsTableProps) {
   // State to track which item is currently being edited (ensures only 1 at a time)
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
@@ -31,7 +34,7 @@ export function OrderItemsTable({ items, order }: OrderItemsTableProps) {
       {/* Items List (Delegated to OrderItemRow) */}
       <div className="divide-y divide-zinc-100">
         {items.map((item) => (
-          <OrderItemRow
+          <AdminOrderItemRow
             key={item._id}
             item={item}
             orderId={order._id}

@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export const AuthHeader = () => {
   return (
-    <header className="w-full flex justify-center py-6 bg-surface border-b border-border-subtle">
+    <header className="w-full flex justify-center py-6 bg-white border-b border-zinc-200">
       <Link
         href="/"
-        className="font-sans text-3xl font-black tracking-tight text-on-surface"
+        className="text-3xl font-black tracking-tight text-zinc-900"
       >
         Threadly
       </Link>

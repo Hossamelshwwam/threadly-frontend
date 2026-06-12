@@ -8,7 +8,7 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import { useAdminUpdateOrderItem } from "../../hooks/useAdminOrders";
 import type { OrderItem, OrderItemStatus } from "../../types/order.types";
-import { OrderItemStatusBadge } from "../list/OrderStatusBadge";
+import { OrderItemStatusBadge } from "../OrderStatusBadge";
 
 const STATUS_TRANSITIONS: Record<string, string[]> = {
   pending: ["processing", "cancelled"],
@@ -16,17 +16,17 @@ const STATUS_TRANSITIONS: Record<string, string[]> = {
   shipped: ["delivered"],
 };
 
-interface OrderItemEditFormProps {
+interface AdminOrderItemEditFormProps {
   orderId: string;
   item: OrderItem;
   onCancel: () => void;
 }
 
-export function OrderItemEditForm({
+export function AdminOrderItemEditForm({
   orderId,
   item,
   onCancel,
-}: OrderItemEditFormProps) {
+}: AdminOrderItemEditFormProps) {
   const { mutateAsync: updateOrderItem, isPending } = useAdminUpdateOrderItem();
 
   // State initializes directly from the item.

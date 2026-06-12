@@ -5,10 +5,10 @@ import Image from "next/image";
 import { RiImageLine, RiEdit2Line, RiTruckLine } from "react-icons/ri";
 import { cn } from "@/shared/lib";
 import type { OrderItem } from "../../types/order.types";
-import { OrderItemStatusBadge } from "../list/OrderStatusBadge";
-import { OrderItemEditForm } from "./OrderItemEditForm";
+import { OrderItemStatusBadge } from "../OrderStatusBadge";
+import { AdminOrderItemEditForm } from "./AdminOrderItemEditForm";
 
-interface OrderItemRowProps {
+interface AdminOrderItemRowProps {
   item: OrderItem;
   orderId: string;
   isEditing: boolean;
@@ -16,13 +16,13 @@ interface OrderItemRowProps {
   onEditCancel: () => void;
 }
 
-export function OrderItemRow({
+export function AdminOrderItemRow({
   item,
   orderId,
   isEditing,
   onEditStart,
   onEditCancel,
-}: OrderItemRowProps) {
+}: AdminOrderItemRowProps) {
   return (
     <div
       className={cn(
@@ -120,7 +120,7 @@ export function OrderItemRow({
 
       {/* Render isolated Form Component cleanly */}
       {isEditing && (
-        <OrderItemEditForm
+        <AdminOrderItemEditForm
           orderId={orderId}
           item={item}
           onCancel={onEditCancel}

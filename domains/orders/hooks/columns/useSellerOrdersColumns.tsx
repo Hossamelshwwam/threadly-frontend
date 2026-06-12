@@ -11,7 +11,7 @@ import { OrderItem } from "../../types/order.types";
 import {
   OrderItemStatusBadge,
   OrderStatusBadge,
-} from "../../components/list/OrderStatusBadge";
+} from "../../components/OrderStatusBadge";
 
 export default function useSellerOrdersColumns() {
   const columns = useMemo<ColumnDef<OrderItem>[]>(
@@ -30,7 +30,8 @@ export default function useSellerOrdersColumns() {
                   <Image
                     src={product.images[0]}
                     alt="Product"
-                    fill
+                    width={40}
+                    height={40}
                     className="object-cover"
                   />
                 ) : (

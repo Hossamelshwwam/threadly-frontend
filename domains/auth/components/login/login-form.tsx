@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FaArrowRight } from "react-icons/fa";
+import { RiArrowRightLine } from "react-icons/ri";
 import useLoginSchema, {
   LoginSchemaType,
 } from "@/domains/auth/schemas/useLoginSchema";
@@ -53,7 +53,7 @@ export default function LoginForm() {
       <CustomButton
         type="submit"
         className="mt-4"
-        rightIcon={<FaArrowRight size={10} />}
+        rightIcon={<RiArrowRightLine size={12} />}
         variant="solid"
         theme="primary"
         loading={isPending}

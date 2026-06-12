@@ -13,19 +13,19 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
 import { useAdminUpdateOrderStatus } from "../../hooks/useAdminOrders";
 import type { OrderStatus, PaymentStatus } from "../../types/order.types";
-import { OrderStatusBadge, PaymentStatusBadge } from "../list/OrderStatusBadge";
+import { OrderStatusBadge, PaymentStatusBadge } from "../OrderStatusBadge";
 
-interface OrderStatusManagerProps {
+interface AdminOrderStatusManagerProps {
   orderId: string;
   currentStatus: OrderStatus;
   currentPaymentStatus: PaymentStatus;
 }
 
-export function OrderStatusManager({
+export function AdminOrderStatusManager({
   orderId,
   currentStatus,
   currentPaymentStatus,
-}: OrderStatusManagerProps) {
+}: AdminOrderStatusManagerProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [status, setStatus] = useState<OrderStatus>(currentStatus);
   const [paymentStatus, setPaymentStatus] =

@@ -37,8 +37,8 @@ export function SellerProductAttributes({
   return (
     <div className="bg-white border border-zinc-100 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm font-sans">
       <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-        <div className="p-2 bg-blue-50 rounded-lg">
-          <RiListSettingsLine className="text-blue-500 text-xl" />
+        <div className="p-2 bg-main-subtle rounded-lg">
+          <RiListSettingsLine className="text-main text-xl" />
         </div>
         <div>
           <h2 className="text-lg font-bold text-zinc-900 tracking-tight">
@@ -75,7 +75,7 @@ export function SellerProductAttributes({
           <CustomButton
             type="button"
             variant="solid"
-            theme="neutral"
+            theme="primary"
             size="sm"
             className="rounded-xl"
             leftIcon={<RiAddLine />}

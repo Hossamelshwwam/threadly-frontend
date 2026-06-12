@@ -153,6 +153,8 @@ const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const isDisabled = disabled || loading;
 
+    console.log(loading);
+
     return (
       <button
         ref={ref}

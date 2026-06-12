@@ -9,7 +9,7 @@ import type { Order } from "../../types/order.types";
 import {
   OrderStatusBadge,
   PaymentStatusBadge,
-} from "../../components/list/OrderStatusBadge";
+} from "../../components/OrderStatusBadge";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 
 export function useAdminOrdersColumns() {

@@ -6,7 +6,7 @@ import {
   RiShoppingBag3Line,
   RiBankCardLine,
 } from "react-icons/ri";
-import { StatCard } from "@/shared/components/admin/StatCard";
+import { StatCard } from "@/shared/components/StatCard";
 import { RecentOrdersWidget } from "@/shared/components/admin/dashboard/RecentOrdersWidget";
 import { PendingSellersWidget } from "@/shared/components/admin/dashboard/PendingSellersWidget";
 import { PayoutStatsWidget } from "@/shared/components/admin/dashboard/PayoutStatsWidget";

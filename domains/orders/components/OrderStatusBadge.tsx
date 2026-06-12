@@ -1,11 +1,8 @@
-"use client";
-
-import React from "react";
 import type {
   OrderStatus,
   PaymentStatus,
   OrderItemStatus,
-} from "../../types/order.types";
+} from "../types/order.types";
 
 interface StatusBadgeProps {
   status: OrderStatus;

@@ -1,7 +1,6 @@
-// domains/products/components/seller-detail/SellerProductImages.tsx
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import {
   RiUploadCloud2Fill,
@@ -59,8 +58,15 @@ export function SellerProductImages({ productId, images = [] }: Props) {
     <div className="space-y-4">
       {/* Featured Cover Image */}
       {mainImage ? (
-        <div className="w-full aspect-[16/9] md:aspect-[21/9] relative rounded-xl overflow-hidden border border-zinc-100 group shadow-sm bg-zinc-50">
-          <Image src={mainImage} alt="Cover" fill className="object-contain" />
+        <div className="w-full aspect-video md:aspect-21/9 relative rounded-xl overflow-hidden border border-zinc-100 group shadow-sm bg-zinc-50">
+          <Image
+            src={mainImage}
+            alt="Cover"
+            className="object-contain"
+            fill
+            loading="eager"
+            sizes="(max-width: 768px) 50vw, 50vw"
+          />
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
             <ConfirmationDialog
               onConfirm={() => handleDelete(mainImage)}
@@ -79,7 +85,7 @@ export function SellerProductImages({ productId, images = [] }: Props) {
           </div>
         </div>
       ) : (
-        <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-xl border-2 border-dashed border-zinc-200 bg-zinc-50 flex flex-col items-center justify-center text-zinc-400">
+        <div className="w-full aspect-video md:aspect-21/9 rounded-xl border-2 border-dashed border-zinc-200 bg-zinc-50 flex flex-col items-center justify-center text-zinc-400">
           <RiUploadCloud2Fill size={40} className="text-zinc-300 mb-2" />
           <p className="text-sm font-medium">No cover image uploaded</p>
         </div>
@@ -90,12 +96,13 @@ export function SellerProductImages({ productId, images = [] }: Props) {
         {thumbnails.map((img, i) => (
           <div
             key={i}
-            className="min-w-[100px] w-[100px] aspect-square relative rounded-lg overflow-hidden border border-zinc-200 group flex-shrink-0"
+            className="min-w-25 w-25 aspect-square relative rounded-lg overflow-hidden border border-zinc-200 group shrink-0"
           >
             <Image
               src={img}
               alt={`Thumbnail ${i}`}
               fill
+              sizes="100%"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -122,7 +129,7 @@ export function SellerProductImages({ productId, images = [] }: Props) {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading || isDeleting}
-            className="min-w-[100px] w-[100px] aspect-square rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 hover:bg-amber-50 hover:border-amber-300 transition-colors flex flex-col items-center justify-center gap-1 text-zinc-500 hover:text-amber-600 disabled:opacity-50 flex-shrink-0 cursor-pointer"
+            className="min-w-25 w-25 aspect-square rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 hover:bg-amber-50 hover:border-amber-300 transition-colors flex flex-col items-center justify-center gap-1 text-zinc-500 hover:text-amber-600 disabled:opacity-50 flex-shrink-0 cursor-pointer"
           >
             {isUploading ? (
               <RiLoader4Line className="animate-spin text-2xl" />

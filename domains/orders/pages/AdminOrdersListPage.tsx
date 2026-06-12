@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { RiShoppingBag3Line, RiListCheck } from "react-icons/ri";
+import { RiShoppingBag3Line } from "react-icons/ri";
 
 import { useAdminOrders } from "../hooks/useAdminOrders";
 import { useAdminOrdersColumns } from "../hooks/columns/useAdminOrdersColumns";
 import {
-  OrdersFilterBar,
-  type OrderFiltersState,
-} from "../components/OrdersFilterBar";
+  AdminOrdersFilterBar,
+  type AdminOrderFiltersState,
+} from "../components/admin-list/AdminOrdersFilterBar";
 import type { OrdersParams } from "../types/order.types";
 import CustomTable from "@/shared/components/custom-table/CustomTable";
 
 export default function AdminOrdersListPage() {
   // Master state containing applied filters
-  const [activeFilters, setActiveFilters] = useState<OrderFiltersState>({
+  const [activeFilters, setActiveFilters] = useState<AdminOrderFiltersState>({
     status: "",
     paymentStatus: "",
     from: "",
@@ -42,7 +42,7 @@ export default function AdminOrdersListPage() {
   const columns = useAdminOrdersColumns();
 
   // Handlers for the Action Buttons inside the Filter Bar
-  const handleApplyFilters = (newFilters: OrderFiltersState) => {
+  const handleApplyFilters = (newFilters: AdminOrderFiltersState) => {
     setActiveFilters(newFilters);
     setPage(1); // Always reset pagination on a fresh query
   };
@@ -55,7 +55,7 @@ export default function AdminOrdersListPage() {
   return (
     <div className="space-y-6 font-sans">
       {/* Draft-State Filter Parameters Bar */}
-      <OrdersFilterBar
+      <AdminOrdersFilterBar
         initialFilters={activeFilters}
         onApply={handleApplyFilters}
         onReset={handleClearFilters}

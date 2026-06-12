@@ -8,10 +8,10 @@ import { useAdminOrderDetail } from "../hooks/useAdminOrders";
 import {
   OrderStatusBadge,
   PaymentStatusBadge,
-} from "../components/list/OrderStatusBadge";
-import { OrderStatusManager } from "../components/detail/OrderStatusManager";
-import { OrderCustomerDetails } from "../components/detail/OrderCustomerDetails";
-import { OrderItemsTable } from "../components/detail/OrderItemsTable";
+} from "../components/OrderStatusBadge";
+import { AdminOrderStatusManager } from "../components/admin-detail/AdminOrderStatusManager";
+import { AdminOrderCustomerDetails } from "../components/admin-detail/AdminOrderCustomerDetails";
+import { AdminOrderItemsTable } from "../components/admin-detail/AdminOrderItemsTable";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 
 export default function AdminOrderDetailPage() {
@@ -79,17 +79,17 @@ export default function AdminOrderDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Items */}
         <div className="lg:col-span-2 space-y-6">
-          <OrderItemsTable items={items} order={order} />
+          <AdminOrderItemsTable items={items} order={order} />
         </div>
 
         {/* Right Column: Summaries & Controls */}
         <div className="space-y-6">
-          <OrderStatusManager
+          <AdminOrderStatusManager
             orderId={order._id}
             currentStatus={order.status}
             currentPaymentStatus={order.paymentStatus}
           />
-          <OrderCustomerDetails order={order} />
+          <AdminOrderCustomerDetails order={order} />
         </div>
       </div>
     </div>

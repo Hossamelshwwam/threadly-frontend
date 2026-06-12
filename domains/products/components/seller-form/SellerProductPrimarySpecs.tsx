@@ -24,8 +24,8 @@ export function SellerProductPrimarySpecs<T extends FieldValues>({
   return (
     <div className="bg-white border border-zinc-100 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm font-sans">
       <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-        <div className="p-2 bg-amber-50 rounded-lg">
-          <RiInformationLine className="text-amber-500 text-xl" />
+        <div className="p-2 bg-main-subtle rounded-lg">
+          <RiInformationLine className="text-main text-xl" />
         </div>
         <div>
           <h2 className="text-lg font-bold text-zinc-900 tracking-tight">
