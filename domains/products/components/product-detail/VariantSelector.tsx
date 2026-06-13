@@ -21,21 +21,16 @@ export function VariantSelector({
   const { colors, sizes, hasStockForColor, hasStockForSize } = useMemo(() => {
     const colorSet = new Set<string>();
     const sizeSet = new Set<string>();
-
     for (const v of variants) {
       if (v.color) colorSet.add(v.color);
       if (v.size) sizeSet.add(v.size);
     }
-
     const colors = Array.from(colorSet);
     const sizes = Array.from(sizeSet);
-
-    const hasStockForColor = (color: string): boolean =>
+    const hasStockForColor = (color: string) =>
       variants.some((v) => v.color === color && v.stock - v.reserved > 0);
-
-    const hasStockForSize = (size: string): boolean =>
+    const hasStockForSize = (size: string) =>
       variants.some((v) => v.size === size && v.stock - v.reserved > 0);
-
     return { colors, sizes, hasStockForColor, hasStockForSize };
   }, [variants]);
 
@@ -53,52 +48,44 @@ export function VariantSelector({
     );
   }, [variants, selectedColor, sizes]);
 
-  const availableColorsForSize = useMemo(() => {
-    if (!selectedSize) return colors;
-    return colors.filter((color) =>
-      variants.some(
-        (v) =>
-          v.color === color &&
-          v.size === selectedSize &&
-          v.stock - v.reserved > 0,
-      ),
-    );
-  }, [variants, selectedSize, colors]);
-
-  const isSizeOutOfStock = (size: string) =>
-    selectedColor ? !availableSizesForColor.includes(size) : !hasStockForSize(size);
-
-  const isColorOutOfStock = (color: string) =>
-    selectedSize ? !availableColorsForSize.includes(color) : !hasStockForColor(color);
+  // Only display sizes that are actually available for the selected color
+  const displaySizes = selectedColor ? availableSizesForColor : sizes;
 
   return (
-    <div className="space-y-6">
-      {/* Color */}
+    <div className="flex flex-col gap-8">
+      {/* Colors */}
       {colors.length > 0 && (
-        <div>
-          <label className="block text-xs font-semibold tracking-wider uppercase text-zinc-500 mb-3">
-            Color{selectedColor && <span className="ml-1.5 text-amber-600 normal-case">— {selectedColor}</span>}
-          </label>
-          <div className="flex flex-wrap gap-2.5 overflow-hidden">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-end justify-between">
+            <span className="text-sm font-bold uppercase tracking-widest text-zinc-900">
+              Color
+            </span>
+            <span className="text-sm font-bold text-zinc-500">
+              {selectedColor || "None selected"}
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-3">
             {colors.map((color) => {
-              const outOfStock = isColorOutOfStock(color);
+              const outOfStock = !hasStockForColor(color);
+              const isSelected = selectedColor === color;
+
               return (
                 <button
                   key={color}
                   disabled={outOfStock}
-                  aria-pressed={selectedColor === color}
-                  onClick={() =>
-                    onColorChange(selectedColor === color ? undefined : color)
-                  }
-                  className={`relative px-4 py-2 text-sm rounded-lg border transition-all truncate max-w-[160px] ${
-                    selectedColor === color
-                      ? "border-amber-500 bg-amber-50 text-amber-700 font-medium"
+                  onClick={() => onColorChange(isSelected ? undefined : color)}
+                  className={`group relative flex h-14 items-center justify-center rounded-2xl px-6 text-sm font-black transition-all duration-200 ${
+                    isSelected
+                      ? "bg-zinc-950 text-white ring-4 ring-zinc-950/20 ring-offset-2"
                       : outOfStock
-                        ? "border-zinc-100 bg-zinc-50 text-zinc-300 cursor-not-allowed line-through"
-                        : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
+                        ? "bg-zinc-100 text-zinc-300 cursor-not-allowed"
+                        : "bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-900 hover:text-zinc-950"
                   }`}
                 >
                   {color}
+                  {outOfStock && (
+                    <div className="absolute inset-0 h-px w-full -rotate-12 bg-zinc-300 top-1/2" />
+                  )}
                 </button>
               );
             })}
@@ -106,32 +93,39 @@ export function VariantSelector({
         </div>
       )}
 
-      {/* Size */}
-      {sizes.length > 0 && (
-        <div>
-          <label className="block text-xs font-semibold tracking-wider uppercase text-zinc-500 mb-3">
-            Size{selectedSize && <span className="ml-1.5 text-amber-600 normal-case">— {selectedSize}</span>}
-          </label>
-          <div className="flex flex-wrap gap-2.5">
-            {sizes.map((size) => {
-              const outOfStock = isSizeOutOfStock(size);
+      {/* Sizes */}
+      {displaySizes.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <div className="flex items-end justify-between">
+            <span className="text-sm font-bold uppercase tracking-widest text-zinc-900">
+              Size
+            </span>
+            <span className="text-sm font-bold text-zinc-500">
+              {selectedSize || "None selected"}
+            </span>
+          </div>
+          <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+            {displaySizes.map((size) => {
+              const outOfStock = !hasStockForSize(size);
+              const isSelected = selectedSize === size;
+
               return (
                 <button
                   key={size}
                   disabled={outOfStock}
-                  aria-pressed={selectedSize === size}
-                  onClick={() =>
-                    onSizeChange(selectedSize === size ? undefined : size)
-                  }
-                  className={`w-12 h-12 flex items-center justify-center text-sm font-medium rounded-lg border transition-all ${
-                    selectedSize === size
-                      ? "border-amber-500 bg-amber-50 text-amber-700"
+                  onClick={() => onSizeChange(isSelected ? undefined : size)}
+                  className={`group relative flex h-14 items-center justify-center rounded-2xl text-base font-black transition-all duration-200 ${
+                    isSelected
+                      ? "bg-zinc-950 text-white ring-4 ring-zinc-950/20 ring-offset-2"
                       : outOfStock
-                        ? "border-zinc-100 bg-zinc-50 text-zinc-300 cursor-not-allowed line-through"
-                        : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300"
+                        ? "bg-zinc-100 text-zinc-300 cursor-not-allowed"
+                        : "bg-white border-2 border-zinc-200 text-zinc-600 hover:border-zinc-900 hover:text-zinc-950"
                   }`}
                 >
                   {size}
+                  {outOfStock && (
+                    <div className="absolute inset-0 h-px w-full -rotate-45 bg-zinc-300 top-1/2" />
+                  )}
                 </button>
               );
             })}

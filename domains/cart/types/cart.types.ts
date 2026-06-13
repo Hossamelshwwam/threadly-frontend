@@ -1,3 +1,4 @@
+import { ProductVariant } from "@/domains/products/types/inventory.types";
 import type { Product } from "@/domains/products/types/product.types";
 import type { ApiResponse } from "@/shared/types/api.types";
 
@@ -8,7 +9,7 @@ export interface AddCart {
 }
 
 export interface CartItem {
-  inventoryId: string;
+  inventoryId: ProductVariant;
   productId: Product;
   quantity: number;
   priceSnapshot: number;

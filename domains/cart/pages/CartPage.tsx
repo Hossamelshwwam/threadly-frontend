@@ -20,7 +20,10 @@ function CartSkeleton() {
       <div className="grid lg:grid-cols-3 gap-10">
         <div className="lg:col-span-2 space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-40 bg-zinc-100 rounded-2xl animate-pulse" />
+            <div
+              key={i}
+              className="h-40 bg-zinc-100 rounded-2xl animate-pulse"
+            />
           ))}
         </div>
         <div className="h-96 bg-zinc-100 rounded-2xl animate-pulse" />
@@ -42,8 +45,7 @@ export default function CartPage() {
     toast.promise(updateItem({ inventoryId, quantity }), {
       loading: "Updating...",
       success: "Cart updated",
-      error: (err: any) =>
-        err?.response?.data?.message || "Failed to update",
+      error: (err: any) => err?.response?.data?.message || "Failed to update",
     });
   };
 
@@ -51,8 +53,7 @@ export default function CartPage() {
     toast.promise(removeItem(inventoryId), {
       loading: "Removing...",
       success: "Removed from cart",
-      error: (err: any) =>
-        err?.response?.data?.message || "Failed to remove",
+      error: (err: any) => err?.response?.data?.message || "Failed to remove",
     });
   };
 
@@ -93,7 +94,7 @@ export default function CartPage() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             {items.map((item) => (
               <CartItemRow
-                key={item.inventoryId}
+                key={item.inventoryId._id}
                 item={item}
                 onUpdateQuantity={handleUpdateQuantity}
                 onRemove={handleRemove}

@@ -1,30 +1,30 @@
+"use client";
+
 import Link from "next/link";
-import type { Product } from "@/domains/products/types/product.types";
+import { RiArrowRightSLine, RiHome4Line } from "react-icons/ri";
+import type { Product } from "../../types/product.types";
 
-interface ProductBreadcrumbProps {
-  product: Product;
-}
+export function ProductBreadcrumb({ product }: { product: Product }) {
+  const categoryName =
+    typeof product.categoryId === "object" ? product.categoryId.name : "Shop";
 
-export function ProductBreadcrumb({ product }: ProductBreadcrumbProps) {
   return (
-    <nav className="flex items-center gap-2 text-xs text-zinc-400 mb-8">
-      <Link href="/" className="hover:text-amber-600 transition-colors">
+    <nav className="flex items-center text-xs font-bold text-zinc-400">
+      <Link
+        href="/"
+        className="flex items-center hover:text-amber-600 transition-colors"
+      >
+        <RiHome4Line size={14} className="mr-1" />
         Home
       </Link>
-      <span>/</span>
+      <RiArrowRightSLine size={16} className="mx-1.5 text-zinc-300" />
+
       <Link href="/products" className="hover:text-amber-600 transition-colors">
-        Products
+        {categoryName}
       </Link>
-      {typeof product.categoryId === "object" && (
-        <>
-          <span>/</span>
-          <span className="text-zinc-600">
-            {product.categoryId.name}
-          </span>
-        </>
-      )}
-      <span>/</span>
-      <span className="text-zinc-800 truncate max-w-[200px]">
+      <RiArrowRightSLine size={16} className="mx-1.5 text-zinc-300" />
+
+      <span className="text-zinc-900 truncate max-w-[200px] sm:max-w-xs">
         {product.name}
       </span>
     </nav>

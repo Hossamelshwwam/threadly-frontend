@@ -31,7 +31,7 @@ export function CartItemRow({
     const newQty = quantity + 1;
     setQuantity(newQty);
     setIsUpdating(true);
-    onUpdateQuantity(item.inventoryId, newQty);
+    onUpdateQuantity(item.inventoryId._id, newQty);
     setTimeout(() => setIsUpdating(false), 500);
   };
 
@@ -40,12 +40,12 @@ export function CartItemRow({
     const newQty = quantity - 1;
     setQuantity(newQty);
     setIsUpdating(true);
-    onUpdateQuantity(item.inventoryId, newQty);
+    onUpdateQuantity(item.inventoryId._id, newQty);
     setTimeout(() => setIsUpdating(false), 500);
   };
 
   const handleRemove = () => {
-    onRemove(item.inventoryId);
+    onRemove(item.inventoryId._id);
   };
 
   const product = item.productId;
