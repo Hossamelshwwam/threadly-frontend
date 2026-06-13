@@ -33,7 +33,8 @@ api.interceptors.response.use(
     const isAuthRoute =
       url.includes("/auth/login") ||
       url.includes("/auth/register") ||
-      url.includes("/auth/refresh");
+      url.includes("/auth/refresh") ||
+      url.includes("/cart");
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&

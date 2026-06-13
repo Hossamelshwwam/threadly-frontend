@@ -1,0 +1,160 @@
+﻿{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-13T08:15:00Z",
+  "title": "Design System: Threadly",
+  "extensions": {
+    "colorMeta": {
+      "desert-amber": {
+        "role": "primary",
+        "displayName": "Desert Amber",
+        "canonical": "oklch(0.76 0.135 75)",
+        "tonalRamp": ["#3d230b","#623912","#854e18","#a56520","#c47f2e","#d99a4a","#e8b876","#faecd8"]
+      },
+      "burnt-terra": {
+        "role": "secondary",
+        "displayName": "Burnt Terracotta",
+        "canonical": "oklch(0.65 0.12 30)",
+        "tonalRamp": ["#2e150b","#4f2415","#72361f","#944a2c","#b5603a","#d07a4e","#e4a07a","#fae3d8"]
+      },
+      "amber-glow": {
+        "role": "neutral",
+        "displayName": "Amber Subtle",
+        "canonical": "oklch(0.94 0.03 80)",
+        "tonalRamp": ["#3d230b","#623912","#854e18","#a56520","#c47f2e","#d99a4a","#e8b876","#faecd8"]
+      },
+      "page-surface": {
+        "role": "neutral",
+        "displayName": "Page Surface",
+        "canonical": "oklch(0.98 0.002 260)",
+        "tonalRamp": ["#09090b","#18181b","#27272a","#3f3f46","#52525b","#71717a","#a1a1aa","#fafafa"]
+      },
+      "primary-ink": {
+        "role": "neutral",
+        "displayName": "Primary Ink",
+        "canonical": "oklch(0.15 0.005 260)",
+        "tonalRamp": ["#09090b","#18181b","#27272a","#3f3f46","#52525b","#71717a","#a1a1aa","#fafafa"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines only. The cartographer's big map." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles and page headings." },
+      "title": { "displayName": "Title", "purpose": "Card titles, subsection headers, panel names." },
+      "body": { "displayName": "Body", "purpose": "Running text, descriptions, form labels. Capped at 65-75ch." },
+      "label": { "displayName": "Label", "purpose": "Tags, badges, metadata, and small UI markers." }
+    },
+    "shadows": [
+      { "name": "ambient", "value": "0 1px 2px 0 rgba(9, 9, 11, 0.06)", "purpose": "Barely-there depth for resting inputs and subtle card anchoring." },
+      { "name": "low", "value": "0 1px 4px 0 rgba(9, 9, 11, 0.08), 0 1px 2px -1px rgba(9, 9, 11, 0.04)", "purpose": "Default card shadow." },
+      { "name": "mid", "value": "0 4px 12px -2px rgba(9, 9, 11, 0.1), 0 2px 6px -2px rgba(9, 9, 11, 0.06)", "purpose": "Hover state for cards." },
+      { "name": "high", "value": "0 12px 28px -4px rgba(9, 9, 11, 0.12), 0 4px 10px -4px rgba(9, 9, 11, 0.06)", "purpose": "Modals and promoted content." },
+      { "name": "dramatic", "value": "0 24px 48px -8px rgba(9, 9, 11, 0.15), 0 8px 20px -6px rgba(9, 9, 11, 0.08)", "purpose": "Full-screen overlays and drawers." },
+      { "name": "ember-glow", "value": "0 4px 16px -2px rgba(217, 154, 74, 0.28)", "purpose": "Amber-tinted glow for primary buttons and accent elements." }
+    ],
+    "motion": [
+      { "name": "ease-default", "value": "cubic-bezier(0.2, 0, 0, 1)", "purpose": "Default easing for state transitions." },
+      { "name": "ease-out", "value": "cubic-bezier(0, 0, 0.2, 1)", "purpose": "Deceleration curve for exit and release motions." },
+      { "name": "ease-spring", "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Spring-like entrance for interactive feedback." },
+      { "name": "duration-fast", "value": "100ms", "purpose": "State changes (hover, focus, press)." },
+      { "name": "duration-base", "value": "150ms", "purpose": "Default transition duration." },
+      { "name": "duration-moderate", "value": "250ms", "purpose": "Content reveals and expand/collapse." },
+      { "name": "duration-slow", "value": "400ms", "purpose": "Ambient motion, image zoom, scroll-driven effects." },
+      { "name": "duration-slower", "value": "600ms", "purpose": "Choreographed entrances, staggered sequences." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The cartographer's compass - primary CTA using Desert Amber.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Explore Collection</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Cairo', system-ui, sans-serif; font-weight: 600; font-size: 14px; line-height: 1; border: 1px solid transparent; cursor: pointer; white-space: nowrap; user-select: none; transition: background 150ms cubic-bezier(0.2, 0, 0, 1), box-shadow 150ms cubic-bezier(0.2, 0, 0, 1), transform 100ms cubic-bezier(0.2, 0, 0, 1); } .ds-btn-primary { background: #d99a4a; color: #ffffff; border-radius: 8px; padding: 12px 24px; box-shadow: 0 4px 16px -2px rgba(217, 154, 74, 0.28); } .ds-btn-primary:hover { background: #c47f2e; } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid #d99a4a; outline-offset: 2px; }"
+    },
+    {
+      "name": "Soft Button",
+      "kind": "button",
+      "refersTo": "button-soft",
+      "description": "Gentle secondary action - Amber Subtle background with dark amber text.",
+      "html": "<button class=\"ds-btn ds-btn-soft\">View Details</button>",
+      "css": ".ds-btn-soft { background: #faecd8; color: #854e18; border-radius: 8px; padding: 12px 24px; box-shadow: none; } .ds-btn-soft:hover { background: #f3d4a8; } .ds-btn-soft:active { transform: scale(0.98); } .ds-btn-soft:focus-visible { outline: 2px solid #d99a4a; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Border-defined action for secondary contexts.",
+      "html": "<button class=\"ds-btn ds-btn-outline\">Our Story</button>",
+      "css": ".ds-btn-outline { background: transparent; color: #d99a4a; border: 1px solid #d99a4a; border-radius: 8px; padding: 12px 24px; } .ds-btn-outline:hover { background: #fdf8f0; } .ds-btn-outline:active { transform: scale(0.98); } .ds-btn-outline:focus-visible { outline: 2px solid #d99a4a; outline-offset: 2px; }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "product-card",
+      "description": "The signature storefront card - tactile, warm, lifts on hover.",
+      "html": "<div class=\"ds-product-card\"><div class=\"ds-product-card-img\"><img src=\"https://placehold.co/400x500/f4f4f5/a1a1aa?text=Product\" alt=\"Product\" /><span class=\"ds-product-card-badge\">New</span><button class=\"ds-product-card-wish\" aria-label=\"Add to wishlist\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\"></path></svg></button></div><div class=\"ds-product-card-body\"><h3 class=\"ds-product-card-title\">Product Name</h3><div class=\"ds-product-card-meta\"><span class=\"ds-product-card-price\">EGP 299</span><span class=\"ds-product-card-tag\"><span class=\"ds-product-card-dot\"></span>New</span></div></div></div>",
+      "css": ".ds-product-card { background: #ffffff; border-radius: 24px; overflow: hidden; border: 1px solid #f4f4f5; transition: box-shadow 300ms cubic-bezier(0.2, 0, 0, 1), border-color 300ms cubic-bezier(0.2, 0, 0, 1); } .ds-product-card:hover { box-shadow: 0 4px 12px -2px rgba(9, 9, 11, 0.1), 0 2px 6px -2px rgba(9, 9, 11, 0.06); border-color: #f3d4a8; } .ds-product-card-img { position: relative; aspect-ratio: 4/5; background: #f4f4f5; overflow: hidden; } .ds-product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms cubic-bezier(0, 0, 0.2, 1); } .ds-product-card:hover .ds-product-card-img img { transform: scale(1.05); } .ds-product-card-badge { position: absolute; top: 12px; left: 12px; background: #c47f2e; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 6px 12px; border-radius: 8px; } .ds-product-card-wish { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 9999px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #a1a1aa; transition: color 150ms; } .ds-product-card-wish:hover { color: #a56520; } .ds-product-card-body { padding: 16px; padding-top: 12px; } .ds-product-card-title { font-family: 'Cairo', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #27272a; margin: 0 0 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-product-card:hover .ds-product-card-title { color: #854e18; } .ds-product-card-meta { display: flex; align-items: center; justify-content: space-between; } .ds-product-card-price { font-family: 'Cairo', system-ui, sans-serif; font-size: 18px; font-weight: 900; color: #a56520; } .ds-product-card-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: #a56520; background: #fdf8f0; padding: 2px 8px; border-radius: 9999px; } .ds-product-card-dot { width: 6px; height: 6px; border-radius: 50%; background: #c47f2e; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Zinc-toned input that warms to amber on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Search products...\" />",
+      "css": ".ds-input { background: #e4e4e7; color: #09090b; border: none; border-radius: 6px; padding: 10px 14px; font-family: 'Cairo', system-ui, sans-serif; font-size: 14px; outline: none; transition: box-shadow 150ms cubic-bezier(0.2, 0, 0, 1); width: 100%; } .ds-input::placeholder { color: #71717a; } .ds-input:focus { box-shadow: 0 0 0 2px #d99a4a; }"
+    },
+    {
+      "name": "Navigation Item (Active)",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Active sidebar navigation link with amber accent.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item ds-nav-active\" href=\"#\">Dashboard</a><a class=\"ds-nav-item\" href=\"#\">Products</a></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 4px; } .ds-nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-family: 'Cairo', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: #52525b; text-decoration: none; transition: background 150ms, color 150ms; } .ds-nav-item:hover { background: #fdf8f0; color: #854e18; } .ds-nav-active { background: #fdf8f0; color: #854e18; font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Ember Cartographer",
+    "overview": "Threadly maps the territory between discovery and commerce. The Ember Cartographer charts warm, sun-dried paths through a landscape of possibility - every screen is a new coordinate on an adventure, every interaction a step further into a vibrant bazaar. The design system carries the warmth of late-afternoon sunlight on sandstone alongside the cool confidence of urban zinc; color is not decoration but cartography, marking the paths that matter.\n\nThis system rejects generic e-commerce sterility. No flat, gray, faceless marketplace pages. No cookie-cutter card grids without personality. No monochromatic suppression of the brand's natural energy. Threadly is tactile and warm - buttons feel like pressing smooth pottery, cards lift gently off the surface, and every hover state rewards the hand that reached out.",
+    "keyCharacteristics": [
+      "Sun-dried warmth balanced by urban zinc coolness",
+      "Tactile, pottery-like interaction feedback on every control",
+      "Adventurous color use that guides without overwhelming",
+      "Cairo typeface at variable weight - from featherlight display to bold section anchors",
+      "Gentle elevation that lifts on interaction, never shouts at rest",
+      "Inclusive contrast and readable text as a baseline, not an afterthought"
+    ],
+    "rules": [
+      { "name": "The Ember Rule", "body": "Desert Amber appears on <=15% of any given screen. Its warmth is the point - overuse flattens it into background noise. Reserve it for navigation anchors, primary actions, and focus moments. Terracotta supports; it never leads.", "section": "colors" },
+      { "name": "The Cool Foundation Rule", "body": "Background tints stay on the Zinc scale. No amber or terracotta bleeding into surfaces except through deliberate, named accent zones (Amber Subtle, soft badges, category pills). The terrain is cool; only the markers are warm.", "section": "colors" },
+      { "name": "The Weight-as-Intent Rule", "body": "Light weights signal display and exploration (hero, big moments). Bold weights signal decision and action (section anchors, buttons, confirmations). Never use weight 300 below 2rem - it becomes unreadable.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Cards rest at zero shadow or Ambient only. Shadows appear on hover, focus, or elevation change. A resting card with a Mid shadow is a card that's shouting when it should be listening.", "section": "elevation" },
+      { "name": "The Ember Glow Rule", "body": "The amber-tinted shadow is reserved for primary action elements (buttons, active navigation items, promoted cards). It must not appear on neutral or decorative surfaces.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Desert Amber (#d99a4a) as the primary accent for all CTAs, focus rings, and navigation active states.",
+      "Do keep body text at zinc-950 (#09090b) against zinc-50 (#fafafa) backgrounds for >=4.5:1 contrast.",
+      "Do let cards rest flat and lift only on hover - the Mid shadow is the hover reward, not the resting state.",
+      "Do use Cairo weight 300 only for display-size text (>=3rem); below that, minimum weight is 400.",
+      "Do apply rounded-2xl (24px) to cards and rounded-md (8px) to buttons.",
+      "Do use the Ember Glow shadow exclusively on primary action elements.",
+      "Do warm card borders to amber-200 on hover.",
+      "Do cap body text line length at 65-75ch."
+    ],
+    "donts": [
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe on cards, list items, or callouts.",
+      "Don't apply gradient text (background-clip: text) - use a single solid color for emphasis.",
+      "Don't use glassmorphism (backdrop-blur + semi-transparent backgrounds) as a default card pattern.",
+      "Don't create identical card grids where every card has the same icon + heading + text structure.",
+      "Don't place a tiny uppercase tracked eyebrow above every section heading.",
+      "Don't tint the page background warm - the Zinc scale is the cool foundation.",
+      "Don't use Desert Amber on more than ~15% of any screen's visible area.",
+      "Don't use weight 300 Cairo below 2rem.",
+      "Don't rest cards at Mid or High shadow states."
+    ]
+  }
+}
