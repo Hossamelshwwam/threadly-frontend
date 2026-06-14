@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
-import { useGetMe } from "@/domains/users/hooks/useGetMe";
+import { useGetMe } from "@/domains/users/hooks/useUser";
 import CustomAvatar from "../custom-avatar/CustomAvatar";
 
 export function AdminHeader() {

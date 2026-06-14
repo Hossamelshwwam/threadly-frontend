@@ -2,6 +2,17 @@ import { Order } from "@/domains/orders/types/order.types";
 
 export type UserRole = "buyer" | "seller" | "admin";
 
+export interface Address {
+  label: string;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  isDefault: boolean;
+  _id: string;
+}
+
 export interface UserProfile {
   _id: string;
   name: string;

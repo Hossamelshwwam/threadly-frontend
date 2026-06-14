@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { RiArrowLeftLine, RiShoppingBag3Line } from "react-icons/ri";
+import { RiArrowLeftLine } from "react-icons/ri";
 import { toast } from "sonner";
 import useCart from "../hooks/useCart";
 import useUpdateCartItem from "../hooks/useUpdateCartItem";
@@ -12,21 +12,25 @@ import { EmptyCart } from "../components/EmptyCart";
 
 function CartSkeleton() {
   return (
-    <div className="container mx-auto px-8 py-8 pt-28">
-      <div className="mb-8">
-        <div className="h-10 w-64 bg-zinc-100 rounded-xl animate-pulse mb-2" />
-        <div className="h-5 w-40 bg-zinc-100 rounded animate-pulse" />
-      </div>
-      <div className="grid lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="h-40 bg-zinc-100 rounded-2xl animate-pulse"
-            />
-          ))}
+    <div className="min-h-screen bg-zinc-50 px-4 py-8 pt-28 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10">
+          <div className="mb-4 h-6 w-32 animate-pulse rounded-md bg-zinc-200" />
+          <div className="h-12 w-64 animate-pulse rounded-xl bg-zinc-200" />
         </div>
-        <div className="h-96 bg-zinc-100 rounded-2xl animate-pulse" />
+        <div className="lg:grid lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-8 space-y-6">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="h-48 animate-pulse rounded-3xl bg-white border border-zinc-100 shadow-sm"
+              />
+            ))}
+          </div>
+          <div className="mt-10 lg:col-span-4 lg:mt-0">
+            <div className="h-80 animate-pulse rounded-3xl bg-white border border-zinc-100 shadow-sm" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -39,20 +43,19 @@ export default function CartPage() {
 
   const items = cartData?.data?.items ?? [];
   const hasItems = items.length > 0;
-  const shipping = totalPrice >= 500 ? 0 : 50;
 
   const handleUpdateQuantity = (inventoryId: string, quantity: number) => {
     toast.promise(updateItem({ inventoryId, quantity }), {
-      loading: "Updating...",
-      success: "Cart updated",
+      loading: "Updating cart...",
+      success: "Cart updated successfully",
       error: (err: any) => err?.response?.data?.message || "Failed to update",
     });
   };
 
   const handleRemove = (inventoryId: string) => {
     toast.promise(removeItem(inventoryId), {
-      loading: "Removing...",
-      success: "Removed from cart",
+      loading: "Removing item...",
+      success: "Item removed from cart",
       error: (err: any) => err?.response?.data?.message || "Failed to remove",
     });
   };
@@ -60,59 +63,60 @@ export default function CartPage() {
   if (isLoading) return <CartSkeleton />;
 
   return (
-    <div className="container mx-auto px-8 py-8 pt-28">
-      {/* Header */}
-      <div className="mb-8">
-        <Link
-          href="/products"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 hover:text-amber-600 transition-colors mb-5"
-        >
-          <RiArrowLeftLine size={16} />
-          Continue Shopping
-        </Link>
-
-        <div className="flex items-end justify-between">
-          <div>
-            <h1 className="text-3xl font-black text-zinc-900 flex items-center gap-3">
-              <RiShoppingBag3Line size={28} className="text-amber-500" />
-              Shopping Cart
-            </h1>
-            {hasItems && (
-              <p className="text-zinc-500 mt-1 font-medium">
-                {itemCount} {itemCount === 1 ? "item" : "items"} in your cart
-              </p>
-            )}
+    <div className="min-h-screen bg-zinc-50 pb-24 pt-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-10">
+          <Link
+            href="/products"
+            className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-amber-600"
+          >
+            <RiArrowLeftLine size={16} />
+            Continue Shopping
+          </Link>
+          <div className="flex items-end justify-between">
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-zinc-950">
+                Your Cart
+              </h1>
+              {hasItems && (
+                <p className="mt-3 text-sm font-bold text-zinc-500">
+                  {itemCount} {itemCount === 1 ? "Item" : "Items"} selected
+                </p>
+              )}
+            </div>
           </div>
         </div>
+
+        {!hasItems ? (
+          <EmptyCart />
+        ) : (
+          <div className="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
+            {/* Cart Items List */}
+            <div className="lg:col-span-8 flex flex-col gap-6">
+              {items.map((item) => (
+                <CartItemRow
+                  key={item.inventoryId._id}
+                  item={item}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemove={handleRemove}
+                />
+              ))}
+            </div>
+
+            {/* Order Summary (Sticky) */}
+            <div className="mt-12 lg:col-span-4 lg:mt-0">
+              <div className="sticky top-28">
+                <CartSummary
+                  subtotal={totalPrice}
+                  itemCount={itemCount}
+                  disabled={!hasItems}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-
-      {!hasItems ? (
-        <EmptyCart />
-      ) : (
-        <div className="grid lg:grid-cols-3 gap-10">
-          {/* Cart Items */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            {items.map((item) => (
-              <CartItemRow
-                key={item.inventoryId._id}
-                item={item}
-                onUpdateQuantity={handleUpdateQuantity}
-                onRemove={handleRemove}
-              />
-            ))}
-          </div>
-
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <CartSummary
-              subtotal={totalPrice}
-              shipping={shipping}
-              itemCount={itemCount}
-              disabled={!hasItems}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

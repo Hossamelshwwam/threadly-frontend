@@ -93,7 +93,6 @@ const CustomSelect = forwardRef<HTMLSelectElement, Props>(
                 : "border-border focus:ring-2 focus:ring-border-focus focus:border-border-focus",
               Icon && "ps-11",
               disabled && "opacity-60 cursor-not-allowed",
-              !value && "text-on-surface-muted",
               SelectClassName,
             )}
           >

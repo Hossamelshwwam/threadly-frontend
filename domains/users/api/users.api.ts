@@ -3,6 +3,7 @@ import type {
   AdminUsersParams,
   AdminUserDetailResponse,
   UserProfile,
+  Address,
 } from "../types/user.types";
 import type {
   PaginatedApiResponse,
@@ -34,6 +35,16 @@ export const usersApi = {
     isActive: boolean,
   ): Promise<ApiResponse<UserProfile>> => {
     const { data } = await api.patch(`/users/admin/${id}`, { isActive });
+    return data;
+  },
+
+  getMyAddresses: async (): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.get("/users/me/addresses");
+    return data;
+  },
+
+  addAddress: async (payload: any): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.post("/users/me/addresses", payload);
     return data;
   },
 };
