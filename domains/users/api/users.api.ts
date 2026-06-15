@@ -47,4 +47,32 @@ export const usersApi = {
     const { data } = await api.post("/users/me/addresses", payload);
     return data;
   },
+
+  updateProfile: async (payload: {
+    name: string;
+    phone?: string | null;
+  }): Promise<ApiResponse<UserProfile>> => {
+    const { data } = await api.put("/users/me", payload);
+    return data;
+  },
+
+  uploadAvatar: async (file: File): Promise<ApiResponse<UserProfile>> => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const { data } = await api.patch("/users/me/avatar", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return data;
+  },
+
+  changePassword: async (payload: {
+    currentPassword: string;
+    newPassword: string;
+  }): Promise<ApiResponse<null>> => {
+    const { data } = await api.patch("/users/me/change-password", payload);
+    return data;
+  },
 };
