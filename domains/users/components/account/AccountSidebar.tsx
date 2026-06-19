@@ -9,8 +9,10 @@ import {
   RiMapPinLine,
   RiFileList3Line,
   RiLogoutBoxRLine,
+  RiChatHistoryLine,
 } from "react-icons/ri";
 import { cn } from "@/shared/lib";
+import useLogout from "@/shared/hooks/useLogout";
 
 const NAV_LINKS = [
   {
@@ -33,10 +35,17 @@ const NAV_LINKS = [
     href: "/account/orders",
     icon: RiFileList3Line,
   },
+  {
+    name: "Pending Reviews",
+    href: "/account/reviews/pending",
+    icon: RiChatHistoryLine,
+  },
 ];
 
 export function AccountSidebar() {
   const pathname = usePathname();
+
+  const { logout } = useLogout();
 
   return (
     // Note: top-28 ensures it sticks just below your 80px fixed navbar
@@ -68,7 +77,7 @@ export function AccountSidebar() {
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all",
                   isActive
-                    ? "bg-zinc-900 text-white shadow-md"
+                    ? "bg-amber-50"
                     : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
                 )}
               >
@@ -87,9 +96,7 @@ export function AccountSidebar() {
         {/* Logout Button */}
         <button
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-600 hover:bg-red-50 transition-all w-full text-left"
-          onClick={() => {
-            // TODO: Call your logout mutation/clear tokens here
-          }}
+          onClick={logout}
         >
           <RiLogoutBoxRLine size={18} />
           Sign Out

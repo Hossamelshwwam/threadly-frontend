@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RiShoppingBag3Fill, RiSubtractLine, RiAddLine } from "react-icons/ri";
 import { toast } from "sonner";
 import useAddProductToCart from "@/domains/cart/hooks/useAddProductToCart";
+import { useGetMe } from "@/domains/users/hooks/useUser";
 
 interface AddToCartSectionProps {
   productId: string;
@@ -22,8 +23,16 @@ export function AddToCartSection({
 }: AddToCartSectionProps) {
   const [quantity, setQuantity] = useState(1);
   const { mutateAsync: addToCart, isPending } = useAddProductToCart();
+  const { isError } = useGetMe();
 
   const handleAddToCart = () => {
+    if (isError) {
+      toast.error("Login Required", {
+        description: "Please login to add to cart.",
+      });
+      return;
+    }
+
     // 1. VALIDATION: Check if variants are selected before doing anything
     if (hasVariants && !inventoryId) {
       toast.error("Selection Required", {

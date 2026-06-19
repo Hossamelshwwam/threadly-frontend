@@ -50,4 +50,12 @@ export const sellerStoreApi = {
     );
     return data;
   },
+
+  getStoreDetails: async (
+    slug: string,
+  ): Promise<ApiResponse<SellerProfile>> => {
+    // Replace with your actual endpoint for fetching store info
+    const { data } = await api.get(`/sellers/stores/${slug}`);
+    return data;
+  },
 };

@@ -3,38 +3,70 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useGetMyStore } from "@/domains/sellers/hooks/useGetMyStore";
+import { useGetMe } from "@/domains/users/hooks/useUser"; // Import user hook
 import { FaSpinner } from "react-icons/fa";
 import { RiCloseCircleLine, RiLogoutBoxLine } from "react-icons/ri";
 import CustomButton from "@/shared/components/custom-button/custom-button";
+import useLogout from "../hooks/useLogout";
 
 export function SellerGuard({ children }: { children: React.ReactNode }) {
-  const { data, isLoading } = useGetMyStore();
+  // Fetch both store data and user data
+  const { data: storeData, isLoading: isStoreLoading } = useGetMyStore();
+  const { data: userData, isPending: isUserLoading } = useGetMe();
+
   const router = useRouter();
   const pathname = usePathname();
+  const { logout } = useLogout();
+  // Unified loading state
+  const isLoading = isStoreLoading || isUserLoading;
 
-  const isSeller = !!data?.data;
-  const storeStatus = data?.data?.status;
+  // Derived state
+  const isSeller = !!storeData?.data;
+  const storeStatus = storeData?.data?.status;
+  const isBuyer = userData?.data?.role === "buyer"; // Check if the user is a buyer
+
   const isOnboarding = pathname === "/seller/onboarding";
   const isPendingApproval = pathname === "/seller/pending-approval";
+
+  // Determine if a redirect is about to happen
+  const needsRedirect =
+    (!isSeller && !isOnboarding && !isPendingApproval) ||
+    (isSeller && isOnboarding) ||
+    (isSeller && storeStatus === "pending" && !isPendingApproval);
 
   useEffect(() => {
     if (!isLoading) {
       if (!isSeller && !isOnboarding && !isPendingApproval) {
-        router.push("/seller/onboarding");
+        // Validation: ONLY redirect to onboarding if the user is a buyer
+        if (isBuyer) {
+          router.push("/seller/onboarding");
+        } else {
+          // If they are an Admin (or another role) without a store, send them to the homepage
+          router.push("/");
+        }
       } else if (isSeller && isOnboarding) {
+        // Seller already exists, no need to be on onboarding page
         router.push("/seller");
       } else if (isSeller && storeStatus === "pending" && !isPendingApproval) {
+        // Seller exists but is pending approval
         router.push("/seller/pending-approval");
       }
     }
-  }, [isLoading, isSeller, isOnboarding, isPendingApproval, storeStatus, router]);
+  }, [
+    isLoading,
+    isSeller,
+    isOnboarding,
+    isPendingApproval,
+    storeStatus,
+    isBuyer,
+    router,
+  ]);
 
   const handleSignOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    router.push("/login");
+    logout();
   };
 
+  // 1. Loading State
   if (isLoading) {
     return (
       <div className="h-screen w-full flex flex-col items-center justify-center bg-zinc-50 font-sans">
@@ -46,6 +78,12 @@ export function SellerGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
+  // 2. Prevent rendering protected content while the redirect is happening
+  if (needsRedirect) {
+    return null;
+  }
+
+  // 3. Specific status handling (Suspended)
   if (isSeller && storeStatus === "suspended") {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-zinc-50 p-4 font-sans">
@@ -60,35 +98,24 @@ export function SellerGuard({ children }: { children: React.ReactNode }) {
             <p className="text-sm text-zinc-500 leading-relaxed">
               Your vendor workspace for{" "}
               <span className="font-bold text-zinc-800">
-                &ldquo;{data?.data?.storeName}&rdquo;
+                &ldquo;{storeData?.data?.storeName}&rdquo;
               </span>{" "}
               has been restricted due to a policy compliance or platform
               regulation violation.
             </p>
           </div>
 
-          {data?.data?.adminNote && (
+          {storeData?.data?.adminNote && (
             <div className="bg-error-bg/30 text-left p-4 rounded-xl border border-error/10">
               <span className="text-[10px] font-bold text-error uppercase tracking-wider block mb-1">
                 Reason for restriction
               </span>
               <p className="text-xs text-zinc-700 font-medium leading-relaxed italic">
-                &quot;{data.data.adminNote}&quot;
+                &quot;{storeData.data.adminNote}&quot;
               </p>
             </div>
           )}
 
-          <p className="text-xs text-zinc-400 leading-relaxed">
-            If you feel this restriction was implemented in error, please
-            coordinate directly with our official validation department at{" "}
-            <a
-              href="mailto:compliance@threadly.com"
-              className="text-main hover:underline font-bold"
-            >
-              compliance@threadly.com
-            </a>
-            .
-          </p>
           <div className="pt-2">
             <CustomButton
               variant="solid"
@@ -105,9 +132,6 @@ export function SellerGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!isSeller && !isOnboarding && !isPendingApproval) return null;
-  if (isSeller && isOnboarding) return null;
-  if (isSeller && storeStatus === "pending" && !isPendingApproval) return null;
-
+  // 4. Render the secure page if fully authorized
   return <>{children}</>;
 }

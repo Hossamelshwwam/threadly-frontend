@@ -48,7 +48,7 @@ export default function AccountSecurityPage() {
   };
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 shadow-sm font-sans animate-fadeIn">
+    <div className="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 shadow-sm font-sans animate-fadeIn flex-1">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6 border-b border-zinc-100 pb-6">
         <div className="h-12 w-12 rounded-full bg-zinc-50 border border-zinc-100 flex items-center justify-center shrink-0">
@@ -65,7 +65,7 @@ export default function AccountSecurityPage() {
       </div>
 
       {/* Performant Uncontrolled Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <CustomInput
           name="currentPassword"
           type="password"
@@ -101,7 +101,7 @@ export default function AccountSecurityPage() {
             variant="solid"
             theme="primary"
             disabled={isPending}
-            className="w-full sm:w-auto min-w-[200px] h-12 rounded-xl font-bold shadow-md"
+            fullWidth
             leftIcon={<RiLockPasswordLine />}
           >
             {isPending ? "Updating..." : "Update Password"}

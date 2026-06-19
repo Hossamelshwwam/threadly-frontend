@@ -7,7 +7,10 @@ import type {
   AdminUpdateOrderPayload,
   UpdateOrderItemPayload,
 } from "../types/order.types";
-import type { ApiResponse } from "@/shared/types/api.types";
+import type {
+  ApiResponse,
+  PaginatedApiResponse,
+} from "@/shared/types/api.types";
 
 export const ordersApi = {
   // Admin: List all platform transactions with active filtrations
@@ -41,7 +44,6 @@ export const ordersApi = {
 
   // Admin: Update individual order item fulfillment state and tracking
   adminUpdateOrderItem: async (
-    orderId: string,
     itemId: string,
     payload: UpdateOrderItemPayload,
   ): Promise<ApiResponse<null>> => {
@@ -49,6 +51,38 @@ export const ordersApi = {
       `/orders/admin/items/${itemId}/status`,
       payload,
     );
+    return data;
+  },
+};
+
+export const buyerOrdersApi = {
+  getMyOrders: async (
+    params?: OrdersParams,
+  ): Promise<PaginatedApiResponse<Order[]>> => {
+    const cleanParams = { ...params };
+    Object.keys(cleanParams).forEach((key) => {
+      if (cleanParams[key as keyof OrdersParams] === "") {
+        delete cleanParams[key as keyof OrdersParams];
+      }
+    });
+    const { data } = await api.get("/orders", { params: cleanParams });
+    return data;
+  },
+
+  getBuyerOrder: async (
+    id: string,
+  ): Promise<ApiResponse<{ order: Order; items: OrderItem[] }>> => {
+    const { data } = await api.get(`/orders/get-order/${id}`);
+    return data;
+  },
+
+  cancelOrderItem: async (itemId: string) => {
+    const { data } = await api.put(`/orders/items/${itemId}/cancel`);
+    return data;
+  },
+
+  getPendingReviews: async () => {
+    const { data } = await api.get("/orders/pending-reviews");
     return data;
   },
 };

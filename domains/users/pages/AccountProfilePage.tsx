@@ -5,17 +5,14 @@ import { useGetMe } from "../hooks/useUser"; // Adjust import path
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileDisplay from "../components/profile/ProfileDisplay";
 import ProfileForm from "../components/profile/ProfileForm";
+import ProfileSkeleton from "../components/profile/ProfileSkeleton";
 
 export default function AccountProfilePage() {
   const { data: user, isLoading } = useGetMe();
   const [isEditing, setIsEditing] = useState(false);
 
   if (isLoading) {
-    return (
-      <div className="py-20 text-center text-zinc-500 font-medium">
-        Loading profile...
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (!user) return null;

@@ -26,7 +26,7 @@ export function AdminOrderCustomerDetails({ order }: { order: Order }) {
             </p>
             <p className="text-xs text-zinc-500">{order.buyerId.email}</p>
             <p className="text-xs text-zinc-500 mt-0.5">
-              {order.shippingAddress.phone}
+              {order.shippingAddress.phonenumber}
             </p>
           </div>
         </div>

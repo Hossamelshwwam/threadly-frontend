@@ -25,4 +25,11 @@ export const reviewsApi = {
     );
     return data;
   },
+
+  submitReview: async (formData: FormData) => {
+    const { data } = await api.post("/reviews", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return data;
+  },
 };

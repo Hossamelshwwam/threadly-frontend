@@ -16,26 +16,6 @@ export function useGetMe() {
   });
 }
 
-export function useMyAddresses() {
-  return useQuery({
-    queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
-    queryFn: () => usersApi.getMyAddresses(),
-  });
-}
-
-export function useAddAddress() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (payload: AddAddressInput) => usersApi.addAddress(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
-      });
-    },
-  });
-}
-
 export function useUpdateProfile() {
   const queryClient = useQueryClient();
 
@@ -67,5 +47,62 @@ export function useChangePassword() {
   return useMutation({
     mutationFn: (payload: { currentPassword: string; newPassword: string }) =>
       usersApi.changePassword(payload),
+  });
+}
+
+export function useMyAddresses() {
+  return useQuery({
+    queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
+    queryFn: () => usersApi.getMyAddresses(),
+  });
+}
+
+export function useAddAddress() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: AddAddressInput) => usersApi.addAddress(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
+      });
+    },
+  });
+}
+
+export function useUpdateAddress() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: AddAddressInput }) =>
+      usersApi.updateAddress(id, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
+      });
+    },
+  });
+}
+
+export function useDeleteAddress() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => usersApi.deleteAddress(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
+      });
+    },
+  });
+}
+
+export function useSetDefaultAddress() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => usersApi.setDefaultAddress(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [userKey.all, ...userKey.getAddress, ...userKey.getMe],
+      });
+    },
   });
 }

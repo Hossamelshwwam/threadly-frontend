@@ -38,16 +38,6 @@ export const usersApi = {
     return data;
   },
 
-  getMyAddresses: async (): Promise<ApiResponse<Address[]>> => {
-    const { data } = await api.get("/users/me/addresses");
-    return data;
-  },
-
-  addAddress: async (payload: any): Promise<ApiResponse<Address[]>> => {
-    const { data } = await api.post("/users/me/addresses", payload);
-    return data;
-  },
-
   updateProfile: async (payload: {
     name: string;
     phone?: string | null;
@@ -73,6 +63,34 @@ export const usersApi = {
     newPassword: string;
   }): Promise<ApiResponse<null>> => {
     const { data } = await api.patch("/users/me/change-password", payload);
+    return data;
+  },
+
+  getMyAddresses: async (): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.get("/users/me/addresses");
+    return data;
+  },
+
+  addAddress: async (payload: any): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.post("/users/me/addresses", payload);
+    return data;
+  },
+
+  updateAddress: async (
+    id: string,
+    payload: any,
+  ): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.put(`/users/me/addresses/${id}`, payload);
+    return data;
+  },
+
+  deleteAddress: async (id: string): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.delete(`/users/me/addresses/${id}`);
+    return data;
+  },
+
+  setDefaultAddress: async (id: string): Promise<ApiResponse<Address[]>> => {
+    const { data } = await api.patch(`/users/me/addresses/${id}/default`);
     return data;
   },
 };

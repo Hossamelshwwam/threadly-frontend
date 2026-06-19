@@ -24,7 +24,7 @@ export type ShippingAddress = {
   state: string;
   street: string;
   postalCode: string;
-  phone: string;
+  phonenumber: string;
 };
 
 export interface OrderItem {

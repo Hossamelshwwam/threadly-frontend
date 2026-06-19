@@ -9,9 +9,13 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import useAuthLogin from "../../hooks/useAuthLogin";
 import { toast } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
   const { mutateAsync: login, isPending } = useAuthLogin();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const {
     register,
     handleSubmit,
@@ -23,6 +27,7 @@ export default function LoginForm() {
     toast.promise(login(data), {
       loading: "Signing in...",
       success: (data) => {
+        router.push(redirect || "/");
         return `Welcome back, ${data.data.user.name}!`;
       },
       error: (error) => error.response?.data.message,

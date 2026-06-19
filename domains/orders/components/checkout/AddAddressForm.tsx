@@ -64,14 +64,6 @@ export default function AddAddressForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <CustomInput
-          name="fullName"
-          type="text"
-          label="Full name"
-          placeholder="First and Last name"
-          registerProps={register("fullName")}
-          error={errors.fullName?.message}
-        />
-        <CustomInput
           name="label"
           type="text"
           label="Address Label"

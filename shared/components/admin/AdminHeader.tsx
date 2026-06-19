@@ -17,6 +17,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu";
 import { useGetMe } from "@/domains/users/hooks/useUser";
 import CustomAvatar from "../custom-avatar/CustomAvatar";
+import useLogout from "@/shared/hooks/useLogout";
 
 export function AdminHeader() {
   const pathname = usePathname();
@@ -40,14 +41,7 @@ export function AdminHeader() {
       : "A";
 
   // Handle Logout
-  const handleLogout = () => {
-    // Clear the authentication tokens
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    // Redirect to the login page
-    router.push("/login");
-  };
+  const { logout } = useLogout();
 
   return (
     <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-6 sticky top-0 z-30 font-sans">
@@ -120,7 +114,7 @@ export function AdminHeader() {
 
             {/* Logout Action */}
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="w-full flex items-center gap-2 px-2 py-2 text-sm font-semibold group text-error rounded-md hover:bg-error-bg! outline-none cursor-pointer transition-colors hover:text-error"
             >
               <RiLogoutBoxLine className="text-error text-base group-hover:text-error" />

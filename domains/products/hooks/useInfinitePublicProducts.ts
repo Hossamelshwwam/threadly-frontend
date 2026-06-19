@@ -4,6 +4,7 @@ import type { PublicProductsParams } from "../types/public-products.types";
 
 export function useInfinitePublicProducts(
   params?: Omit<PublicProductsParams, "page" | "limit">,
+  enabled = true,
 ) {
   return useInfiniteQuery({
     queryKey: ["infinite-products", params],
@@ -14,5 +15,6 @@ export function useInfinitePublicProducts(
       const { page, pages } = lastPage.pagination;
       return page < pages ? page + 1 : undefined;
     },
+    enabled: enabled,
   });
 }

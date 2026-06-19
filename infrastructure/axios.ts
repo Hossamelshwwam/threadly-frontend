@@ -34,7 +34,8 @@ api.interceptors.response.use(
       url.includes("/auth/login") ||
       url.includes("/auth/register") ||
       url.includes("/auth/refresh") ||
-      url.includes("/cart");
+      url.includes("/cart") ||
+      url.includes("/users/me");
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&

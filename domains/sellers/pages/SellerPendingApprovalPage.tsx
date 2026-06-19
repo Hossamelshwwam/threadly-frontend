@@ -12,10 +12,12 @@ import {
 
 import { useGetMyStore } from "../hooks/useGetMyStore";
 import CustomButton from "@/shared/components/custom-button/custom-button";
+import useLogout from "@/shared/hooks/useLogout";
 
 export default function SellerPendingApprovalPage() {
   const router = useRouter();
   const { data, isLoading, refetch, isRefetching } = useGetMyStore();
+  const { logout } = useLogout();
 
   const store = data?.data;
   const status = store?.status;
@@ -34,9 +36,7 @@ export default function SellerPendingApprovalPage() {
   }, [refetch]);
 
   const handleSignOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    router.push("/login");
+    logout();
   };
 
   if (isLoading) {

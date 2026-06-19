@@ -4,7 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { SellerSidebar } from "@/shared/components/seller/SellerSidebar";
 import { SellerHeader } from "@/shared/components/seller/SellerHeader";
-import { SellerGuard } from "@/shared/components/seller/SellerGuard";
+import { SellerGuard } from "@/shared/guards/SellerGuard";
 
 export default function SellerLayout({
   children,

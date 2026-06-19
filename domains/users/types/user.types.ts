@@ -9,6 +9,7 @@ export interface Address {
   state: string;
   postalCode: string;
   country: string;
+  phonenumber: string;
   isDefault: boolean;
   _id: string;
 }

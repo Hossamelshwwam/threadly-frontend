@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/config/providers";
 import CustomToaster from "@/shared/components/custom-toaster/custom-toaster";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/shared/components/ui/tooltip";
 
 const cairo = Cairo({
   variable: "--font-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", cairo.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col">
-        <Providers>{children}</Providers>
+        <Providers>
+          <TooltipProvider>{children}</TooltipProvider>
+        </Providers>
         <CustomToaster />
       </body>
     </html>

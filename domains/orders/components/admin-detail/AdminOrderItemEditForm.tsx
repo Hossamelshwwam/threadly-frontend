@@ -27,7 +27,8 @@ export function AdminOrderItemEditForm({
   item,
   onCancel,
 }: AdminOrderItemEditFormProps) {
-  const { mutateAsync: updateOrderItem, isPending } = useAdminUpdateOrderItem();
+  const { mutateAsync: updateOrderItem, isPending } =
+    useAdminUpdateOrderItem(orderId);
 
   // State initializes directly from the item.
   const [draftStatus, setDraftStatus] = useState<OrderItemStatus>(item.status);
@@ -45,7 +46,6 @@ export function AdminOrderItemEditForm({
   const handleSaveItem = async () => {
     toast.promise(
       updateOrderItem({
-        orderId,
         itemId: item._id,
         payload: {
           status: draftStatus,

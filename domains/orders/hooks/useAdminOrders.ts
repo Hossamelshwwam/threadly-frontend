@@ -50,23 +50,20 @@ export function useAdminUpdateOrderStatus() {
   });
 }
 
-export function useAdminUpdateOrderItem() {
+export function useAdminUpdateOrderItem(orderId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({
-      orderId,
       itemId,
       payload,
     }: {
-      orderId: string;
       itemId: string;
       payload: UpdateOrderItemPayload;
-    }) => ordersApi.adminUpdateOrderItem(orderId, itemId, payload),
-    onSuccess: (_, variables) => {
-      // Instantly refresh the order details page so the new tracking & status show up
+    }) => ordersApi.adminUpdateOrderItem(itemId, payload),
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: orderKeys.adminDetail(variables.orderId),
+        queryKey: orderKeys.adminDetail(orderId),
       });
     },
   });
