@@ -10,6 +10,7 @@ import {
   RiFileList3Line,
   RiLogoutBoxRLine,
   RiChatHistoryLine,
+  RiArrowLeftLine,
 } from "react-icons/ri";
 import { cn } from "@/shared/lib";
 import useLogout from "@/shared/hooks/useLogout";
@@ -60,7 +61,19 @@ export function AccountSidebar() {
       </div>
 
       <nav className="flex flex-col gap-1.5">
-        <div className="pb-80">
+        <div>
+          <Link
+            key={"Back To Home"}
+            href={"/"}
+            className={cn(
+              "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all",
+
+              "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
+            )}
+          >
+            <RiArrowLeftLine size={18} className={"text-zinc-400"} />
+            Back To Home
+          </Link>
           {NAV_LINKS.map((link) => {
             // Exact match for /account, otherwise startsWith for sub-routes
             const isActive =

@@ -49,7 +49,7 @@ export default function OrderConfirmationPage({ id }: Props) {
               Continue Shopping
             </CustomButton>
           </Link>
-          <Link href={`/orders/${id}`} className="w-full sm:w-auto">
+          <Link href={`/account/orders/${id}`} className="w-full sm:w-auto">
             <CustomButton
               variant="solid"
               theme="primary"

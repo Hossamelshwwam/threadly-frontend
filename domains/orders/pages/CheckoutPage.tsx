@@ -24,7 +24,7 @@ export default function CheckoutPage() {
   const [selectAddress, setSelectAddress] = useState("");
   const [selectMethod, setSelectMethod] = useState<
     "credit_card" | "cash_on_delivery"
-  >("credit_card");
+  >("cash_on_delivery");
   const router = useRouter();
 
   const { data: cartResponse, isLoading: isCartLoading } = useCart();

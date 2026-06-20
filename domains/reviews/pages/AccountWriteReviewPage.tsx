@@ -9,10 +9,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
-  RiArrowLeftSLine,
   RiStarFill,
   RiImageAddLine,
   RiCloseCircleFill,
+  RiArrowLeftLine,
 } from "react-icons/ri";
 
 import { usePendingReviews, useSubmitReview } from "../hooks/useReviews";
@@ -117,9 +117,9 @@ export default function AccountWriteReviewPage({
     <div className="flex-1 font-sans animate-fadeIn pb-12 max-w-3xl">
       <Link
         href="/account/reviews/pending"
-        className="inline-flex items-center gap-1 mb-6 text-sm font-bold text-amber-700 hover:text-amber-900 transition-colors bg-white/60 px-3 py-1.5 rounded-lg border border-amber-200/50"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-amber-600"
       >
-        <RiArrowLeftSLine size={18} /> Cancel Review
+        <RiArrowLeftLine size={18} /> Cancel Review
       </Link>
 
       <div className="bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-hidden">

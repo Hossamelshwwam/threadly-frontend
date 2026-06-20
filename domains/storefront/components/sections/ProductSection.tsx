@@ -1,6 +1,8 @@
 import type { Product } from "@/domains/products/types/product.types";
 import { ProductCard } from "../../../products/components/ProductCard";
 import { RiArrowRightLine } from "react-icons/ri";
+import Link from "next/link";
+import CustomButton from "@/shared/components/custom-button/custom-button";
 
 interface ProductSectionProps {
   title: string;
@@ -51,16 +53,12 @@ export function ProductSection({
           <h2 className="text-5xl lg:text-6xl font-bold text-zinc-900 mt-4 text-balance leading-[1.05]">
             {title}
           </h2>
-          <p className="text-zinc-500 mt-4 text-base leading-relaxed max-w-sm">
+          <p className="text-zinc-500 mt-4 text-base leading-relaxed max-w-sm mb-5">
             Curated with care, designed to last. Each piece tells its own story.
           </p>
-          <a
-            href="/products"
-            className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02]"
-            style={{ background: "#d99a4a" }}
-          >
-            View All Products <RiArrowRightLine size={16} />
-          </a>
+          <CustomButton rightIcon={<RiArrowRightLine size={16} />}>
+            <Link href="/products">View All Products</Link>
+          </CustomButton>
         </div>
         <div className="w-full lg:w-3/5">
           {loading ? (
@@ -72,7 +70,7 @@ export function ProductSection({
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
               {products.slice(0, 4).map((product) => (
                 <ProductCard
                   key={product._id}
@@ -86,12 +84,12 @@ export function ProductSection({
         </div>
       </div>
       <div className="mt-12 text-center md:hidden">
-        <a
+        <Link
           href="/products"
           className="inline-flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors"
         >
           View All <RiArrowRightLine size={16} />
-        </a>
+        </Link>
       </div>
     </section>
   );

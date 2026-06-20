@@ -5,6 +5,7 @@ import { RiShoppingBag3Fill, RiSubtractLine, RiAddLine } from "react-icons/ri";
 import { toast } from "sonner";
 import useAddProductToCart from "@/domains/cart/hooks/useAddProductToCart";
 import { useGetMe } from "@/domains/users/hooks/useUser";
+import CustomButton from "@/shared/components/custom-button/custom-button";
 
 interface AddToCartSectionProps {
   productId: string;
@@ -100,19 +101,22 @@ export function AddToCartSection({
         </div>
 
         {/* Massive Primary CTA Button - No longer disabled by missing variants! */}
-        <button
+        <CustomButton
           onClick={handleAddToCart}
           disabled={isPending}
-          className="group flex h-16 flex-1 items-center justify-center gap-3 rounded-2xl bg-amber-500 px-6 font-black text-white shadow-lg shadow-amber-500/25 transition-all hover:bg-amber-600 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
+          fullWidth
+          leftIcon={
+            <RiShoppingBag3Fill
+              size={22}
+              className="transition-transform group-hover:scale-110"
+            />
+          }
+          className="group h-16 rounded-2xl text-lg"
         >
-          <RiShoppingBag3Fill
-            size={22}
-            className="transition-transform group-hover:scale-110"
-          />
           {isPending
             ? "Adding to Cart..."
             : `Add to Cart — EGP ${(price * quantity).toLocaleString()}`}
-        </button>
+        </CustomButton>
       </div>
 
       <div className="flex items-center justify-center gap-2">

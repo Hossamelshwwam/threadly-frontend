@@ -9,10 +9,10 @@ export default function AuthLayout({
 }) {
   return (
     <div className="bg-zinc-50 text-zinc-900 font-sans min-h-screen flex flex-col">
-      <AuthHeader />
+      {/* <AuthHeader /> */}
       {children}
 
-      <AuthFooter />
+      {/* <AuthFooter /> */}
       <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-amber-400 opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-amber-300 opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
     </div>

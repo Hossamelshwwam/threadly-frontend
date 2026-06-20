@@ -1,4 +1,3 @@
-// domains/orders/components/checkout/CheckoutPaymentForm.tsx
 "use client";
 
 import React from "react";
@@ -14,41 +13,77 @@ interface Props {
 
 export function CheckoutPaymentForm({ selectMethod, setSelectMethod }: Props) {
   return (
-    <section className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm">
+    <section className="bg-white border border-zinc-200 rounded-2xl p-5 sm:p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4 border-b border-zinc-100 pb-4">
-        <h2 className="text-lg font-bold text-zinc-900">Payment Method</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-zinc-900">
+          Payment Method
+        </h2>
       </div>
 
-      <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+      {/* Changed from overflow-x-auto to a responsive grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {/* COD Option */}
         <label
           onClick={() => setSelectMethod("cash_on_delivery")}
           className={cn(
-            "min-w-[200px] h-[100px] p-4 rounded-xl border-2 cursor-pointer transition-all flex flex-col justify-between relative",
+            "relative flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all w-full",
             selectMethod === "cash_on_delivery"
-              ? "border-amber-400 bg-amber-50/30"
+              ? "border-amber-400 bg-amber-50/50"
               : "border-zinc-200 hover:border-zinc-300 bg-white",
           )}
         >
-          <div className="flex items-center justify-between w-full">
-            <span className="font-bold text-zinc-900">Cash on Delivery</span>
-            <RiMoneyDollarCircleLine size={24} className="text-amber-500" />
+          <div className="flex items-start justify-between w-full mb-1">
+            <div className="flex items-center gap-2.5">
+              <RiMoneyDollarCircleLine
+                size={22}
+                className={
+                  selectMethod === "cash_on_delivery"
+                    ? "text-amber-500"
+                    : "text-zinc-400"
+                }
+              />
+              <span className="font-bold text-zinc-900 text-sm sm:text-base">
+                Cash on Delivery
+              </span>
+            </div>
+
+            {/* Proper Radio Button Indicator */}
+            <div
+              className={cn(
+                "w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors",
+                selectMethod === "cash_on_delivery"
+                  ? "border-amber-500"
+                  : "border-zinc-300",
+              )}
+            >
+              {selectMethod === "cash_on_delivery" && (
+                <div className="w-2.5 h-2.5 bg-amber-500 rounded-full" />
+              )}
+            </div>
           </div>
-          <span className="text-xs font-medium text-zinc-500">
+
+          <span className="text-xs sm:text-sm font-medium text-zinc-500 ml-8">
             Pay when you receive it
           </span>
-          {selectMethod === "cash_on_delivery" && (
-            <span className="absolute top-4 right-4 w-3 h-3 rounded-full bg-amber-500 ring-4 ring-amber-100" />
-          )}
         </label>
 
         {/* Credit Card Option (Disabled Mock) */}
-        <label className="min-w-[200px] h-[100px] p-4 rounded-xl border-2 border-zinc-200 bg-zinc-50 opacity-50 cursor-not-allowed flex flex-col justify-between">
-          <div className="flex items-center justify-between w-full">
-            <span className="font-bold text-zinc-900">Credit Card</span>
-            <RiBankCardLine size={24} className="text-zinc-400" />
+        <label className="relative flex flex-col p-4 rounded-xl border-2 border-zinc-200 bg-zinc-50 opacity-60 cursor-not-allowed w-full">
+          <div className="flex items-start justify-between w-full mb-1">
+            <div className="flex items-center gap-2.5">
+              <RiBankCardLine size={22} className="text-zinc-400" />
+              <span className="font-bold text-zinc-900 text-sm sm:text-base">
+                Credit Card
+              </span>
+            </div>
+
+            {/* Disabled Radio Indicator */}
+            <div className="w-5 h-5 rounded-full border-2 border-zinc-200 bg-zinc-100 flex items-center justify-center shrink-0" />
           </div>
-          <span className="text-xs font-medium text-zinc-500">Coming soon</span>
+
+          <span className="text-xs sm:text-sm font-medium text-zinc-500 ml-8">
+            Coming soon
+          </span>
         </label>
       </div>
     </section>

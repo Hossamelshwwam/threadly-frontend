@@ -7,7 +7,7 @@ import {
   FilterSidebar,
   type FiltersState,
 } from "../../storefront/components/filters/FilterSidebar";
-import { ProductsGrid } from "../../storefront/components/sections/ProductsGrid";
+import { ProductsGrid } from "../components/ProductsGrid";
 import { MobileFilterSheet } from "../../../shared/components/buyer/MobileFilterSheet";
 
 const DEFAULT_FILTERS: FiltersState = {};

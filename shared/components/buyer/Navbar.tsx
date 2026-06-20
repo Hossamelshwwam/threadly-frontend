@@ -98,7 +98,7 @@ export function Navbar() {
               aria-label="Shopping cart"
               className="p-2 sm:p-3 rounded-xl hover:bg-white/10 text-white/75 hover:text-white transition-colors relative"
             >
-              <RiShoppingBagLine size={20} />
+              <RiShoppingBagLine size={25} />
               {itemCount > 0 && (
                 <span className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-white text-amber-700 text-[10px] font-bold rounded-full">
                   {itemCount > 9 ? "9+" : itemCount}

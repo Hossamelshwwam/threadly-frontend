@@ -39,7 +39,7 @@ export default function AccountOrdersPage() {
   };
 
   return (
-    <div className="font-sans animate-fadeIn flex-1">
+    <div className="font-sans animate-fadeIn flex-1 w-full">
       {/* Header Section */}
       <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm mb-6 flex items-center justify-between">
         <div>
@@ -62,23 +62,21 @@ export default function AccountOrdersPage() {
       />
 
       {/* Performant Data Table */}
-      <div className="bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-hidden">
-        <CustomTable
-          columns={columns}
-          data={orders}
-          isLoading={isLoading}
-          page={page}
-          limit={limit}
-          totalPages={pagination?.pages}
-          totalItems={pagination?.total}
-          onPageChange={(newPage) => setPage(newPage)}
-          emptyStateIcon={
-            <RiShoppingBag3Line className="text-6xl text-zinc-300 mx-auto" />
-          }
-          emptyStateTitle="No orders found"
-          emptyStateDescription="We couldn't find any orders matching your selected filters."
-        />
-      </div>
+      <CustomTable
+        columns={columns}
+        data={orders}
+        isLoading={isLoading}
+        page={page}
+        limit={limit}
+        totalPages={pagination?.pages}
+        totalItems={pagination?.total}
+        onPageChange={(newPage) => setPage(newPage)}
+        emptyStateIcon={
+          <RiShoppingBag3Line className="text-6xl text-zinc-300 mx-auto" />
+        }
+        emptyStateTitle="No orders found"
+        emptyStateDescription="We couldn't find any orders matching your selected filters."
+      />
     </div>
   );
 }

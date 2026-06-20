@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import type { Product } from "@/domains/products/types/product.types";
-import { ProductCard } from "../../../products/components/ProductCard";
+import { ProductCard } from "./ProductCard";
 
 interface ProductsGridProps {
   products: Product[];
@@ -108,7 +108,7 @@ export function ProductsGrid({
         </p>
       )}
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
         {products.map((product) => (
           <ProductCard
             key={product._id}
