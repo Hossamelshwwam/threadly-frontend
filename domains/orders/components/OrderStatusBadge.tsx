@@ -64,7 +64,7 @@ export function OrderItemStatusBadge({ status }: OrderItemStatusBadgeProps) {
 
   return (
     <span
-      className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm border shrink-0 ${styles[status] || styles.processing}`}
+      className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-sm border shrink-0 w-fit ${styles[status] || styles.processing}`}
     >
       {status}
     </span>

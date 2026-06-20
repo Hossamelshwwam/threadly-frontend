@@ -57,7 +57,7 @@ export function useSellerPayoutsColumns() {
           const { amount } = row.original;
           return (
             <div className="font-sans">
-              <span className="text-sm font-bold text-zinc-900">
+              <span className="text-sm font-bold text-zinc-900 text-nowrap">
                 EGP{" "}
                 {amount.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
@@ -79,7 +79,7 @@ export function useSellerPayoutsColumns() {
           const { netAmount } = row.original;
           return (
             <div className="font-sans">
-              <span className="text-sm font-bold text-success">
+              <span className="text-sm font-bold text-success text-nowrap">
                 + EGP{" "}
                 {netAmount.toLocaleString(undefined, {
                   minimumFractionDigits: 2,

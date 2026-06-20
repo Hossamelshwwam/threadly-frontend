@@ -34,22 +34,24 @@ export function SellerReviewsFilterBar({
   onSortChange,
 }: SellerReviewsFilterBarProps) {
   return (
-    <div className="bg-white border border-zinc-200 rounded-lg shadow-xs font-sans p-4 space-y-4">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div className="space-y-2">
-          <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider block">
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-xs font-sans p-4 sm:p-5">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 xl:gap-4">
+        {/* Rating Filters */}
+        <div className="space-y-2.5">
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
             Rating
           </span>
-          <div className="flex items-center gap-1.5">
+          {/* FIX: Added `flex-wrap` and adjusted gap so pills stack cleanly on mobile */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {RATING_OPTIONS.map((opt) => (
               <button
                 key={opt.label}
                 type="button"
                 onClick={() => onRatingChange(opt.value)}
                 className={cn(
-                  "text-xs font-semibold px-3.5 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer",
+                  "text-xs font-semibold px-4 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-md transition-colors whitespace-nowrap cursor-pointer",
                   activeRating === opt.value
-                    ? "bg-amber-400 text-white shadow-xs"
+                    ? "bg-amber-400 text-white shadow-sm"
                     : "bg-zinc-50 border border-zinc-200 text-zinc-600 hover:bg-zinc-100",
                 )}
               >
@@ -59,20 +61,22 @@ export function SellerReviewsFilterBar({
           </div>
         </div>
 
-        <div className="space-y-2">
-          <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider block">
+        {/* Sort Filters */}
+        <div className="space-y-2.5">
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
             Sort By
           </span>
-          <div className="flex items-center gap-1.5">
+          {/* FIX: Added `flex-wrap` so options wrap gracefully on small phones */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {SORT_OPTIONS.map((opt) => (
               <button
                 key={opt.label}
                 type="button"
                 onClick={() => onSortChange(opt.value)}
                 className={cn(
-                  "text-xs font-semibold px-3.5 py-1.5 rounded-md transition-colors whitespace-nowrap cursor-pointer",
+                  "text-xs font-semibold px-4 py-2 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-md transition-colors whitespace-nowrap cursor-pointer",
                   activeSort === opt.value
-                    ? "bg-zinc-800 text-white shadow-xs"
+                    ? "bg-zinc-800 text-white shadow-sm"
                     : "bg-zinc-50 border border-zinc-200 text-zinc-600 hover:bg-zinc-100",
                 )}
               >

@@ -228,7 +228,7 @@ export function ConfirmationDialog({
               <CustomButton
                 variant="outline"
                 theme="neutral"
-                size="md"
+                size="lg"
                 className="flex-1"
                 onClick={handleCancel}
                 disabled={isLoading}
@@ -239,7 +239,7 @@ export function ConfirmationDialog({
               <CustomButton
                 variant="solid"
                 theme={cfg.confirmTheme}
-                size="md"
+                size="lg"
                 className="flex-1"
                 onClick={handleConfirm}
                 disabled={isConfirmDisabled}

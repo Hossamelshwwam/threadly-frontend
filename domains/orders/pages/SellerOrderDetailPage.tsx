@@ -63,7 +63,7 @@ export default function SellerOrderDetailPage({ id }: Props) {
         </div>
 
         {/* RIGHT COLUMN: Actions and Context Summary */}
-        <div className="col-span-2 space-y-4">
+        <div className="lg:col-span-2 space-y-4">
           {/* Logistics Status Update Panel */}
           <SellerOrderStatusManager item={item} />
 

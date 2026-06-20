@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { RiAddLine, RiStore2Line, RiWallet3Line } from "react-icons/ri";
+import { RiAddLine, RiStore2Line } from "react-icons/ri";
 
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomTable from "@/shared/components/custom-table/CustomTable";

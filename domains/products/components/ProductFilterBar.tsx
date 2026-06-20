@@ -46,7 +46,7 @@ export function ProductFilterBar({
   return (
     <div className="bg-white border border-zinc-200 rounded-lg p-4 space-y-4 font-sans shadow-xs">
       {/* Upper Layer: Core search input and drop-down selectors */}
-      <div className="flex flex-col md:flex-row gap-3 items-end">
+      <div className="flex flex-col md:flex-row gap-3">
         <CustomInput
           name="search"
           type="text"

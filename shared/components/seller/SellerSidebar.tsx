@@ -9,7 +9,8 @@ export function SellerSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-white border-r border-zinc-200 flex flex-col font-sans h-screen sticky top-0 shrink-0">
+    // FIX: Added `hidden lg:flex` so this static sidebar only shows on desktop
+    <aside className="hidden lg:flex w-64 bg-white border-r border-zinc-200 flex-col font-sans h-screen sticky top-0 shrink-0">
       {/* Brand Logo Area */}
       <div className="h-16 flex items-center px-6 border-b border-zinc-200">
         <Link href="/seller" className="flex items-center gap-2 outline-none">

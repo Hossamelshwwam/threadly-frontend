@@ -50,7 +50,7 @@ export function SellerOrderCustomerDetails({ address, buyer }: Props) {
 
         <div className="flex items-center gap-2.5 border-t border-zinc-50 pt-2.5 text-zinc-600 font-medium">
           <RiPhoneLine className="text-zinc-400 shrink-0" size={16} />
-          <span>{address.phone}</span>
+          <span>{address.phonenumber}</span>
         </div>
       </div>
     </div>

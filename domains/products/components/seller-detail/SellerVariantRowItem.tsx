@@ -1,8 +1,7 @@
-// domains/products/components/seller-detail/SellerVariantRowItem.tsx
 "use client";
 
 import React, { useState } from "react";
-import { RiDeleteBin6Line, RiAddLine, RiEdit2Line } from "react-icons/ri";
+import { RiDeleteBin6Line, RiEdit2Line } from "react-icons/ri";
 import { toast } from "sonner";
 
 import type { ProductVariant } from "../../types/inventory.types";
@@ -78,9 +77,10 @@ export function SellerVariantRowItem({
   }
 
   return (
-    <div className="bg-white rounded-xl flex flex-col justify-between font-sans h-full">
+    <div className="bg-white rounded-xl flex flex-col justify-between font-sans h-full shadow-sm border border-zinc-100">
       {/* Top Banner: Price & SKU */}
-      <div className="p-4 flex items-center justify-between border-b border-zinc-50">
+      {/* FIX: Changed to flex-wrap to prevent clipping if prices get very long */}
+      <div className="p-4 flex flex-wrap items-start justify-between gap-3 border-b border-zinc-50">
         <div className="flex flex-col gap-1">
           <span className="text-lg font-black text-zinc-900 tracking-tight">
             EGP {variant.price.toLocaleString()}
@@ -108,22 +108,33 @@ export function SellerVariantRowItem({
       </div>
 
       {/* Middle: Stock Indicators */}
+      {/* No changes needed here, a 2-column grid works perfectly on mobile */}
       <div className="p-4 grid grid-cols-2 gap-3 bg-zinc-50/50">
         <div
-          className={`p-3 rounded-xl border ${variant.stock === 0 ? "bg-error-bg/50 border-error/20 text-error" : "bg-white border-zinc-200 text-zinc-800"} shadow-sm flex flex-col items-center justify-center`}
+          className={`p-3 rounded-xl border ${
+            variant.stock === 0
+              ? "bg-error-bg/50 border-error/20 text-error"
+              : "bg-white border-zinc-200 text-zinc-800"
+          } shadow-sm flex flex-col items-center justify-center`}
         >
           <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-0.5">
             Available
           </span>
           <span
-            className={`text-xl font-black ${variant.stock === 0 ? "text-error" : "text-emerald-600"}`}
+            className={`text-xl font-black ${
+              variant.stock === 0 ? "text-error" : "text-emerald-600"
+            }`}
           >
             {variant.stock}
           </span>
         </div>
 
         <div
-          className={`p-3 rounded-xl border ${variant.reserved > 0 ? "bg-warning-bg/50 border-warning/20 text-warning-800" : "bg-white border-zinc-200 text-zinc-500"} shadow-sm flex flex-col items-center justify-center`}
+          className={`p-3 rounded-xl border ${
+            variant.reserved > 0
+              ? "bg-warning-bg/50 border-warning/20 text-warning-800"
+              : "bg-white border-zinc-200 text-zinc-500"
+          } shadow-sm flex flex-col items-center justify-center`}
         >
           <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-0.5">
             Reserved
@@ -133,7 +144,9 @@ export function SellerVariantRowItem({
       </div>
 
       {/* Bottom: Actions Strip */}
-      <div className="border-t border-zinc-100 p-3 bg-white flex items-center gap-2 mt-auto rounded-b-xl">
+      {/* FIX: Stacked layout on mobile (flex-col), row layout on tablet (sm:flex-row) */}
+      <div className="border-t border-zinc-100 p-3 bg-white flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-2 mt-auto rounded-b-xl">
+        {/* Restock Form */}
         <form onSubmit={handleRestockSubmit} className="relative flex-1">
           <CustomInput
             name={`restock-${variant._id}`}
@@ -143,7 +156,7 @@ export function SellerVariantRowItem({
             onChange={(e) => setRestockAmount(e.target.value)}
             value={restockAmount}
             disabled={isRestocking}
-            InputClassName="bg-zinc-50 border-zinc-200 rounded-lg h-10 text-sm focus:bg-white"
+            InputClassName="bg-zinc-50 border-zinc-200 rounded-lg h-10 text-sm focus:bg-white w-full pr-14"
           />
           <button
             type="submit"
@@ -154,14 +167,18 @@ export function SellerVariantRowItem({
           </button>
         </form>
 
-        <div className="flex items-center gap-2 shrink-0 border-l border-zinc-100 pl-2">
+        {/* Edit & Delete Buttons */}
+        {/* FIX: These split the screen 50/50 on mobile, but shrink to fixed icons on tablet */}
+        <div className="flex items-center gap-2 sm:shrink-0 sm:border-l sm:border-zinc-100 sm:pl-2">
           <button
             type="button"
             onClick={() => setIsEditing(true)}
             disabled={isDeleting || isRestocking}
-            className="h-10 w-10 flex items-center justify-center bg-zinc-50 text-zinc-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer disabled:opacity-40"
+            className="flex-1 sm:flex-none h-10 sm:w-10 flex items-center justify-center gap-2 bg-zinc-50 text-zinc-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer disabled:opacity-40"
           >
             <RiEdit2Line size={18} />
+            {/* Text label only shows on mobile for clarity, hidden on desktop to save space */}
+            <span className="sm:hidden text-xs font-bold">Edit</span>
           </button>
 
           <ConfirmationDialog
@@ -181,9 +198,10 @@ export function SellerVariantRowItem({
             <button
               type="button"
               disabled={isDeleting || isRestocking}
-              className="h-10 w-10 flex items-center justify-center bg-zinc-50 text-zinc-400 hover:text-error hover:bg-error-bg rounded-lg transition-colors cursor-pointer disabled:opacity-40"
+              className="w-full sm:w-10 h-10 flex items-center justify-center gap-2 bg-zinc-50 text-zinc-400 hover:text-error hover:bg-error-bg rounded-lg transition-colors cursor-pointer disabled:opacity-40"
             >
               <RiDeleteBin6Line size={18} />
+              <span className="sm:hidden text-xs font-bold">Delete</span>
             </button>
           </ConfirmationDialog>
         </div>

@@ -98,9 +98,9 @@ export default function SellerProductDetailPage({ id }: Props) {
                 {product.data.name}
               </h1>
               <p className="text-sm text-zinc-400 mt-1 font-medium">
-                SKU:{" "}
+                SLUG:{" "}
                 <span className="font-mono text-zinc-500">
-                  {product.data._id}
+                  {product.data.slug}
                 </span>
               </p>
             </div>

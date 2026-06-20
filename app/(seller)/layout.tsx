@@ -25,7 +25,9 @@ export default function SellerLayout({
           {!hideLayout && <SellerHeader />}
 
           <main
-            className={`flex-1 overflow-y-auto ${hideLayout ? "p-4" : "p-6 sm:p-8"}`}
+            className={`flex-1 overflow-y-auto ${
+              hideLayout ? "p-4" : "p-4 sm:p-6 lg:p-8"
+            }`}
           >
             {children}
           </main>

@@ -61,7 +61,7 @@ export default function SellerCreateProductPage() {
     <div className="space-y-6 font-sans max-w-6xl mx-auto pb-12">
       <Link
         href="/seller/products"
-        className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors bg-white px-3 py-1.5 rounded-lg border border-zinc-100 shadow-sm w-fit"
+        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-amber-600"
       >
         <RiArrowLeftLine /> Back to Inventory
       </Link>
