@@ -66,6 +66,11 @@ export default function AdminCategoriesPage() {
         ? category.parentId?._id
         : category.parentId;
     setParentId(pid || "");
+
+    // Smoothly scroll to top on mobile when Edit is clicked
+    if (window.innerWidth < 1024) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const handleFilterChange = (value: boolean | "") => {
@@ -130,10 +135,9 @@ export default function AdminCategoriesPage() {
   });
 
   return (
-    <div className="space-y-4 font-sans">
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* LEFT VIEW: Interactive Data Grid Panel */}
-        <div className="flex-1 space-y-4">
+    <div className="font-sans">
+      <div className="flex flex-col-reverse lg:flex-row gap-6 items-start">
+        <div className="flex-1 w-full min-w-0 space-y-4">
           <CategoryFilterBar
             activeFilter={activeFilter}
             onFilterChange={handleFilterChange}
@@ -157,8 +161,9 @@ export default function AdminCategoriesPage() {
           />
         </div>
 
-        {/* RIGHT VIEW: Sticky Form panel controls descriptor layout */}
-        <div className="w-full lg:w-80 shrink-0">
+        {/* RIGHT VIEW: Form Panel */}
+        {/* FIX: Added `lg:sticky lg:top-24` so on desktop the form follows you as you scroll down a long list! */}
+        <div className="w-full lg:w-80 shrink-0 lg:sticky lg:top-24 z-10">
           <CategoryFormPanel
             isEditing={isEditing}
             name={name}

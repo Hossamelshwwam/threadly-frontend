@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { RiSearchLine, RiUserLine } from "react-icons/ri";
 import { useAdminUsers } from "../hooks/useAdminUsers";
-import { useToggleUserStatus } from "../hooks/useToggleUserStatus";
 import type { UserRole, AdminUsersParams } from "../types/user.types";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import { cn } from "@/lib/utils";
 import useAdminUsersColumns from "../hooks/useAdminUsersColumns";
 import CustomTable from "@/shared/components/custom-table/CustomTable";
-import { toast } from "sonner";
 
 const ROLE_FILTERS: { label: string; value: UserRole | "" }[] = [
   { label: "All", value: "" },
@@ -23,18 +21,7 @@ export default function AdminUsersPage() {
   const [roleFilter, setRoleFilter] = useState<UserRole | "">("");
   const [page, setPage] = useState(1);
 
-  const { mutateAsync: toggleStatus, isPending: isToggling } =
-    useToggleUserStatus();
-
-  const hanleToggleStatus = (data: { id: string; isActive: boolean }) => {
-    toast.promise(toggleStatus({ id: data.id, isActive: data.isActive }), {
-      loading: "Loading...",
-      success: "User status updated successfully",
-      error: (err: any) =>
-        err?.response?.data?.message || "Error updating user status",
-    });
-  };
-  const { columns } = useAdminUsersColumns({ isToggling, hanleToggleStatus });
+  const { columns } = useAdminUsersColumns();
   // Debounce search
 
   useEffect(() => {

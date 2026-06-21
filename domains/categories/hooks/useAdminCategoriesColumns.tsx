@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   RiEditLine,
@@ -11,21 +11,13 @@ import {
 } from "react-icons/ri";
 import Image from "next/image";
 import { toast } from "sonner";
+import { cn } from "@/shared/lib";
 
 import type { Category } from "../types/category.types";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
-import { cn } from "@/shared/lib";
 
-interface UseAdminCategoriesColumnsProps {
-  isUpdating: boolean;
-  onEdit: (category: Category) => void;
-  onToggleStatus: (category: Category) => void;
-  onDelete: (id: string) => Promise<any>;
-  onUploadImage: (id: string, file: File) => Promise<any>;
-}
-
-// ── STANDALONE CELL COMPONENT (Fixes the ESLint Hook Error) ──────────────────
+// ── STANDALONE CELL COMPONENT ───────────────────────────────────────────────
 function CategoryNameCell({
   category,
   onUploadImage,
@@ -33,7 +25,6 @@ function CategoryNameCell({
   category: Category;
   onUploadImage: (id: string, file: File) => Promise<any>;
 }) {
-  // Safe to call useRef here because this is a proper React Function Component!
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,46 +37,59 @@ function CategoryNameCell({
       error: (err: any) =>
         err?.response?.data?.message || "Failed to save category image",
     });
+
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
-    <div className="flex items-center gap-3 font-sans">
-      {/* Category Image Avatar Box Frame Wrapper */}
-      <div className="w-20 h-20 rounded bg-zinc-50 border border-zinc-200 flex items-center justify-center shrink-0 overflow-hidden relative group/img">
+    <div className="flex items-center gap-3 font-sans min-w-[200px]">
+      {/* FIX: Scaled down slightly on mobile (w-16 h-16) to save space, back to w-20 on tablet */}
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded bg-zinc-50 border border-zinc-200 flex items-center justify-center shrink-0 overflow-hidden relative group/img shadow-sm">
         {category.image ? (
           <Image
             src={category.image}
             alt={category.name}
             fill
+            sizes="(max-width: 640px) 64px, 80px"
             className="object-cover group-hover/img:opacity-30 transition-opacity"
           />
         ) : (
           <RiFolderLine className="text-zinc-400 text-lg group-hover/img:opacity-0 transition-opacity" />
         )}
 
-        {/* Trigger Button Overlay over Image box */}
+        {/* FIX 1: Desktop Hover Overlay (Hidden on Mobile) */}
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 bg-black/10 text-zinc-800 transition-all cursor-pointer"
+          className="hidden sm:flex absolute inset-0 items-center justify-center opacity-0 group-hover/img:opacity-100 bg-black/10 text-zinc-800 transition-all cursor-pointer z-10"
           title="Upload category artwork banner image"
         >
-          <RiImageAddLine className="text-base text-amber-500 bg-white p-1 rounded-full shadow-sm" />
+          <RiImageAddLine className="text-xl text-amber-500 bg-white p-1.5 rounded-full shadow-sm" />
         </button>
+
+        {/* FIX 2: Mobile Persistent Button (Always visible on touch screens!) */}
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="sm:hidden absolute bottom-1 right-1 bg-white/90 backdrop-blur-sm p-1 rounded-md shadow-sm border border-zinc-200 z-20"
+        >
+          <RiImageAddLine className="text-amber-500 text-sm" />
+        </button>
+
         <input
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          accept="image/*"
+          accept="image/png, image/jpeg, image/webp"
           className="hidden"
         />
       </div>
 
-      <div>
-        <p className="font-semibold text-zinc-800 leading-tight">
+      <div className="flex flex-col min-w-0">
+        <p className="font-bold text-zinc-900 leading-tight truncate">
           {category.name}
         </p>
-        <p className="text-xs font-mono text-zinc-400 mt-0.5">
+        <p className="text-[10px] sm:text-xs font-mono text-zinc-400 mt-0.5 truncate">
           slug: {category.slug}
         </p>
       </div>
@@ -94,6 +98,14 @@ function CategoryNameCell({
 }
 
 // ── MAIN HOOK ────────────────────────────────────────────────────────────────
+interface UseAdminCategoriesColumnsProps {
+  isUpdating: boolean;
+  onEdit: (category: Category) => void;
+  onToggleStatus: (category: Category) => void;
+  onDelete: (id: string) => Promise<any>;
+  onUploadImage: (id: string, file: File) => Promise<any>;
+}
+
 export default function useAdminCategoriesColumns({
   isUpdating,
   onEdit,
@@ -120,13 +132,13 @@ export default function useAdminCategoriesColumns({
           const category = row.original;
           if (category.parentId && typeof category.parentId === "object") {
             return (
-              <span className="text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/40 px-2 py-1 rounded-md">
+              <span className="text-[10px] sm:text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200/40 px-2 py-1 rounded-md whitespace-nowrap">
                 {(category.parentId as any).name} &rarr; {category.name}
               </span>
             );
           }
           return (
-            <span className="text-xs font-medium bg-zinc-100 text-zinc-500 px-2 py-1 rounded-md">
+            <span className="text-[10px] sm:text-xs font-bold bg-zinc-100 text-zinc-500 px-2 py-1 rounded-md whitespace-nowrap">
               Root Level Domain
             </span>
           );
@@ -140,10 +152,10 @@ export default function useAdminCategoriesColumns({
           return (
             <span
               className={cn(
-                "text-xs font-semibold px-2 py-0.5 rounded-md border",
+                "text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-md border whitespace-nowrap",
                 isActive
                   ? "bg-success-bg text-success border-success/30"
-                  : "bg-error-bg text-error border-[#b03a2e33]",
+                  : "bg-error-bg text-error border-error/20",
               )}
             >
               {isActive ? "Active" : "Inactive"}
@@ -168,7 +180,8 @@ export default function useAdminCategoriesColumns({
           };
 
           return (
-            <div className="flex items-center gap-1.5">
+            // FIX: Added whitespace-nowrap and flex-nowrap to prevent buttons from stacking
+            <div className="flex items-center gap-1.5 flex-nowrap whitespace-nowrap">
               <CustomButton
                 variant="ghost"
                 theme="neutral"

@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { adminNavItems } from "./nav-config";
 import {
   RiBellLine,
   RiSearchLine,
   RiLogoutBoxLine,
   RiUserLine,
+  RiMenuLine,
+  RiThreadsLine,
 } from "react-icons/ri";
 import {
   DropdownMenu,
@@ -15,15 +19,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/shared/components/ui/sheet";
 import { useGetMe } from "@/domains/users/hooks/useUser";
 import CustomAvatar from "../custom-avatar/CustomAvatar";
 import useLogout from "@/shared/hooks/useLogout";
+import { cn } from "@/shared/lib";
+import { AccountMenu } from "../buyer/AccountMenu";
 
 export function AdminHeader() {
   const pathname = usePathname();
   const router = useRouter();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Find the current page title based on the route
   const currentPage = adminNavItems.find((item) => {
     if (item.href === "/admin") return pathname === "/admin";
     return pathname.startsWith(item.href);
@@ -31,97 +44,101 @@ export function AdminHeader() {
 
   const pageTitle = currentPage?.label ?? "Admin";
 
-  // Fetch the current logged-in user
   const { data, isLoading } = useGetMe();
   const user = data?.data;
-  const initial = user?.avatar
-    ? user.avatar
-    : user?.name
-      ? user.name.charAt(0).toUpperCase()
-      : "A";
 
-  // Handle Logout
   const { logout } = useLogout();
 
   return (
-    <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-6 sticky top-0 z-30 font-sans">
-      {/* Page title */}
-      <div>
-        <h1 className="text-lg font-bold text-zinc-900 leading-none">
-          {pageTitle}
-        </h1>
-        <p className="text-xs font-normal text-zinc-400 mt-1">
-          Threadly Admin Panel
-        </p>
+    <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30 font-sans">
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* FIX: Mobile Hamburger Menu (Hidden on Desktop) */}
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <button className="lg:hidden p-2 -ml-2 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors cursor-pointer">
+              <RiMenuLine size={24} />
+            </button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="w-[280px] p-0 flex flex-col font-sans z-[100]"
+          >
+            <SheetHeader className="h-16 px-6 border-b border-zinc-200 flex flex-row items-center justify-start m-0 space-y-0">
+              <SheetTitle className="flex items-center gap-2.5 m-0 mt-0">
+                <div className="w-7 h-7 rounded-md bg-main flex items-center justify-center">
+                  <RiThreadsLine className="text-white text-base" />
+                </div>
+                <div className="flex flex-col leading-none text-left">
+                  <span className="text-sm font-black tracking-tight text-zinc-950">
+                    Threadly
+                  </span>
+                  <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest mt-0.5">
+                    Admin
+                  </span>
+                </div>
+              </SheetTitle>
+            </SheetHeader>
+
+            {/* Mobile Nav Links */}
+            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+              <div className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-2 px-3">
+                Management
+              </div>
+              {adminNavItems.map((item) => {
+                const isActive =
+                  item.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors outline-none",
+                      isActive
+                        ? "bg-amber-50 text-amber-700"
+                        : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
+                    )}
+                  >
+                    <item.icon
+                      className={cn(
+                        "text-[18px]",
+                        isActive ? "text-amber-500" : "text-zinc-400",
+                      )}
+                    />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="px-3 py-4 border-t border-zinc-100">
+              <button
+                onClick={logout}
+                className="flex items-center gap-3 px-3 py-3 rounded-md text-sm font-medium text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 w-full group cursor-pointer"
+              >
+                <RiLogoutBoxLine className="text-base text-zinc-400 group-hover:text-red-500 transition-colors" />
+                Sign out
+              </button>
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        <div>
+          <h1 className="text-base sm:text-lg font-bold text-zinc-900 leading-none">
+            {pageTitle}
+          </h1>
+          <p className="hidden sm:block text-xs font-normal text-zinc-400 mt-1">
+            Threadly Admin Panel
+          </p>
+        </div>
       </div>
 
       {/* Right actions */}
-      <div className="flex items-center gap-3">
-        {/* Search trigger */}
-        <button className="flex items-center gap-2 px-3 py-2 rounded-md bg-zinc-50 border border-zinc-200 text-sm text-zinc-400 hover:border-zinc-300 transition-colors cursor-pointer">
-          <RiSearchLine className="text-base text-amber-500" />
-          <span className="text-xs font-normal hidden sm:block text-zinc-500">
-            Search...
-          </span>
-          <span className="hidden sm:flex items-center gap-0.5 text-[10px] font-medium text-zinc-300">
-            <kbd className="px-1 py-0.5 rounded bg-zinc-100 border border-zinc-200">
-              ⌘
-            </kbd>
-            <kbd className="px-1 py-0.5 rounded bg-zinc-100 border border-zinc-200">
-              K
-            </kbd>
-          </span>
-        </button>
-
-        {/* Notifications */}
-        <button className="relative w-9 h-9 rounded-md bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-500 hover:border-zinc-300 hover:text-zinc-700 transition-colors cursor-pointer">
-          <RiBellLine className="text-base" />
-          {/* unread dot */}
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-amber-400" />
-        </button>
-
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* Avatar Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none border-none bg-transparent p-0 m-0 cursor-pointer">
-            <CustomAvatar
-              fallback={user?.name.charAt(0).toUpperCase()}
-              img={user?.avatar}
-              loading={isLoading}
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-56 font-sans bg-white border border-zinc-200 rounded-md p-1 shadow-md animate-in fade-in-50 data-[side=bottom]:slide-in-from-top-2"
-          >
-            {/* Dynamic User Profile Data */}
-            <DropdownMenuLabel className="px-3 py-2.5 flex flex-col gap-1">
-              <span className="text-sm font-bold text-zinc-900 truncate leading-none">
-                {user?.name || "Admin User"}
-              </span>
-              <span className="text-xs font-medium text-zinc-400 truncate">
-                {user?.email || "admin@threadly.com"}
-              </span>
-            </DropdownMenuLabel>
-
-            <DropdownMenuSeparator className="h-px bg-zinc-100 my-1" />
-
-            <button className="w-full flex items-center gap-2 px-2 py-2 text-sm font-medium group text-zinc-800 rounded-md hover:bg-zinc-50 hover:text-zinc-950 outline-none cursor-pointer transition-colors">
-              <RiUserLine className="text-zinc-400 text-base group-hover:text-zinc-600" />
-              Profile
-            </button>
-
-            <DropdownMenuSeparator className="h-px bg-zinc-100 my-1" />
-
-            {/* Logout Action */}
-            <button
-              onClick={logout}
-              className="w-full flex items-center gap-2 px-2 py-2 text-sm font-semibold group text-error rounded-md hover:bg-error-bg! outline-none cursor-pointer transition-colors hover:text-error"
-            >
-              <RiLogoutBoxLine className="text-error text-base group-hover:text-error" />
-              Sign out
-            </button>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <AccountMenu />
       </div>
     </header>
   );

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { adminNavItems } from "./nav-config";
 import { RiThreadsLine, RiLogoutBoxLine } from "react-icons/ri";
 import { cn } from "@/shared/lib";
+import useLogout from "@/shared/hooks/useLogout";
 
 interface AdminSidebarProps {
   pendingSellers?: number;
@@ -16,6 +17,7 @@ export function AdminSidebar({
   pendingPayouts = 0,
 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { logout } = useLogout();
 
   const getBadgeCount = (badge?: string) => {
     if (badge === "pending_sellers") return pendingSellers;
@@ -29,7 +31,8 @@ export function AdminSidebar({
   };
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-60 bg-white border-r border-zinc-200 flex flex-col z-40">
+    // FIX: Added `hidden lg:flex` so it doesn't overlap on mobile
+    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-60 bg-white border-r border-zinc-200 flex-col z-40">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-zinc-200 shrink-0">
         <div className="w-7 h-7 rounded-md bg-main flex items-center justify-center">
@@ -65,7 +68,6 @@ export function AdminSidebar({
                   : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
               )}
             >
-              {/* Active indicator */}
               {active && (
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-amber-400 rounded-r-full" />
               )}
@@ -93,7 +95,10 @@ export function AdminSidebar({
 
       {/* Bottom: logout */}
       <div className="px-3 py-4 border-t border-zinc-100">
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 w-full group">
+        <button
+          onClick={logout}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all duration-150 w-full group cursor-pointer"
+        >
           <RiLogoutBoxLine className="text-base text-zinc-400 group-hover:text-red-500 transition-colors" />
           Sign out
         </button>

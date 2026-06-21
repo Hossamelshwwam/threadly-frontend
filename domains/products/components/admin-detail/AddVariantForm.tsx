@@ -141,7 +141,7 @@ export function AddVariantForm({ productId, onCancel }: AddVariantFormProps) {
           disabled={isCreating}
           leftIcon={<RiAddLine />}
         >
-          {isCreating ? "Configuring SKU..." : "Append Variant Allocation"}
+          {isCreating ? "Adding..." : "Add Variant"}
         </CustomButton>
       </div>
     </form>

@@ -7,27 +7,15 @@ import {
   RiCheckboxCircleLine,
   RiCloseCircleLine,
   RiEyeLine,
-  RiUserFollowLine,
-  RiUserForbidLine,
 } from "react-icons/ri";
 
 import type { UserProfile } from "../types/user.types";
 import CustomButton from "@/shared/components/custom-button/custom-button";
-import { ConfirmationDialog } from "@/shared/components/confirmation-dialog/ConfirmationDialog";
 import { RoleBadge } from "../components/RoleBadge";
 import { StatusBadge } from "../components/StatusBadge";
 import CustomAvatar from "@/shared/components/custom-avatar/CustomAvatar";
 
-// ── Hook Interface ───────────────────────────────────────────────────────────
-interface UseAdminUsersColumnsProps {
-  isToggling: boolean;
-  hanleToggleStatus: (variables: { id: string; isActive: boolean }) => void;
-}
-
-export default function useAdminUsersColumns({
-  isToggling,
-  hanleToggleStatus,
-}: UseAdminUsersColumnsProps) {
+export default function useAdminUsersColumns() {
   const columns = useMemo<ColumnDef<UserProfile>[]>(
     () => [
       {
@@ -100,54 +88,12 @@ export default function useAdminUsersColumns({
                   View Details
                 </CustomButton>
               </Link>
-
-              {user.isActive ? (
-                <ConfirmationDialog
-                  variant="danger"
-                  title="Suspend User"
-                  description="This will prevent the user from accessing their account."
-                  confirmText="Suspend"
-                  requireCheckbox
-                  checkboxLabel="I confirm I want to suspend this user"
-                  isLoading={isToggling}
-                  onConfirm={() =>
-                    hanleToggleStatus({ id: user._id, isActive: false })
-                  }
-                >
-                  <CustomButton
-                    variant="ghost"
-                    theme="danger"
-                    size="sm"
-                    iconOnly
-                    rightIcon={<RiUserForbidLine />}
-                  />
-                </ConfirmationDialog>
-              ) : (
-                <ConfirmationDialog
-                  variant="success"
-                  title="Reactivate User"
-                  description="This will restore the user's access to their account."
-                  confirmText="Reactivate"
-                  isLoading={isToggling}
-                  onConfirm={() =>
-                    hanleToggleStatus({ id: user._id, isActive: true })
-                  }
-                >
-                  <CustomButton
-                    variant="ghost"
-                    theme="success"
-                    size="sm"
-                    iconOnly
-                    rightIcon={<RiUserFollowLine />}
-                  />
-                </ConfirmationDialog>
-              )}
             </div>
           );
         },
       },
     ],
-    [isToggling, hanleToggleStatus],
+    [],
   );
 
   return { columns };

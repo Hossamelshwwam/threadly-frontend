@@ -30,16 +30,13 @@ export function AdminOrderItemEditForm({
   const { mutateAsync: updateOrderItem, isPending } =
     useAdminUpdateOrderItem(orderId);
 
-  // State initializes directly from the item.
   const [draftStatus, setDraftStatus] = useState<OrderItemStatus>(item.status);
   const [draftTracking, setDraftTracking] = useState(item.trackingNumber || "");
 
-  // Compile the list of strictly available transitions (excluding current status)
   const availableTransitions = [
     ...(STATUS_TRANSITIONS[item.status] || []),
   ] as OrderItemStatus[];
 
-  // Helper to format the status strings cleanly
   const formatStatus = (s: string) =>
     s.charAt(0).toUpperCase() + s.slice(1).replace(/_/g, " ");
 
@@ -55,7 +52,7 @@ export function AdminOrderItemEditForm({
       {
         loading: "Updating item fulfillment...",
         success: () => {
-          onCancel(); // Closes the form in the parent
+          onCancel();
           return "Item status and tracking updated successfully.";
         },
         error: (err: any) =>
@@ -65,17 +62,18 @@ export function AdminOrderItemEditForm({
   };
 
   return (
-    <div className="mt-4 pt-4 border-t border-amber-200/40 grid grid-cols-1 md:grid-cols-2 gap-4 animate-fadeIn">
+    <div className="mt-4 pt-4 border-t border-amber-200/40 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 animate-fadeIn bg-white rounded-xl">
       {/* Item Logistics Status Controls */}
-      <div className="space-y-1.5 flex flex-col justify-center">
-        <label className="text-xs font-bold text-zinc-700 uppercase tracking-wider block mb-1">
+      <div className="space-y-2 flex flex-col justify-center">
+        <label className="text-[10px] sm:text-xs font-bold text-zinc-700 uppercase tracking-wider block">
           Item Logistics Status
         </label>
 
-        <div className="flex items-center gap-3">
+        {/* FIX: flex-col on mobile so Current Status and Buttons don't fight for width. flex-row on sm+ */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           {/* 1. Display Current Status securely */}
-          <div className="flex items-center gap-2 pr-3 border-r border-zinc-200 shrink-0">
-            <span className="text-xs font-semibold text-zinc-400">
+          <div className="flex items-center gap-2 sm:pr-3 sm:border-r border-zinc-200 shrink-0">
+            <span className="text-[10px] sm:text-xs font-semibold text-zinc-400">
               Current:
             </span>
             <OrderItemStatusBadge status={item.status} />
@@ -93,19 +91,19 @@ export function AdminOrderItemEditForm({
                     size="sm"
                     variant={isSelected ? "solid" : "outline"}
                     theme={isSelected ? "primary" : "neutral"}
-                    // Toggle logic: If already selected, clicking it reverts to initial status
                     onClick={() =>
                       setDraftStatus(isSelected ? item.status : status)
                     }
                     disabled={isPending}
-                    className="capitalize text-xs h-7"
+                    // FIX: px-3 py-1.5 to make them better touch targets on mobile
+                    className="capitalize text-[11px] sm:text-xs px-3 py-1.5 sm:h-7"
                   >
                     {formatStatus(status)}
                   </CustomButton>
                 );
               })
             ) : (
-              <span className="text-xs text-zinc-400 italic">
+              <span className="text-xs text-zinc-400 italic bg-zinc-50 px-2 py-1 rounded-md">
                 Finalized (No further transitions)
               </span>
             )}
@@ -123,7 +121,8 @@ export function AdminOrderItemEditForm({
         disabled={isPending}
       />
 
-      <div className="md:col-span-2 flex justify-end gap-2 mt-1">
+      {/* FIX: flex-col-reverse on mobile (Cancel on bottom, Save on top), right-aligned row on desktop */}
+      <div className="md:col-span-2 flex flex-col-reverse sm:flex-row justify-end gap-2 mt-2 sm:mt-1 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100">
         <CustomButton
           type="button"
           variant="outline"
@@ -132,6 +131,7 @@ export function AdminOrderItemEditForm({
           onClick={onCancel}
           disabled={isPending}
           leftIcon={<RiCloseLine />}
+          className="w-full sm:w-auto"
         >
           Cancel
         </CustomButton>
@@ -143,6 +143,7 @@ export function AdminOrderItemEditForm({
           onClick={handleSaveItem}
           disabled={isPending}
           leftIcon={<RiCheckLine />}
+          className="w-full sm:w-auto"
         >
           {isPending ? "Saving..." : "Save Item Updates"}
         </CustomButton>

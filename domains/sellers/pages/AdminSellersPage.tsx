@@ -25,11 +25,7 @@ export default function AdminSellersPage() {
   const [statusFilter, setStatusFilter] = useState<SellerStatus | "">("");
   const [page, setPage] = useState(1);
 
-  // Consume Async Mutation Actions for our Toaster Tracking Pipeline
-  const { mutateAsync: updateStatusAsync, isPending: isUpdating } =
-    useUpdateSellerStatus();
-
-  const columns = useAdminSellersColumns({ isUpdating, updateStatusAsync });
+  const columns = useAdminSellersColumns();
 
   // Debounce filter modifications
   useEffect(() => {

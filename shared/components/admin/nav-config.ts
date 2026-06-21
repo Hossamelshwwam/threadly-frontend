@@ -55,9 +55,5 @@ export const adminNavItems: NavItem[] = [
     icon: RiBankCardLine,
     badge: "pending_payouts",
   },
-  {
-    label: "Reviews",
-    href: "/admin/reviews",
-    icon: RiStarLine,
-  },
+
 ];

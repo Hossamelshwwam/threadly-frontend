@@ -10,16 +10,19 @@ export default function AdminLayout({
   return (
     <AdminGuard>
       <div className="min-h-screen bg-zinc-50 font-sans">
-        {/* Sidebar */}
+        {/* Sidebar (Hidden on mobile via its own internal classes) */}
         <AdminSidebar />
 
-        {/* Main content — offset by sidebar width */}
-        <div className="ml-60 flex flex-col min-h-screen">
+        {/* Main content — FIX: margin-left only applies on large screens (lg:ml-60) */}
+        <div className="lg:ml-60 flex flex-col min-h-screen min-w-0">
+
           {/* Sticky header */}
           <AdminHeader />
 
-          {/* Page content */}
-          <main className="flex-1 p-6">{children}</main>
+          {/* Page content — FIX: Responsive padding */}
+          <main className="flex-1 p-4 sm:p-6 overflow-x-hidden">
+            {children}
+          </main>
         </div>
       </div>
     </AdminGuard>

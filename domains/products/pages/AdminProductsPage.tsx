@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { RiAddLine, RiBox3Line } from "react-icons/ri";
+import Link from "next/link";
 
 import {
   useAdminProducts,
@@ -15,7 +16,6 @@ import CustomTable from "@/shared/components/custom-table/CustomTable";
 import { useAdminSellers } from "@/domains/sellers/hooks/useAdminSellers";
 import { useAdminCategories } from "@/domains/categories/hooks/useAdminCategories";
 import CustomButton from "@/shared/components/custom-button/custom-button";
-import Link from "next/link";
 
 export default function AdminProductsPage() {
   const [search, setSearch] = useState("");
@@ -65,27 +65,28 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div className="space-y-5 font-sans">
+    <div className="space-y-4 sm:space-y-5 font-sans min-w-0 w-full">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-zinc-900">
+          <h1 className="text-xl sm:text-2xl font-bold text-zinc-900">
             Platform Products
           </h1>
           {!isLoading && (
-            <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded-full">
+            <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">
               {pagination?.total?.toLocaleString()}
             </span>
           )}
         </div>
 
         {/* Task 1 Addition Link button shortcut layout */}
-        <Link href="/admin/products/create">
+        <Link href="/admin/products/create" className="w-full sm:w-auto">
           <CustomButton
             variant="solid"
             theme="primary"
             size="md"
             leftIcon={<RiAddLine />}
+            className="w-full sm:w-auto"
           >
             Create Product
           </CustomButton>

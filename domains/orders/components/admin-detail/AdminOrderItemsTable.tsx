@@ -13,25 +13,25 @@ export function AdminOrderItemsTable({
   items,
   order,
 }: AdminOrderItemsTableProps) {
-  // State to track which item is currently being edited (ensures only 1 at a time)
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
-  // Financial Math
   const allTotal = items.reduce((prev, cur) => prev + cur.total, 0);
   const allCancelledTotal = items
     .filter((it) => it.status === "cancelled")
     .reduce((prev, cur) => prev + cur.total, 0);
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-xl shadow-xs overflow-hidden font-sans">
+    // FIX: Added min-w-0 w-full to prevent flex child horizontal blowout
+    <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden font-sans min-w-0 w-full">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-zinc-100 bg-zinc-50/50 flex items-center justify-between">
+      {/* FIX: Reduced mobile padding (px-4), kept desktop (sm:px-5) */}
+      <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-zinc-100 bg-zinc-50/50 flex items-center justify-between">
         <h3 className="text-sm font-bold text-zinc-900">
           Purchased Items ({items.length})
         </h3>
       </div>
 
-      {/* Items List (Delegated to OrderItemRow) */}
+      {/* Items List */}
       <div className="divide-y divide-zinc-100">
         {items.map((item) => (
           <AdminOrderItemRow
@@ -46,22 +46,19 @@ export function AdminOrderItemsTable({
       </div>
 
       {/* Financial Totals Footer */}
-      <div className="bg-zinc-50/50 p-5 border-t border-zinc-100 space-y-3 text-sm">
-        {/* Original Items Total */}
+      <div className="bg-zinc-50/50 p-4 sm:p-5 border-t border-zinc-100 space-y-3 text-[13px] sm:text-sm">
         <div className="flex justify-between text-zinc-500">
           <span>Original Items Total</span>
           <span className="font-semibold text-zinc-700">
             EGP{" "}
-            {allTotal.toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-            })}
+            {allTotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
           </span>
         </div>
 
-        {/* Dynamic Cancelled Deductions Row (Only shows if > 0) */}
         {allCancelledTotal > 0 && (
-          <div className="flex justify-between items-center text-error bg-error-bg/40 px-3 py-2 rounded-lg border border-error/10">
-            <span className="font-semibold text-xs tracking-wide uppercase">
+          // FIX: Added flex-wrap for small screens if text is too long
+          <div className="flex flex-wrap justify-between items-center text-error bg-error-bg/40 px-3 py-2 rounded-lg border border-error/10 gap-2">
+            <span className="font-semibold text-[11px] sm:text-xs tracking-wide uppercase">
               Cancelled Items Deduction
             </span>
             <span className="font-bold">
@@ -73,7 +70,6 @@ export function AdminOrderItemsTable({
           </div>
         )}
 
-        {/* Shipping & Fees */}
         <div className="flex justify-between text-zinc-500 pt-1">
           <span>Shipping & Fees (Estimated)</span>
           <span className="font-semibold text-zinc-700">
@@ -85,9 +81,10 @@ export function AdminOrderItemsTable({
         </div>
 
         {/* Gross Total */}
-        <div className="flex justify-between items-end pt-4 border-t border-zinc-200/60 mt-4">
+        {/* FIX: On mobile, stack text/subtext above the total amount to avoid crashing into it */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-1 sm:gap-0 pt-4 border-t border-zinc-200/60 mt-4">
           <div>
-            <span className="font-extrabold text-zinc-900 block">
+            <span className="font-extrabold text-zinc-900 block text-sm sm:text-base">
               Adjusted Gross Total
             </span>
             {allCancelledTotal > 0 && (
@@ -96,7 +93,7 @@ export function AdminOrderItemsTable({
               </span>
             )}
           </div>
-          <span className="font-extrabold text-zinc-900 text-xl">
+          <span className="font-extrabold text-zinc-900 text-lg sm:text-xl self-end sm:self-auto">
             EGP{" "}
             {order.total.toLocaleString(undefined, {
               minimumFractionDigits: 2,

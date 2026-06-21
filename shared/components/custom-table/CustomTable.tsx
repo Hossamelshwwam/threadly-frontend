@@ -70,21 +70,20 @@ export default function CustomTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   });
 
-  // Calculate standard item sequence layout offsets safely
   const currentItemsCount = data?.length ?? 0;
   const start =
     totalItems > 0 ? (page - 1) * limit + 1 : currentItemsCount > 0 ? 1 : 0;
   const end =
     totalItems > 0 ? Math.min(page * limit, totalItems) : currentItemsCount;
 
-  // Render check: show pagination if explicitly configured or if multiple pages exist
   const showPagination =
     !isLoading && onPageChange && (totalPages > 1 || totalItems > limit);
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-lg overflow-hidden font-sans">
+    // FIX: Added w-full to ensure it respects parent constraints
+    <div className="bg-white border border-zinc-200 rounded-lg overflow-hidden font-sans w-full">
       {(title || href) && (
-        <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
+        <div className="flex items-center justify-between px-4 sm:px-5 py-4 border-b border-zinc-100">
           <h2 className="text-base font-bold text-zinc-900">{title}</h2>
           {href && (
             <Link
@@ -97,6 +96,7 @@ export default function CustomTable<TData, TValue>({
           )}
         </div>
       )}
+
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -107,7 +107,7 @@ export default function CustomTable<TData, TValue>({
                   return (
                     <th
                       key={header.id}
-                      className="text-left px-5 py-3 text-xs font-semibold text-zinc-400 uppercase tracking-wider whitespace-nowrap"
+                      className="text-left px-4 sm:px-5 py-3 text-xs font-semibold text-zinc-400 uppercase tracking-wider whitespace-nowrap"
                     >
                       {header.isPlaceholder ? null : (
                         <div
@@ -143,7 +143,7 @@ export default function CustomTable<TData, TValue>({
               Array.from({ length: limit > 10 ? 6 : limit }).map((_, i) => (
                 <tr key={i} className="border-b border-zinc-50">
                   {columns.map((_, j) => (
-                    <td key={j} className="px-5 py-4">
+                    <td key={j} className="px-4 sm:px-5 py-4">
                       <div
                         className={cn(
                           "h-4 rounded bg-zinc-100 animate-pulse",
@@ -156,7 +156,8 @@ export default function CustomTable<TData, TValue>({
               ))
             ) : table.getRowModel().rows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="py-16 text-center">
+                {/* FIX: Added px-4 to prevent empty state text from touching screen edges on mobile */}
+                <td colSpan={columns.length} className="py-16 text-center px-4">
                   {emptyStateIcon}
                   <p className="text-zinc-500 font-semibold mt-3">
                     {emptyStateTitle}
@@ -185,7 +186,7 @@ export default function CustomTable<TData, TValue>({
                   className="hover:bg-zinc-50/60 transition-colors"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-5 py-4">
+                    <td key={cell.id} className="px-4 sm:px-5 py-4">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
@@ -199,32 +200,44 @@ export default function CustomTable<TData, TValue>({
         </table>
       </div>
 
-      {/* Pagination Footer - Fixed conditional mounting execution state */}
+      {/* Pagination Footer */}
       {showPagination && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-4 border-t border-zinc-100 select-none">
-          <p className="text-sm text-zinc-500">
-            Showing {start}–{end}{" "}
+        // FIX 1: `flex-col-reverse` puts buttons ABOVE the text on mobile, `sm:flex-row` side-by-side on tablet
+        <div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4 px-4 sm:px-5 py-4 border-t border-zinc-100 select-none">
+          <p className="text-xs sm:text-sm text-zinc-500 text-center sm:text-left">
+            Showing{" "}
+            <span className="font-semibold text-zinc-900">
+              {start}–{end}
+            </span>{" "}
             {totalItems > 0 ? `of ${totalItems.toLocaleString()}` : ""} items
           </p>
-          <div className="flex items-center gap-2">
+
+          {/* FIX 2: w-full on mobile, auto on desktop */}
+          <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
             <CustomButton
               variant="outline"
               theme="neutral"
               size="sm"
               disabled={page <= 1}
               onClick={() => onPageChange(page - 1)}
+              // FIX 3: Buttons stretch to fill available space on mobile
+              className="flex-1 sm:flex-none"
             >
               Previous
             </CustomButton>
-            <span className="text-sm text-zinc-400 px-2 min-w-10 text-center font-medium">
+
+            <span className="text-xs sm:text-sm text-zinc-500 px-2 min-w-[3rem] text-center font-medium">
               {page} / {totalPages || 1}
             </span>
+
             <CustomButton
               variant="outline"
               theme="neutral"
               size="sm"
               disabled={page >= (totalPages || 1)}
               onClick={() => onPageChange(page + 1)}
+              // FIX 3: Buttons stretch to fill available space on mobile
+              className="flex-1 sm:flex-none"
             >
               Next
             </CustomButton>

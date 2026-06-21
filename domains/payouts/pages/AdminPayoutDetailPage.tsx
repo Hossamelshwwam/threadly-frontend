@@ -8,6 +8,7 @@ import { useAdminPayout } from "../hooks/useAdminPayouts";
 import { PayoutDetailsCard } from "../components/detail/PayoutDetailsCard";
 import { PayoutActionPanel } from "../components/detail/PayoutActionPanel";
 import CustomButton from "@/shared/components/custom-button/custom-button";
+import Link from "next/link";
 
 export default function AdminPayoutDetailPage() {
   const params = useParams();
@@ -44,24 +45,23 @@ export default function AdminPayoutDetailPage() {
 
   return (
     <div className="space-y-6 font-sans max-w-6xl mx-auto pb-12">
+      <Link
+        href="/admin/payouts"
+        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-800 transition-colors w-fit"
+      >
+        <RiArrowLeftLine /> Back to Payouts
+      </Link>
       {/* Header */}
       <div className="flex items-center gap-4 border-b border-zinc-200 pb-4">
-        <button
-          onClick={() => router.push("/admin/payouts")}
-          className="w-9 h-9 flex items-center justify-center rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 transition-colors shrink-0"
-        >
-          <RiArrowLeftLine size={18} />
-        </button>
         <div>
           <h1 className="text-xl font-bold text-zinc-900 truncate">
-            Payout #{payout._id}
+            Payout Detail
           </h1>
           <p className="text-xs text-zinc-400 mt-0.5">
             Manage and review vendor financial settlement.
           </p>
         </div>
       </div>
-
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         <PayoutDetailsCard payout={payout} />
