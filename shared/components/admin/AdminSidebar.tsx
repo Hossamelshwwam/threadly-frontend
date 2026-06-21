@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { adminNavItems } from "./nav-config";
-import { RiThreadsLine, RiLogoutBoxLine } from "react-icons/ri";
+import {
+  RiThreadsLine,
+  RiLogoutBoxLine,
+  RiArrowLeftLine,
+} from "react-icons/ri";
 import { cn } from "@/shared/lib";
 import useLogout from "@/shared/hooks/useLogout";
 
@@ -91,6 +95,25 @@ export function AdminSidebar({
             </Link>
           );
         })}
+        <Link
+          key={"back to home"}
+          href={"/"}
+          className={cn(
+            "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-150 group relative",
+
+            "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
+          )}
+        >
+          <RiArrowLeftLine
+            className={cn(
+              "text-base shrink-0 transition-colors",
+
+              "text-zinc-400 group-hover:text-zinc-600",
+            )}
+          />
+
+          <span className="flex-1">Back To Home</span>
+        </Link>
       </nav>
 
       {/* Bottom: logout */}

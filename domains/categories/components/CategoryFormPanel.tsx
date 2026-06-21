@@ -11,7 +11,7 @@ interface CategoryFormPanelProps {
   isEditing: boolean;
   name: string;
   onNameChange: (val: string) => void;
-  parentId: string;
+  parentId: string | undefined;
   onParentIdChange: (val: string) => void;
   categories: Category[];
   selectedCategory: Category | null;

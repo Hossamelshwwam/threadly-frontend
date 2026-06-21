@@ -31,7 +31,7 @@ export default function AdminCategoriesPage() {
     null,
   );
   const [name, setName] = useState("");
-  const [parentId, setParentId] = useState("");
+  const [parentId, setParentId] = useState<string | undefined>(undefined);
 
   const params: AdminCategoriesQueryParams = {
     page,
@@ -54,7 +54,7 @@ export default function AdminCategoriesPage() {
     setIsEditing(false);
     setSelectedCategory(null);
     setName("");
-    setParentId("");
+    setParentId(undefined);
   };
 
   const handleOpenEdit = (category: Category) => {
@@ -65,7 +65,7 @@ export default function AdminCategoriesPage() {
       typeof category.parentId === "object"
         ? category.parentId?._id
         : category.parentId;
-    setParentId(pid || "");
+    setParentId(pid || undefined);
 
     // Smoothly scroll to top on mobile when Edit is clicked
     if (window.innerWidth < 1024) {
@@ -86,7 +86,7 @@ export default function AdminCategoriesPage() {
       toast.promise(
         updateCategory({
           id: selectedCategory._id,
-          payload: { name, parentId: parentId || null },
+          payload: { name, parentId: parentId ?? undefined },
         }),
         {
           loading: "Updating structural configuration...",
@@ -99,7 +99,7 @@ export default function AdminCategoriesPage() {
         },
       );
     } else {
-      toast.promise(createCategory({ name, parentId: parentId || null }), {
+      toast.promise(createCategory({ name, parentId: parentId ?? undefined }), {
         loading: "Publishing category element...",
         success: () => {
           handleOpenCreate();

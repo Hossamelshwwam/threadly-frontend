@@ -3,8 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
-import { RiLockLine, RiCheckLine, RiArrowRightLine, RiCircleLine } from "react-icons/ri";
+import {
+  RiLockLine,
+  RiCheckLine,
+  RiArrowRightLine,
+  RiCircleLine,
+} from "react-icons/ri";
 import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import useAuthResetPassword from "../../hooks/useAuthResetPassword";
@@ -12,11 +16,8 @@ import useResetPasswordSchema, {
   ResetPasswordSchemaType,
 } from "../../schemas/useResetPasswordSchema";
 
-export function ResetPasswordForm() {
+export function ResetPasswordForm({ token }: { token: string }) {
   const { mutateAsync: resetPassword, isPending } = useAuthResetPassword();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token") as string;
-
   const {
     register,
     handleSubmit,
@@ -39,10 +40,7 @@ export function ResetPasswordForm() {
   };
 
   return (
-    <form
-      className="flex flex-col gap-6"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
       <CustomInput
         name="password"
         type="password"
@@ -77,9 +75,7 @@ export function ResetPasswordForm() {
             ) : (
               <RiCircleLine size={14} className="text-zinc-300 shrink-0" />
             )}
-            <span
-              className={pass ? "text-amber-600" : "text-zinc-500"}
-            >
+            <span className={pass ? "text-amber-600" : "text-zinc-500"}>
               {label}
             </span>
           </span>

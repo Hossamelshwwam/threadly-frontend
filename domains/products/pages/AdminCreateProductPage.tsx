@@ -52,8 +52,10 @@ export default function AdminCreateProductPage() {
 
     toast.promise(createProductAsync(payload), {
       loading: "Publishing product listing core parameters...",
-      success:
-        "Product created successfully! Proceeding to upload asset images.",
+      success: () => {
+        methods.reset();
+        return "Product created successfully! Proceeding to upload asset images.";
+      },
       error: (err: any) =>
         err?.response?.data?.message || "Failed to create product listing.",
     });

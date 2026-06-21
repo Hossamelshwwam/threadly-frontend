@@ -4,7 +4,7 @@ import { AuthSocialSection } from "../components/layout/AuthSocialSection";
 import { AuthRedirectLink } from "../components/layout/AuthRedirectLink";
 import LoginForm from "../components/login/login-form";
 
-export default function LoginPage() {
+export default function LoginPage({ redirect }: { redirect?: string }) {
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-[400px] flex flex-col items-center">
@@ -14,7 +14,7 @@ export default function LoginPage() {
         />
 
         <AuthCard>
-          <LoginForm />
+          <LoginForm redirect={redirect} />
 
           <div className="flex justify-end mt-2">
             <a
@@ -28,7 +28,9 @@ export default function LoginPage() {
           <AuthSocialSection />
         </AuthCard>
 
-        <AuthRedirectLink href="/register">Don&apos;t have an account?</AuthRedirectLink>
+        <AuthRedirectLink href="/register">
+          Don&apos;t have an account?
+        </AuthRedirectLink>
       </div>
     </main>
   );

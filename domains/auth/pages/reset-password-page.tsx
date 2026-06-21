@@ -6,7 +6,7 @@ import { AuthCard } from "../components/layout/AuthCard";
 import { AuthBackLink } from "../components/layout/AuthBackLink";
 import { ResetPasswordForm } from "../components/reset-password/ResetPasswordForm";
 
-export default function ResetPasswordPage() {
+export default function ResetPasswordPage({ token }: { token?: string }) {
   return (
     <main className="grow flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-[400px] flex flex-col items-center">
@@ -17,7 +17,7 @@ export default function ResetPasswordPage() {
         />
 
         <AuthCard>
-          <ResetPasswordForm />
+          <ResetPasswordForm token={token as string} />
           <AuthBackLink />
         </AuthCard>
       </div>

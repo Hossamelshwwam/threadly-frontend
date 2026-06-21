@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
 import {
   RiCheckLine,
   RiCloseLine,
@@ -15,9 +14,8 @@ import CustomInput from "@/shared/components/custom-input/CustomInput";
 import useAuthVerifyEmail from "../hooks/useAuthVerifyEmail";
 import useAuthSendVerificationEmail from "../hooks/useAuthSendVerificationEmail";
 
-export default function EmailVerifiedPage() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token") as string;
+export default function EmailVerifiedPage({ token }: { token?: string }) {
+  console.log(token);
   const { isPending, isError } = useAuthVerifyEmail(token);
   const { mutateAsync: sendVerificationEmailAgain, isPending: isSending } =
     useAuthSendVerificationEmail();

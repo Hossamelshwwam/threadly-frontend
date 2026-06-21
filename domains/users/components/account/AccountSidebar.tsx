@@ -14,6 +14,8 @@ import {
 } from "react-icons/ri";
 import { cn } from "@/shared/lib";
 import useLogout from "@/shared/hooks/useLogout";
+import { CiShop } from "react-icons/ci";
+import { useGetMe } from "../../hooks/useUser";
 
 const NAV_LINKS = [
   {
@@ -47,6 +49,8 @@ export function AccountSidebar() {
   const pathname = usePathname();
 
   const { logout } = useLogout();
+
+  const { data } = useGetMe();
 
   return (
     // Note: top-28 ensures it sticks just below your 80px fixed navbar
@@ -102,6 +106,20 @@ export function AccountSidebar() {
               </Link>
             );
           })}
+          {data?.data.role === "buyer" && (
+            <Link
+              key={"Register As Seller"}
+              href={"/"}
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all",
+
+                "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900",
+              )}
+            >
+              <CiShop size={18} className={"text-zinc-400"} />
+              Register As Seller
+            </Link>
+          )}
         </div>
 
         <div className="my-2 border-t border-zinc-100"></div>

@@ -9,13 +9,11 @@ import CustomButton from "@/shared/components/custom-button/custom-button";
 import CustomInput from "@/shared/components/custom-input/CustomInput";
 import useAuthLogin from "../../hooks/useAuthLogin";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function LoginForm() {
+export default function LoginForm({ redirect }: { redirect?: string }) {
   const { mutateAsync: login, isPending } = useAuthLogin();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
   const {
     register,
     handleSubmit,
