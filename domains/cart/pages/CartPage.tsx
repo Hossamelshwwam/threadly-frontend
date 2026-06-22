@@ -9,6 +9,7 @@ import useRemoveCartItem from "../hooks/useRemoveCartItem";
 import { CartItemRow } from "../components/CartItemRow";
 import { CartSummary } from "../components/CartSummary";
 import { EmptyCart } from "../components/EmptyCart";
+import { AuthGuard } from "@/shared/guards/AuthGuard";
 
 function CartSkeleton() {
   return (
@@ -64,59 +65,61 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-24 pt-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-10">
-          <Link
-            href="/products"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-amber-600"
-          >
-            <RiArrowLeftLine size={16} />
-            Continue Shopping
-          </Link>
-          <div className="flex items-end justify-between">
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-zinc-950">
-                Your Cart
-              </h1>
-              {hasItems && (
-                <p className="mt-3 text-sm font-bold text-zinc-500">
-                  {itemCount} {itemCount === 1 ? "Item" : "Items"} selected
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {!hasItems ? (
-          <EmptyCart />
-        ) : (
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
-            {/* Cart Items List */}
-            <div className="lg:col-span-8 flex flex-col gap-6">
-              {items.map((item) => (
-                <CartItemRow
-                  key={item.inventoryId._id}
-                  item={item}
-                  onUpdateQuantity={handleUpdateQuantity}
-                  onRemove={handleRemove}
-                />
-              ))}
-            </div>
-
-            {/* Order Summary (Sticky) */}
-            <div className="mt-12 lg:col-span-4 lg:mt-0">
-              <div className="sticky top-28">
-                <CartSummary
-                  subtotal={totalPrice}
-                  itemCount={itemCount}
-                  disabled={!hasItems}
-                />
+      <AuthGuard>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-10">
+            <Link
+              href="/products"
+              className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-amber-600"
+            >
+              <RiArrowLeftLine size={16} />
+              Continue Shopping
+            </Link>
+            <div className="flex items-end justify-between">
+              <div>
+                <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-zinc-950">
+                  Your Cart
+                </h1>
+                {hasItems && (
+                  <p className="mt-3 text-sm font-bold text-zinc-500">
+                    {itemCount} {itemCount === 1 ? "Item" : "Items"} selected
+                  </p>
+                )}
               </div>
             </div>
           </div>
-        )}
-      </div>
+
+          {!hasItems ? (
+            <EmptyCart />
+          ) : (
+            <div className="lg:grid lg:grid-cols-12 lg:gap-12 xl:gap-16">
+              {/* Cart Items List */}
+              <div className="lg:col-span-8 flex flex-col gap-6">
+                {items.map((item) => (
+                  <CartItemRow
+                    key={item.inventoryId._id}
+                    item={item}
+                    onUpdateQuantity={handleUpdateQuantity}
+                    onRemove={handleRemove}
+                  />
+                ))}
+              </div>
+
+              {/* Order Summary (Sticky) */}
+              <div className="mt-12 lg:col-span-4 lg:mt-0">
+                <div className="sticky top-28">
+                  <CartSummary
+                    subtotal={totalPrice}
+                    itemCount={itemCount}
+                    disabled={!hasItems}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </AuthGuard>
     </div>
   );
 }
