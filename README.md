@@ -12,15 +12,15 @@
 
 ### 👤 Buyer View
 
-https://github.com/Hossamelshwwam/threadly-frontend/raw/main/public/assets/demos/buyer_perspective.mp4
+https://drive.google.com/file/d/1FXEx91Y5qSqLFPWCggxESnJJPIzA3wAn/view?usp=sharing
 
 ### 🏪 Seller Dashboard
 
-https://github.com/Hossamelshwwam/threadly-frontend/raw/main/public/assets/demos/seller_perspective.mp4
+https://drive.google.com/file/d/1FXEx91Y5qSqLFPWCggxESnJJPIzA3wAn/view?usp=drive_link
 
 ### 🛡️ Admin Dashboard
 
-https://github.com/Hossamelshwwam/threadly-frontend/raw/main/public/assets/demos/admin_perspective.mp4
+https://drive.google.com/file/d/12D3u7hzhHtHNqPlkubLKM9hoS5kaCkXT/view?usp=drive_link
 
 ---
 
