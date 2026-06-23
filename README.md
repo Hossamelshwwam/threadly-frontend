@@ -79,6 +79,16 @@ cd threadly-frontend
 npm install
 ```
 
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+Then fill in your values:
+
+```env
+NEXT_PUBLIC_API_URL=https://your-api-url.com
+```
+
 ### Running the Dev Server
 
 ```bash
