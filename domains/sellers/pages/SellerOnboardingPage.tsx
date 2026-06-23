@@ -1,8 +1,14 @@
 "use client";
 
 import React from "react";
-import { RiStore2Line, RiShieldCheckLine, RiBankLine } from "react-icons/ri";
+import {
+  RiStore2Line,
+  RiShieldCheckLine,
+  RiBankLine,
+  RiArrowLeftSLine,
+} from "react-icons/ri";
 import StoreRegistrationForm from "@/domains/sellers/components/register/StoreRegistrationForm";
+import Link from "next/link";
 
 export default function SellerOnboardingPage() {
   return (
@@ -23,6 +29,12 @@ export default function SellerOnboardingPage() {
         </div>
       </div>
 
+      <Link
+        href="/account"
+        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-800 transition-colors w-fit mb-5"
+      >
+        <RiArrowLeftSLine size={18} /> Back to Account
+      </Link>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Left Column: The Form */}
         <div className="md:col-span-8 bg-white p-6 sm:p-8 rounded-2xl border border-zinc-200 shadow-sm">

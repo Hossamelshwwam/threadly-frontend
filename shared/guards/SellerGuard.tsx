@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useGetMyStore } from "@/domains/sellers/hooks/useGetMyStore";
-import { useGetMe } from "@/domains/users/hooks/useUser"; // Import user hook
+import { useGetMe } from "@/domains/users/hooks/useUser";
 import { FaSpinner } from "react-icons/fa";
 import { RiCloseCircleLine, RiLogoutBoxLine } from "react-icons/ri";
 import CustomButton from "@/shared/components/custom-button/custom-button";
@@ -11,54 +11,73 @@ import useLogout from "../hooks/useLogout";
 
 export function SellerGuard({ children }: { children: React.ReactNode }) {
   // Fetch both store data and user data
-  const { data: storeData, isLoading: isStoreLoading } = useGetMyStore();
+  const {
+    data: storeData,
+    isLoading: isStoreLoading,
+    isError, // Triggers when the API returns an error (e.g., 404 Store Not Found)
+  } = useGetMyStore();
+
   const { data: userData, isPending: isUserLoading } = useGetMe();
 
   const router = useRouter();
   const pathname = usePathname();
   const { logout } = useLogout();
+
   // Unified loading state
   const isLoading = isStoreLoading || isUserLoading;
 
   // Derived state
-  const isSeller = !!storeData?.data;
+  const hasStore = !!storeData?.data;
   const storeStatus = storeData?.data?.status;
-  const isBuyer = userData?.data?.role === "buyer"; // Check if the user is a buyer
+  const isBuyer = userData?.data?.role === "buyer";
 
   const isOnboarding = pathname === "/seller/onboarding";
   const isPendingApproval = pathname === "/seller/pending-approval";
 
-  // Determine if a redirect is about to happen
+  // If there's an API error (404) or data is just empty, they don't have a store.
+  const noStore = isError || !hasStore;
+
+  // Determine if a redirect is about to happen to prevent component flashing
   const needsRedirect =
-    (!isSeller && !isOnboarding && !isPendingApproval) ||
-    (isSeller && isOnboarding) ||
-    (isSeller && storeStatus === "pending" && !isPendingApproval);
+    (noStore && isBuyer && !isOnboarding) ||
+    (noStore && !isBuyer) ||
+    (hasStore && storeStatus === "pending" && !isPendingApproval) ||
+    (hasStore &&
+      storeStatus !== "pending" &&
+      (isOnboarding || isPendingApproval));
 
   useEffect(() => {
     if (!isLoading) {
-      if (!isSeller && !isOnboarding && !isPendingApproval) {
-        // Validation: ONLY redirect to onboarding if the user is a buyer
+      if (noStore) {
+        // 1. User does not have a store profile yet (isError is true)
         if (isBuyer) {
-          router.push("/seller/onboarding");
+          // If they are a standard buyer, send them to Onboarding
+          if (!isOnboarding) router.push("/seller/onboarding");
         } else {
-          // If they are an Admin (or another role) without a store, send them to the homepage
+          // If they are an Admin (or someone else), they shouldn't be here at all
           router.push("/");
         }
-      } else if (isSeller && isOnboarding) {
-        // Seller already exists, no need to be on onboarding page
-        router.push("/seller");
-      } else if (isSeller && storeStatus === "pending" && !isPendingApproval) {
-        // Seller exists but is pending approval
-        router.push("/seller/pending-approval");
+      } else {
+        // 2. User has submitted a store profile
+        if (storeStatus === "pending") {
+          // Waiting for Admin Approval (Role is likely still "buyer" at this point)
+          if (!isPendingApproval) router.push("/seller/pending-approval");
+        } else {
+          // Store is Active (Role is now "seller") or Suspended
+          if (isOnboarding || isPendingApproval) {
+            router.push("/seller");
+          }
+        }
       }
     }
   }, [
     isLoading,
-    isSeller,
-    isOnboarding,
-    isPendingApproval,
+    noStore,
+    hasStore,
     storeStatus,
     isBuyer,
+    isOnboarding,
+    isPendingApproval,
     router,
   ]);
 
@@ -84,7 +103,7 @@ export function SellerGuard({ children }: { children: React.ReactNode }) {
   }
 
   // 3. Specific status handling (Suspended)
-  if (isSeller && storeStatus === "suspended") {
+  if (hasStore && storeStatus === "suspended") {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-zinc-50 p-4 font-sans">
         <div className="max-w-md w-full bg-white border border-zinc-200 rounded-2xl p-8 shadow-sm text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">

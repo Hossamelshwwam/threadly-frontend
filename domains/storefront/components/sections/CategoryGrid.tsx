@@ -53,7 +53,7 @@ export function CategoryGrid() {
             <a
               key={category._id}
               href={`/products?category=${category.slug}`}
-              className="group flex flex-col sm:flex-row items-stretch py-6 sm:py-0 sm:h-48 transition-colors hover:bg-amber-50/40 -mx-8 px-8"
+              className="group flex flex-col sm:flex-row items-stretch py-6 sm:py-0 transition-colors hover:bg-amber-50/40 -mx-8 px-8"
             >
               <div
                 className={`sm:w-2/5 relative overflow-hidden rounded-xl sm:rounded-2xl ${isReversed ? "sm:order-2" : ""}`}
@@ -63,7 +63,7 @@ export function CategoryGrid() {
                     src={imgSrc}
                     alt={category.name}
                     width={400}
-                    height={300}
+                    height={500}
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, 40vw"
                   />

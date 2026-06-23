@@ -25,7 +25,7 @@ export default function LoginPage({ redirect }: { redirect?: string }) {
             </a>
           </div>
 
-          <AuthSocialSection />
+          {/* <AuthSocialSection /> */}
         </AuthCard>
 
         <AuthRedirectLink href="/register">

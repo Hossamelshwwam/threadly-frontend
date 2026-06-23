@@ -15,10 +15,12 @@ export default function RegisterPage() {
 
         <AuthCard>
           <RegisterForm />
-          <AuthSocialSection />
+          {/* <AuthSocialSection /> */}
         </AuthCard>
 
-        <AuthRedirectLink href="/login">Already have an account?</AuthRedirectLink>
+        <AuthRedirectLink href="/login">
+          Already have an account?
+        </AuthRedirectLink>
       </div>
     </main>
   );
