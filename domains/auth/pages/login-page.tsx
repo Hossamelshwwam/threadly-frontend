@@ -2,7 +2,7 @@ import { AuthPageHeader } from "../components/layout/AuthPageHeader";
 import { AuthCard } from "../components/layout/AuthCard";
 import { AuthSocialSection } from "../components/layout/AuthSocialSection";
 import { AuthRedirectLink } from "../components/layout/AuthRedirectLink";
-import LoginForm from "../components/login/login-form";
+import LoginForm from "../components/login/LoginForm";
 
 export default function LoginPage({ redirect }: { redirect?: string }) {
   return (

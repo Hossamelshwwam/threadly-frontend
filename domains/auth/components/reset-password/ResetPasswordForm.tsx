@@ -21,15 +21,10 @@ export function ResetPasswordForm({ token }: { token: string }) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ResetPasswordSchemaType>({
     resolver: zodResolver(useResetPasswordSchema),
   });
-
-  const password = watch("password", "");
-  const hasMinLength = password.length >= 8;
-  const hasNumber = /\d/.test(password);
 
   const onSubmit = (data: ResetPasswordSchemaType) => {
     toast.promise(resetPassword({ token, password: data.password }), {
@@ -60,27 +55,6 @@ export function ResetPasswordForm({ token }: { token: string }) {
         registerProps={register("confirmPassword")}
         error={errors.confirmPassword?.message}
       />
-
-      <div className="flex flex-col gap-2">
-        {[
-          { pass: hasMinLength, label: "At least 8 characters" },
-          { pass: hasNumber, label: "Contains at least one number" },
-        ].map(({ pass, label }) => (
-          <span
-            key={label}
-            className="flex items-center gap-2 text-sm transition-colors"
-          >
-            {pass ? (
-              <RiCheckLine size={14} className="text-amber-500 shrink-0" />
-            ) : (
-              <RiCircleLine size={14} className="text-zinc-300 shrink-0" />
-            )}
-            <span className={pass ? "text-amber-600" : "text-zinc-500"}>
-              {label}
-            </span>
-          </span>
-        ))}
-      </div>
 
       <CustomButton
         type="submit"

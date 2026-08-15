@@ -2,13 +2,15 @@ import z from "zod";
 
 const useRegisterSchema = z
   .object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
+    name: z
+      .string("Name is required")
+      .min(3, "Name must be at least 3 characters"),
     email: z.email("Invalid email"),
     password: z
-      .string()
+      .string("Password is required")
       .min(8, "At least 8 characters")
       .regex(/\d/, "Must contain at least one number"),
-    confirmPassword: z.string(),
+    confirmPassword: z.string("Confirm password is required"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",

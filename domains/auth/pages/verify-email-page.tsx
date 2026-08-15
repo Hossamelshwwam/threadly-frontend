@@ -15,7 +15,6 @@ import useAuthVerifyEmail from "../hooks/useAuthVerifyEmail";
 import useAuthSendVerificationEmail from "../hooks/useAuthSendVerificationEmail";
 
 export default function EmailVerifiedPage({ token }: { token?: string }) {
-  console.log(token);
   const { isPending, isError } = useAuthVerifyEmail(token);
   const { mutateAsync: sendVerificationEmailAgain, isPending: isSending } =
     useAuthSendVerificationEmail();
