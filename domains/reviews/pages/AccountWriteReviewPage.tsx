@@ -2,31 +2,22 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {
-  RiStarFill,
-  RiImageAddLine,
-  RiCloseCircleFill,
-  RiArrowLeftLine,
-} from "react-icons/ri";
+import { RiArrowLeftLine } from "react-icons/ri";
 
 import { usePendingReviews, useSubmitReview } from "../hooks/useReviews";
+import {
+  reviewSchema,
+  type ReviewInput,
+} from "../schemas/review.schema";
+import type { PendingReviewItem } from "../types/review.types";
+import { ReviewItemHeader } from "../components/write-review/ReviewItemHeader";
+import { StarRatingInput } from "../components/write-review/StarRatingInput";
+import { ReviewImagesUpload } from "../components/write-review/ReviewImagesUpload";
 import CustomButton from "@/shared/components/custom-button/custom-button";
-
-// Schema matching API Docs
-const reviewSchema = z.object({
-  rating: z.number().min(1, "Please select a rating").max(5),
-  comment: z
-    .string()
-    .min(5, "Comment must be at least 5 characters")
-    .max(2000, "Comment is too long"),
-});
-type ReviewInput = z.infer<typeof reviewSchema>;
 
 export default function AccountWriteReviewPage({
   orderItemId,
@@ -62,7 +53,7 @@ export default function AccountWriteReviewPage({
 
   // Find the exact item they clicked on
   const itemToReview = response?.data?.find(
-    (item: any) => item._id === orderItemId,
+    (item: PendingReviewItem) => item._id === orderItemId,
   );
 
   if (!itemToReview) {
@@ -80,16 +71,11 @@ export default function AccountWriteReviewPage({
     );
   }
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (images.length + files.length > 5) {
-      toast.error("You can only upload up to 5 images.");
-      return;
-    }
+  const handleAddFiles = (files: File[]) => {
     setImages((prev) => [...prev, ...files]);
   };
 
-  const removeImage = (index: number) => {
+  const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -124,24 +110,7 @@ export default function AccountWriteReviewPage({
 
       <div className="bg-white border border-zinc-200 rounded-2xl shadow-sm overflow-hidden">
         {/* Item Context Header */}
-        <div className="p-6 border-b border-zinc-100 bg-zinc-50/50 flex items-center gap-4">
-          <div className="h-16 w-16 relative bg-white border border-zinc-200 rounded-lg overflow-hidden shrink-0">
-            <Image
-              src={itemToReview.productId?.images?.[0] || "/placeholder.jpg"}
-              alt="Product"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="font-black text-zinc-900 text-lg leading-tight">
-              {itemToReview.productId?.name}
-            </h2>
-            <p className="text-xs font-bold text-zinc-500 mt-1">
-              Purchased from {itemToReview.sellerId?.storeName || "Threadly"}
-            </p>
-          </div>
-        </div>
+        <ReviewItemHeader item={itemToReview} />
 
         {/* Review Form */}
         <form
@@ -149,35 +118,13 @@ export default function AccountWriteReviewPage({
           className="p-6 md:p-8 space-y-8"
         >
           {/* 1. Star Rating */}
-          <div>
-            <label className="block text-sm font-black text-zinc-900 mb-3 uppercase tracking-wider">
-              Overall Rating *
-            </label>
-            <div className="flex items-center gap-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() =>
-                    setValue("rating", star, { shouldValidate: true })
-                  }
-                  className="transition-transform hover:scale-110 focus:outline-none"
-                >
-                  <RiStarFill
-                    size={36}
-                    className={
-                      star <= currentRating ? "text-amber-400" : "text-zinc-200"
-                    }
-                  />
-                </button>
-              ))}
-            </div>
-            {errors.rating && (
-              <p className="text-red-500 text-xs font-bold mt-2">
-                {errors.rating.message}
-              </p>
-            )}
-          </div>
+          <StarRatingInput
+            value={currentRating}
+            onChange={(rating) =>
+              setValue("rating", rating, { shouldValidate: true })
+            }
+            error={errors.rating?.message}
+          />
 
           {/* 2. Written Comment */}
           <div>
@@ -198,51 +145,11 @@ export default function AccountWriteReviewPage({
           </div>
 
           {/* 3. Image Upload (Max 5) */}
-          <div>
-            <label className="block text-sm font-black text-zinc-900 mb-1 uppercase tracking-wider">
-              Add Photos
-            </label>
-            <p className="text-xs font-semibold text-zinc-500 mb-3">
-              Upload up to 5 images (Optional)
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              {images.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="relative w-24 h-24 rounded-xl overflow-hidden border border-zinc-200 group"
-                >
-                  <Image
-                    src={URL.createObjectURL(img)}
-                    alt={`Upload ${idx}`}
-                    fill
-                    className="object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(idx)}
-                    className="absolute top-1 right-1 text-white bg-black/50 rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <RiCloseCircleFill size={20} />
-                  </button>
-                </div>
-              ))}
-
-              {images.length < 5 && (
-                <label className="w-24 h-24 rounded-xl border-2 border-dashed border-zinc-300 bg-zinc-50 flex flex-col items-center justify-center text-zinc-400 hover:text-amber-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-colors">
-                  <RiImageAddLine size={28} />
-                  <span className="text-[10px] font-bold mt-1">Add Photo</span>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleImageUpload}
-                  />
-                </label>
-              )}
-            </div>
-          </div>
+          <ReviewImagesUpload
+            images={images}
+            onAddFiles={handleAddFiles}
+            onRemoveImage={handleRemoveImage}
+          />
 
           <div className="pt-6 border-t border-zinc-100">
             <CustomButton

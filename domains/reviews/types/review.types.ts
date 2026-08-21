@@ -77,3 +77,18 @@ export type SellerReviewsResponse = ApiResponse<SellerReview[]> & {
     pages: number;
   };
 };
+
+// --- Pending review item (buyer orders) ---
+
+export interface PendingReviewItem {
+  _id: string;
+  productId?: {
+    _id: string;
+    name: string;
+    images?: string[];
+  };
+  sellerId?: {
+    _id: string;
+    storeName?: string;
+  };
+}

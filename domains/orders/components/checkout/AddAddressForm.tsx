@@ -59,6 +59,7 @@ export default function AddAddressForm({
         label="Country/Region"
         options={[{ label: "Egypt", value: "Egypt" }]}
         registerProps={register("country")}
+        placeholder="choose a country"
         error={errors?.country?.message}
       />
 
