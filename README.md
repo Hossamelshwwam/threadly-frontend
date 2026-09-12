@@ -2,7 +2,6 @@
 
 > A modern, multi-vendor e-commerce platform connecting buyers with independent sellers.
 
-🔗 **Live Demo:** [threadly-website.vercel.app](https://threadly-website.vercel.app/)
 
 > ⚠️ **Known Limitation:** The **Orders** section is currently view-only. No actions (confirm, cancel, update, etc.) can be performed on orders because the backend uses a session-based database feature that is not supported in the current deployment environment.
 
