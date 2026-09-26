@@ -50,13 +50,13 @@ export default function AdminSellerDetailPage({ id }: Props) {
 
   const updateStatusHandler = (data: {
     status: "approved" | "suspended";
-    note?: string;
+    adminNote?: string;
   }) => {
     toast.promise(
       updateStatus({
         id,
         status: data.status,
-        adminNote: data.note || undefined,
+        adminNote: data.adminNote || undefined,
       }),
       {
         loading: "Updating status...",
